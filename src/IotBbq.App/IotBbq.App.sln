@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IotBbq.App", "IotBbq.App\IotBbq.App.csproj", "{103EB5E2-1D4D-47D8-8D6D-900C5D6A5334}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IotBbq.UnitTests", "IotBbq.UnitTests\IotBbq.UnitTests.csproj", "{9F965A5E-A07B-4284-B7BD-880124FB4111}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -33,6 +35,24 @@ Global
 		{103EB5E2-1D4D-47D8-8D6D-900C5D6A5334}.Release|x86.ActiveCfg = Release|x86
 		{103EB5E2-1D4D-47D8-8D6D-900C5D6A5334}.Release|x86.Build.0 = Release|x86
 		{103EB5E2-1D4D-47D8-8D6D-900C5D6A5334}.Release|x86.Deploy.0 = Release|x86
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Debug|ARM.ActiveCfg = Debug|ARM
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Debug|ARM.Build.0 = Debug|ARM
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Debug|ARM.Deploy.0 = Debug|ARM
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Debug|x64.ActiveCfg = Debug|x64
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Debug|x64.Build.0 = Debug|x64
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Debug|x64.Deploy.0 = Debug|x64
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Debug|x86.ActiveCfg = Debug|x86
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Debug|x86.Build.0 = Debug|x86
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Debug|x86.Deploy.0 = Debug|x86
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Release|ARM.ActiveCfg = Release|ARM
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Release|ARM.Build.0 = Release|ARM
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Release|ARM.Deploy.0 = Release|ARM
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Release|x64.ActiveCfg = Release|x64
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Release|x64.Build.0 = Release|x64
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Release|x64.Deploy.0 = Release|x64
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Release|x86.ActiveCfg = Release|x86
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Release|x86.Build.0 = Release|x86
+		{9F965A5E-A07B-4284-B7BD-880124FB4111}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

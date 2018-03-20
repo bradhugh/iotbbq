@@ -43,12 +43,13 @@ namespace IotBbq.App
             StringBuilder sbRaw = new StringBuilder();
             StringBuilder sbTemp = new StringBuilder();
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 1; i++)
             {
                 var reading = await this.thermometer.ReadThermometer(i);
                 var temp = this.GetTemps(reading.NormalizedValue);
 
-                sbRaw.AppendFormat("{0}R {1} N{1:N3},", i, reading.RawValue, reading.NormalizedValue);
+                double volts = 3.3 * reading.NormalizedValue;
+                sbRaw.AppendFormat("#{0} Raw {1} or {2:N3}V, ", i, reading.RawValue, volts);
                 sbTemp.AppendFormat("{0}:{1:N1}C,{2:N1}F ", i, temp.Celcius, temp.Farenheight);
             }
 
@@ -56,53 +57,32 @@ namespace IotBbq.App
             this.computedTemp.Text = sbTemp.ToString();
         }
 
-        /// <summary>
-        /// Value between 0 and 1
-        /// </summary>
-        /// <param name="value">The normalized value</param>
-        /// <returns>The temperatures</returns>
         private Temps GetTemps(double value)
         {
-            const double ThermistorRestistance = 100000;
-            const double voltageMax = 3.3;
-
-            double volts = value * voltageMax; // calculate the voltage
-            Debug.WriteLine("Volts: {0}", volts);
-
-            double ohms = ((1 / volts) * (voltageMax * ThermistorRestistance)) - ThermistorRestistance; // calculate the ohms of the thermististor
-            Debug.WriteLine("Ohms: {0}", ohms);
-
-            double lnohm = Math.Log(ohms); // take ln(ohms)
+            double voltage = value * 3.3;
+            double resistance = TempUtils.GetThermistorResistenceFromVoltage(3.3, voltage, 100000);
+            Debug.WriteLine($"Got Resistance {resistance} from voltage {voltage}");
 
             double a, b, c;
 
-            // A couple sites that allow you to do curves
-            // http://www.thermistor.com/calculators.php
-            // http://www.thinksrs.com/downloads/programs/Therm%20Calc/NTCCalibrator/NTCcalculator.htm
-            
             // Coefficients
-            a = 0.001495465181561;
-            b = 0.000151668264064;
-            c = 0.000000073468650;
+            // These coeificients calculated based on test results
+            // 3-19-2018
+            // http://www.thinksrs.com/downloads/programs/Therm%20Calc/NTCCalibrator/NTCcalculator.htm
+            // R1 293466 / T1 1.66C
+            // R2  96358 / T2 23C
+            // R3  42082 / T3 44.44C
 
-            // Steinhart Hart Equation
-            // T = 1/(a + b[ln(ohm)] + c[ln(ohm)]^3)
+            a = -1.373357407E-3;
+            b = 4.914938378E-4;
+            c = -5.890760444E-7;
 
-            double t1 = (b * lnohm); // b[ln(ohm)]
-            double c2 = c * lnohm; // c[ln(ohm)]
-            double t2 = Math.Pow(c2, 3); // c[ln(ohm)]^3
+            var temps = new Temps();
+            temps.Kelvin = TempUtils.ResistanceToTemp(a, b, c, resistance);
+            temps.Celcius = TempUtils.KelvinToCelcius(temps.Kelvin);
+            temps.Farenheight = TempUtils.CelciusToFarenheight(temps.Celcius);
 
-            double tempK = 1 / (a + t1 + t2); // calculate temperature
-
-            double tempC = tempK - 273.15; // K to C
-            double tempF = tempC * (9.0 / 5.0) + 32;
-
-            return new Temps
-            {
-                Kelvin = tempK,
-                Celcius = tempC,
-                Farenheight = tempF
-            };
+            return temps;
         }
 
         public class Temps

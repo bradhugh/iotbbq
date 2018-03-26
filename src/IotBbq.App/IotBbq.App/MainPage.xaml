@@ -3,13 +3,15 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:IotBbq.App"
+    xmlns:controls="using:IotBbq.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
-            <TextBlock x:Name="tempTextBlock" Margin="0,0,0,0" Text="Temperature" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" FontSize="40" />
-            <TextBlock x:Name="computedTemp" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" FontSize="40" />
+            <controls:CountdownTimer DueTime="{Binding TurnInTime}" TimerEnabled="True" />
+            <TextBlock x:Name="tempTextBlock" Margin="0,0,0,0" Text="Temperature" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" FontSize="20" />
+            <TextBlock x:Name="computedTemp" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" FontSize="20" />
         </StackPanel>
     </Grid>
 </Page>

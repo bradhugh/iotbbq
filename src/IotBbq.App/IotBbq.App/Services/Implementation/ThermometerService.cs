@@ -1,5 +1,5 @@
 ﻿
-namespace IotBbq.App.Services
+namespace IotBbq.App.Services.Implementation
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace IotBbq.App.Services
     using Windows.Devices.Spi;
     using System.Diagnostics;
 
-    public class ThermometerService
+    public class ThermometerService : IThermometerService
     {
         private Task initTask;
 

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using GalaSoft.MvvmLight.Ioc;
+using IotBbq.App.Services;
+using IotBbq.App.Services.Implementation;
+using IotBbq.App.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -28,8 +32,18 @@ namespace IotBbq.App
         /// </summary>
         public App()
         {
+            this.RegisterDependencies();
+
             this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            this.Suspending += this.OnSuspending;
+        }
+
+        private void RegisterDependencies()
+        {
+            SimpleIoc.Default.Register<IThermometerService, DesignThermometerService>();
+            SimpleIoc.Default.Register<IAlarmService, DesignAlarmService>();
+
+            SimpleIoc.Default.Register<MainViewModel>();
         }
 
         /// <summary>
@@ -48,7 +62,7 @@ namespace IotBbq.App
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
-                rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.NavigationFailed += this.OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

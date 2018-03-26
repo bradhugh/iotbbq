@@ -5,7 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using GalaSoft.MvvmLight.Ioc;
 using IotBbq.App.Services;
+using IotBbq.App.Services.Implementation;
+using IotBbq.App.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -27,12 +30,15 @@ namespace IotBbq.App
     {
         private DispatcherTimer timer = new DispatcherTimer();
 
-        private ThermometerService thermometer = new ThermometerService();
+        private IThermometerService thermometer;
 
         public MainPage()
         {
             this.InitializeComponent();
 
+            this.thermometer = SimpleIoc.Default.GetInstance<IThermometerService>();
+            this.DataContext = SimpleIoc.Default.GetInstance<MainViewModel>();
+            
             this.timer.Interval = TimeSpan.FromSeconds(1);
             this.timer.Tick += this.Timer_Tick;
             this.timer.Start();
@@ -43,14 +49,14 @@ namespace IotBbq.App
             StringBuilder sbRaw = new StringBuilder();
             StringBuilder sbTemp = new StringBuilder();
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 8; i++)
             {
                 var reading = await this.thermometer.ReadThermometer(i);
                 var temp = this.GetTemps(reading.NormalizedValue);
 
-                double volts = 3.3 * reading.NormalizedValue;
-                sbRaw.AppendFormat("#{0} Raw {1} or {2:N3}V, ", i, reading.RawValue, volts);
-                sbTemp.AppendFormat("{0}:{1:N1}C,{2:N1}F ", i, temp.Celcius, temp.Farenheight);
+                // double volts = 3.3 * reading.NormalizedValue;
+                sbRaw.AppendFormat("#{0}R{1} ", i, reading.RawValue);
+                sbTemp.AppendFormat("{0},{1:N1}F ", i, temp.Farenheight);
             }
 
             this.tempTextBlock.Text = sbRaw.ToString();

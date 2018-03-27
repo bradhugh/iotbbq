@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IotBbq.App.Mcp3008;
 
 namespace IotBbq.App.Services.Implementation
 {
@@ -11,12 +10,19 @@ namespace IotBbq.App.Services.Implementation
     {
         private Random random = new Random();
 
-        public Task<Mcp3008Reading> ReadThermometer(int index)
+        public Task<Temps> ReadThermometer(int index)
         {
-            // Get a random raw value 0 - 1023
-            int rawValue = this.random.Next(0, 1024);
+            // Get a random raw value 0 - 499 kelvin
+            int kelvin = this.random.Next(0, 500);
+            double celcius = TempUtils.KelvinToCelcius(kelvin);
+            var temps = new Temps
+            {
+                Kelvin = kelvin,
+                Celcius = celcius,
+                Farenheight = TempUtils.CelciusToFarenheight(celcius),
+            };
 
-            return Task.FromResult(new Mcp3008Reading(rawValue));
+            return Task.FromResult(temps);
         }
     }
 }

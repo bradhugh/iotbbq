@@ -5,6 +5,15 @@ namespace IotBbq.App.Services
 {
     public interface IThermometerService
     {
-        Task<Mcp3008Reading> ReadThermometer(int index);
+        Task<Temps> ReadThermometer(int index);
+    }
+
+    public class Temps
+    {
+        public double Kelvin { get; set; }
+
+        public double Celcius { get; set; }
+
+        public double Farenheight { get; set; }
     }
 }

@@ -3,12 +3,14 @@ namespace IotBbq.App.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Command;
+    using GalaSoft.MvvmLight.Ioc;
     using IotBbq.App.Services;
 
     public class MainViewModel : ViewModelBase
@@ -24,7 +26,23 @@ namespace IotBbq.App.ViewModels
             this.alarmService.AlarmStateChanged += this.OnAlarmStateChanged;
 
             this.TurnInTime = DateTime.Now.AddDays(1);
+
+            this.CreateItems();
         }
+
+        private void CreateItems()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                var item = SimpleIoc.Default.GetInstanceWithoutCaching<ThermometerItem>();
+                item.ThermometerIndex = i;
+                item.ItemName = $"Item {i}";
+
+                this.Items.Add(item);
+            }
+        }
+
+        public ObservableCollection<ThermometerItem> Items { get; private set; } = new ObservableCollection<ThermometerItem>();
 
         public ICommand SilenceCommand { get; private set; }
 

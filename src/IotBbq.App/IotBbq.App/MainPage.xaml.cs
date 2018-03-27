@@ -28,76 +28,10 @@ namespace IotBbq.App
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private DispatcherTimer timer = new DispatcherTimer();
-
-        private IThermometerService thermometer;
-
         public MainPage()
         {
             this.InitializeComponent();
-
-            this.thermometer = SimpleIoc.Default.GetInstance<IThermometerService>();
             this.DataContext = SimpleIoc.Default.GetInstance<MainViewModel>();
-            
-            this.timer.Interval = TimeSpan.FromSeconds(1);
-            this.timer.Tick += this.Timer_Tick;
-            this.timer.Start();
-        }
-
-        private async void Timer_Tick(object sender, object e)
-        {
-            StringBuilder sbRaw = new StringBuilder();
-            StringBuilder sbTemp = new StringBuilder();
-
-            for (int i = 0; i < 8; i++)
-            {
-                var reading = await this.thermometer.ReadThermometer(i);
-                var temp = this.GetTemps(reading.NormalizedValue);
-
-                // double volts = 3.3 * reading.NormalizedValue;
-                sbRaw.AppendFormat("#{0}R{1} ", i, reading.RawValue);
-                sbTemp.AppendFormat("{0},{1:N1}F ", i, temp.Farenheight);
-            }
-
-            this.tempTextBlock.Text = sbRaw.ToString();
-            this.computedTemp.Text = sbTemp.ToString();
-        }
-
-        private Temps GetTemps(double value)
-        {
-            double voltage = value * 3.3;
-            double resistance = TempUtils.GetThermistorResistenceFromVoltage(3.3, voltage, 100000);
-            Debug.WriteLine($"Got Resistance {resistance} from voltage {voltage}");
-
-            double a, b, c;
-
-            // Coefficients
-            // These coeificients calculated based on test results
-            // 3-19-2018
-            // http://www.thinksrs.com/downloads/programs/Therm%20Calc/NTCCalibrator/NTCcalculator.htm
-            // R1 293466 / T1 1.66C
-            // R2  96358 / T2 23C
-            // R3  42082 / T3 44.44C
-
-            a = -1.373357407E-3;
-            b = 4.914938378E-4;
-            c = -5.890760444E-7;
-
-            var temps = new Temps();
-            temps.Kelvin = TempUtils.ResistanceToTemp(a, b, c, resistance);
-            temps.Celcius = TempUtils.KelvinToCelcius(temps.Kelvin);
-            temps.Farenheight = TempUtils.CelciusToFarenheight(temps.Celcius);
-
-            return temps;
-        }
-
-        public class Temps
-        {
-            public double Kelvin { get; set; }
-
-            public double Celcius { get; set; }
-
-            public double Farenheight { get; set; }
         }
     }
 }

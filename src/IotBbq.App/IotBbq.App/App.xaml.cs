@@ -44,6 +44,7 @@ namespace IotBbq.App
             SimpleIoc.Default.Register<IAlarmService, DesignAlarmService>();
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<ThermometerItem>();
         }
 
         /// <summary>

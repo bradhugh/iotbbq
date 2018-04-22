@@ -12,7 +12,12 @@ namespace IotBbq.App.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            Temps temps = (Temps)value;
+            Temps temps = value as Temps;
+            if (temps == null)
+            {
+                return null;
+            }
+
             return $"{temps.Farenheight:N2} F";
         }
 

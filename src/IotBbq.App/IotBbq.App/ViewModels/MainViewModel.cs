@@ -28,6 +28,9 @@ namespace IotBbq.App.ViewModels
             this.TurnInTime = DateTime.Now.AddDays(1);
 
             this.CreateItems();
+
+            // For testing, trigger alarm for 60 seconds
+            this.alarmService.TriggerAlarm(null);
         }
 
         private void CreateItems()

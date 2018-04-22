@@ -12,6 +12,7 @@
             <controls:CountdownTimer DueTime="{Binding TurnInTime}" TimerEnabled="True" />
             <TextBlock x:Name="tempTextBlock" Margin="0,0,0,0" Text="Temperature" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" FontSize="20" />
             <TextBlock x:Name="computedTemp" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" FontSize="20" />
+            <Button Command="{Binding SilenceCommand}">Silence Alarm!</Button>
             <ListView ItemsSource="{Binding Items}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

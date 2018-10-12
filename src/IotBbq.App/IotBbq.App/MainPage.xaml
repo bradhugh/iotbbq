@@ -8,21 +8,30 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <controls:CountdownTimer DueTime="{Binding TurnInTime}" TimerEnabled="True" />
-            <TextBlock x:Name="tempTextBlock" Margin="0,0,0,0" Text="Temperature" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" FontSize="20" />
-            <TextBlock x:Name="computedTemp" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" FontSize="20" />
-            <Button Command="{Binding SilenceCommand}">Silence Alarm!</Button>
-            <ListView ItemsSource="{Binding Items}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding ItemName}" />
-                            <TextBlock Text="{Binding CurrentTemperature, Converter={StaticResource TemperatureConverter}}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding SilenceCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">SILENCE!!</Button>
+        <controls:CountdownTimer Grid.Row="0" Grid.Column="2" DueTime="{Binding TurnInTime}" TimerEnabled="True" />
+        <controls:EventInfoControl Grid.Row="0" Grid.Column="3" />
+        
+        <controls:BbqItemControl Grid.Row="1" Grid.Column="0" />
+        <controls:BbqItemControl Grid.Row="1" Grid.Column="1" />
+        <controls:BbqItemControl Grid.Row="1" Grid.Column="2" />
+        <controls:SmokerControl Grid.Row="1" Grid.Column="3" />
+
+        <controls:BbqItemControl Grid.Row="2" Grid.Column="0" />
+        <controls:BbqItemControl Grid.Row="2" Grid.Column="1" />
+        <controls:BbqItemControl Grid.Row="2" Grid.Column="2" />
+        <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">Settings</Button>
+        
     </Grid>
 </Page>

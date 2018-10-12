@@ -17,9 +17,14 @@ namespace IotBbq.App.Services.Implementation
         public Timer alarmTimer;
 
         private GpioController gpio;
+
         private GpioPin pinToBuzz;
 
         private DateTime? whenToStop;
+
+        private ManualResetEvent neverSignaledEvent = new ManualResetEvent(false);
+
+        private static TimeSpan Interval = TimeSpan.FromMilliseconds(300);
 
         public AlarmService()
         {
@@ -38,7 +43,7 @@ namespace IotBbq.App.Services.Implementation
                 return;
             }
 
-            DoOneBeep(TimeSpan.FromSeconds(0.5));
+            this.DoOneBeep(new TimeSpan(Interval.Ticks / 2));
         }
 
         public void Silence()
@@ -67,7 +72,7 @@ namespace IotBbq.App.Services.Implementation
                 }
 
                 // Trigger the timer immediately at 1 second intervals
-                this.alarmTimer.Change(TimeSpan.Zero, TimeSpan.FromSeconds(1));
+                this.alarmTimer.Change(TimeSpan.Zero, Interval);
                 this.IsAlarming = true;
                 this.AlarmStateChanged?.Invoke(this, true);
             }
@@ -75,22 +80,9 @@ namespace IotBbq.App.Services.Implementation
 
         private void DoOneBeep(TimeSpan singleBeepDuration)
         {
-            DateTime startTime = DateTime.UtcNow;
-            while (DateTime.UtcNow - startTime <= singleBeepDuration)
-            {
-                this.pinToBuzz.Write(GpioPinValue.High);
-                this.NOP(5000);
-                this.pinToBuzz.Write(GpioPinValue.Low);
-                this.NOP(5000);
-            }
-        }
-
-        private void NOP(int ticks)
-        {
-            while (ticks >= 0)
-            {
-                ticks--;
-            }
+            this.pinToBuzz.Write(GpioPinValue.High);
+            this.neverSignaledEvent.WaitOne(singleBeepDuration);
+            this.pinToBuzz.Write(GpioPinValue.Low);
         }
     }
 }

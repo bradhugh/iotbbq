@@ -27,9 +27,18 @@ namespace IotBbq.App.Controls
             typeof(EventInfoControl),
             null);
 
+        private DispatcherTimer timer = new DispatcherTimer();
+
         public EventInfoControl()
         {
             this.DefaultStyleKey = typeof(EventInfoControl);
+
+            this.UpdateDateAndTime(this, null);
+
+            this.timer.Interval = TimeSpan.FromSeconds(30);
+            this.timer.Tick += this.UpdateDateAndTime;
+
+            this.Loaded += this.OnLoaded;
         }
 
         public string DateAndTime
@@ -42,6 +51,16 @@ namespace IotBbq.App.Controls
         {
             get => (string)this.GetValue(EventNameProperty);
             set => this.SetValue(EventNameProperty, value);
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.timer.Start();
+        }
+
+        private void UpdateDateAndTime(object sender, object e)
+        {
+            this.DateAndTime = $"{DateTime.Now:M/d/yyyy h:mm tt}";
         }
     }
 }

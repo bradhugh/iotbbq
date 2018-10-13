@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
         <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding SilenceCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">SILENCE!!</Button>
         <controls:CountdownTimer Grid.Row="0" Grid.Column="2" DueTime="{Binding TurnInTime}" TimerEnabled="True" />
-        <controls:EventInfoControl Grid.Row="0" Grid.Column="3" />
+        <controls:EventInfoControl Grid.Row="0" Grid.Column="3" EventName="Some Event" />
         
         <controls:BbqItemControl Grid.Row="1" Grid.Column="0" />
         <controls:BbqItemControl Grid.Row="1" Grid.Column="1" />

@@ -26,26 +26,7 @@ namespace IotBbq.App.ViewModels
             this.alarmService.AlarmStateChanged += this.OnAlarmStateChanged;
 
             this.TurnInTime = DateTime.Now.AddDays(1);
-
-            this.CreateItems();
-
-            // For testing, trigger alarm for 60 seconds
-            this.alarmService.TriggerAlarm(null);
         }
-
-        private void CreateItems()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                var item = SimpleIoc.Default.GetInstanceWithoutCaching<ThermometerItem>();
-                item.ThermometerIndex = i;
-                item.ItemName = $"Item {i}";
-
-                this.Items.Add(item);
-            }
-        }
-
-        public ObservableCollection<ThermometerItem> Items { get; private set; } = new ObservableCollection<ThermometerItem>();
 
         public ICommand SilenceCommand { get; private set; }
 

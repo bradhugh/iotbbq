@@ -35,6 +35,5 @@
         <controls:BbqItemControl Grid.Row="2" Grid.Column="1" Item="{Binding Item5}"  />
         <controls:BbqItemControl Grid.Row="2" Grid.Column="2" Item="{Binding Item6}"  />
         <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">Settings</Button>
-        
     </Grid>
 </Page>

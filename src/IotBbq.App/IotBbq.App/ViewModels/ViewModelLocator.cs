@@ -26,6 +26,7 @@ namespace IotBbq.App.ViewModels
 
             SimpleIoc.Default.Register<IThermometerService, DesignThermometerService>();
             SimpleIoc.Default.Register<IAlarmService, DesignAlarmService>();
+            SimpleIoc.Default.Register<IPhaseChooser, PhaseChooserService>();
 
             SimpleIoc.Default.Register<MainViewModel>();
 

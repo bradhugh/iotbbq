@@ -10,6 +10,11 @@ namespace IotBbq.App.Services
     {
         public string PhaseName { get; set; }
 
+        public override string ToString()
+        {
+            return this.PhaseName;
+        }
+
         public IList<ItemPhaseDefinition> NextPhases { get; set; }
 
         public static readonly ItemPhaseDefinition DonePhase = new ItemPhaseDefinition
@@ -92,5 +97,24 @@ namespace IotBbq.App.Services
                 }
             }
         };
+
+        public static ItemPhaseDefinition FindPhase(string phaseName, ItemPhaseDefinition searchRoot)
+        {
+            if (searchRoot.PhaseName == phaseName)
+            {
+                return searchRoot;
+            }
+
+            foreach (var current in searchRoot.NextPhases)
+            {
+                var result = FindPhase(phaseName, current);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -6,13 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="Choose Phase"
-    PrimaryButtonText="Cancel"
-    SecondaryButtonText="Ok"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    Title="Choose Next Phase"
+    PrimaryButtonText="Ok"
+    SecondaryButtonText="Cancel"
+    Name="phaseChooser">
 
-    <Grid>
-        <ListView ItemsSource="{Binding NextPhases}" />
+    <Grid DataContext="{Binding ElementName=phaseChooser}" HorizontalAlignment="Stretch" Margin="0,0,0,-13" VerticalAlignment="Stretch">
+        <ListView ItemsSource="{Binding Choices}" SelectedItem="{Binding SelectedChoice, Mode=TwoWay}" />
     </Grid>
 </ContentDialog>

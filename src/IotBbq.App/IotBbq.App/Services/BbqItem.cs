@@ -6,12 +6,25 @@ namespace IotBbq.App.Services
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using GalaSoft.MvvmLight;
 
-    public class BbqItem
+    public class BbqItem : ViewModelBase
     {
-        public string Name { get; set; }
+        private string name;
 
-        public string CurrentPhase { get; set; }
+        private string currentPhase;
+
+        public string Name
+        {
+            get => this.name;
+            set => this.Set(() => this.Name, ref this.name, value);
+        }
+
+        public string CurrentPhase
+        {
+            get => this.currentPhase;
+            set => this.Set(() => this.CurrentPhase, ref this.currentPhase, value);
+        }
 
         public ItemDefinition Definition { get; set; }
     }

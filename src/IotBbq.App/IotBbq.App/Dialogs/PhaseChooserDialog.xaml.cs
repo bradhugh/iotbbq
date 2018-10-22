@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using IotBbq.App.Services;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -19,17 +20,39 @@ namespace IotBbq.App.Dialogs
 {
     public sealed partial class PhaseChooserDialog : ContentDialog
     {
+        public static readonly DependencyProperty ChoicesProperty = DependencyProperty.Register(
+            "Choices",
+            typeof(IList<ItemPhaseDefinition>),
+            typeof(PhaseChooserDialog),
+            null);
+
+        public static readonly DependencyProperty SelectedChoiceProperty = DependencyProperty.Register(
+            "SelectedChoice",
+            typeof(ItemPhaseDefinition),
+            typeof(PhaseChooserDialog),
+            null);
+
         public PhaseChooserDialog()
         {
             this.InitializeComponent();
+
+            if (GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
+            {
+                var wrapPhase = ItemPhaseDefinition.FindPhase("Wrap", ItemPhaseDefinition.ButtsPhases);
+                this.Choices = wrapPhase.NextPhases;
+            }
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        public IList<ItemPhaseDefinition> Choices
         {
+            get => (IList<ItemPhaseDefinition>)this.GetValue(ChoicesProperty);
+            set => this.SetValue(ChoicesProperty, value);
         }
 
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        public ItemPhaseDefinition SelectedChoice
         {
+            get => (ItemPhaseDefinition)this.GetValue(SelectedChoiceProperty);
+            set => this.SetValue(SelectedChoiceProperty, value);
         }
     }
 }

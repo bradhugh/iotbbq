@@ -4,7 +4,7 @@
     xmlns:local="using:IotBbq.App"
     xmlns:controls="using:IotBbq.App.Controls">
 
-    <Style TargetType="controls:CountdownTimer" xmlns:local2="using:IotBbq.App.Controls">
+    <Style TargetType="controls:CountdownTimer">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:CountdownTimer">
@@ -22,7 +22,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="controls:EventInfoControl" xmlns:local2="using:IotBbq.App.Controls">
+    <Style TargetType="controls:EventInfoControl">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EventInfoControl">
@@ -44,7 +44,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="controls:BbqItemControl" xmlns:local2="using:IotBbq.App.Controls">
+    <Style TargetType="controls:BbqItemControl">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:BbqItemControl">
@@ -52,13 +52,34 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0">Time Elapsed</TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="0">Target</TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="0">Phase</TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">Temp</TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="1">Item</TextBlock>
+                            <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Opacity="1" Background="{TemplateBinding Background}"
+                                Visibility="{Binding Item, Source=TemplatedParent, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+                                <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">No Item</TextBlock>
+                            </Border>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="Background" Value="White" />
     </Style>
 
-    <Style TargetType="controls:SmokerControl" xmlns:local2="using:IotBbq.App.Controls">
+    <Style TargetType="controls:SmokerControl">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:SmokerControl">

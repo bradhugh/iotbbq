@@ -7,5 +7,6 @@
     RequestedTheme="Light">
     <Application.Resources>
         <converters:TemperatureConverter x:Key="TemperatureConverter" />
+        <converters:VisibilityConverter x:Key="VisibilityConverter" />
     </Application.Resources>
 </Application>

@@ -1,0 +1,9 @@
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Controls\EventInfoControl.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Controls\ItemControl.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Controls\SmokerControl.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\BbqItemManager.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\BbqItem.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\BbqItemPhase.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\ItemPhaseDefinition.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\ItemDefinition.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Converters\VisibilityConverter.cs

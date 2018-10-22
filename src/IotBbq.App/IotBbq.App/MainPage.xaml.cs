@@ -31,7 +31,6 @@ namespace IotBbq.App
         public MainPage()
         {
             this.InitializeComponent();
-            this.DataContext = SimpleIoc.Default.GetInstance<MainViewModel>();
         }
     }
 }

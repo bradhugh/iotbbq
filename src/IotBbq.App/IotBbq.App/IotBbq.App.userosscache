@@ -10,3 +10,4 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Converters\Visibilit
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IPhaseChooser.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\PhaseChooserService.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Dialogs\PhaseChooserDialog.xaml
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\ViewModels\ViewModelLocator.cs

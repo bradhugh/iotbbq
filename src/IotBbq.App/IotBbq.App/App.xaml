@@ -2,11 +2,13 @@
     x:Class="IotBbq.App.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:IotBbq.App.ViewModels"
     xmlns:local="using:IotBbq.App"
     xmlns:converters="using:IotBbq.App.Converters"
     RequestedTheme="Light">
     <Application.Resources>
         <converters:TemperatureConverter x:Key="TemperatureConverter" />
         <converters:VisibilityConverter x:Key="VisibilityConverter" />
+        <vm:ViewModelLocator x:Key="Locator" />
     </Application.Resources>
 </Application>

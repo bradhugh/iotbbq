@@ -127,6 +127,7 @@
     <Compile Include="Services\Implementation\ThermometerService.cs" />
     <Compile Include="TempUtils.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

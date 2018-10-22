@@ -33,20 +33,8 @@ namespace IotBbq.App
         /// </summary>
         public App()
         {
-            this.RegisterDependencies();
-
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
-        }
-
-        private void RegisterDependencies()
-        {
-            SimpleIoc.Default.Register<IThermometerService, DesignThermometerService>();
-            SimpleIoc.Default.Register<IAlarmService, DesignAlarmService>();
-
-            SimpleIoc.Default.Register<MainViewModel>();
-
-            ServiceLocator.SetLocatorProvider(new ServiceLocatorProvider(() => SimpleIoc.Default));
         }
 
         /// <summary>

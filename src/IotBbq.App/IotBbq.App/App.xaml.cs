@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using IotBbq.App.Services;
 using IotBbq.App.Services.Implementation;
@@ -44,6 +45,8 @@ namespace IotBbq.App
             SimpleIoc.Default.Register<IAlarmService, DesignAlarmService>();
 
             SimpleIoc.Default.Register<MainViewModel>();
+
+            ServiceLocator.SetLocatorProvider(new ServiceLocatorProvider(() => SimpleIoc.Default));
         }
 
         /// <summary>

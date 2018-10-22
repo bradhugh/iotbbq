@@ -25,14 +25,14 @@
         <controls:CountdownTimer Grid.Row="0" Grid.Column="2" DueTime="{Binding TurnInTime}" TimerEnabled="True" />
         <controls:EventInfoControl Grid.Row="0" Grid.Column="3" EventName="Some Event" />
         
-        <controls:BbqItemControl Grid.Row="1" Grid.Column="0" Item="{Binding Item1}" />
-        <controls:BbqItemControl Grid.Row="1" Grid.Column="1" Item="{Binding Item2}"  />
-        <controls:BbqItemControl Grid.Row="1" Grid.Column="2" Item="{Binding Item3}"  />
+        <controls:BbqItemControl Grid.Row="1" Grid.Column="0" Item="{Binding Item1, Mode=TwoWay}" />
+        <controls:BbqItemControl Grid.Row="1" Grid.Column="1" Item="{Binding Item2, Mode=TwoWay}"  />
+        <controls:BbqItemControl Grid.Row="1" Grid.Column="2" Item="{Binding Item3, Mode=TwoWay}"  />
         <controls:SmokerControl Grid.Row="1" Grid.Column="3"  />
 
-        <controls:BbqItemControl Grid.Row="2" Grid.Column="0" Item="{Binding Item4}"  />
-        <controls:BbqItemControl Grid.Row="2" Grid.Column="1" Item="{Binding Item5}"  />
-        <controls:BbqItemControl Grid.Row="2" Grid.Column="2" Item="{Binding Item6}"  />
+        <controls:BbqItemControl Grid.Row="2" Grid.Column="0" Item="{Binding Item4, Mode=TwoWay}"  />
+        <controls:BbqItemControl Grid.Row="2" Grid.Column="1" Item="{Binding Item5, Mode=TwoWay}"  />
+        <controls:BbqItemControl Grid.Row="2" Grid.Column="2" Item="{Binding Item6, Mode=TwoWay}"  />
         <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">Settings</Button>
         
     </Grid>

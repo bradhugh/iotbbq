@@ -15,8 +15,8 @@ namespace IotBbq.App.Converters
             bool invert = parameter is bool && (bool)parameter;
 
             return invert
-                ? value == null ? Visibility.Visible : Visibility.Collapsed
-                : value == null ? Visibility.Collapsed : Visibility.Visible;
+                ? value == null ? Visibility.Collapsed : Visibility.Visible
+                : value == null ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

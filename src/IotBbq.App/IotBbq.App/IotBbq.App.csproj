@@ -101,6 +101,9 @@
     <Compile Include="Controls\SmokerControl.cs" />
     <Compile Include="Converters\TemperatureConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="Dialogs\PhaseChooserDialog.xaml.cs">
+      <DependentUpon>PhaseChooserDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,8 @@
     <Compile Include="Services\Implementation\AlarmService.cs" />
     <Compile Include="Services\Implementation\DesignAlarmService.cs" />
     <Compile Include="Services\Implementation\DesignThermometerService.cs" />
+    <Compile Include="Services\Implementation\PhaseChooserService.cs" />
+    <Compile Include="Services\IPhaseChooser.cs" />
     <Compile Include="Services\ItemDefinition.cs" />
     <Compile Include="Services\ItemPhaseDefinition.cs" />
     <Compile Include="Services\IThermometerService.cs" />
@@ -144,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\PhaseChooserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

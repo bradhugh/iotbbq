@@ -5,6 +5,8 @@ namespace IotBbq.App.Controls
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.InteropServices.WindowsRuntime;
+    using System.Threading.Tasks;
+    using CommonServiceLocator;
     using IotBbq.App.Services;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
@@ -21,15 +23,52 @@ namespace IotBbq.App.Controls
             typeof(BbqItemControl),
             null);
 
+        public static readonly DependencyProperty TemperatureProperty = DependencyProperty.Register(
+            "Temperature",
+            typeof(Temps),
+            typeof(BbqItemControl),
+            null);
+
+        public static readonly DependencyProperty ThermometerIndexProperty = DependencyProperty.Register(
+            "ThermometerIndex",
+            typeof(int),
+            typeof(BbqItemControl),
+            null);
+
+        private Lazy<IThermometerService> thermometerService = new Lazy<IThermometerService>(() => ServiceLocator.Current.GetInstance<IThermometerService>());
+
         public BbqItemControl()
         {
             this.DefaultStyleKey = typeof(BbqItemControl);
+
+            this.Loaded += this.OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.thermometerService.Value.ReadThermometer(this.ThermometerIndex).ContinueWith(t =>
+            {
+                this.Temperature = t.Result;
+            },
+            TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         public BbqItem Item
         {
             get => (BbqItem)this.GetValue(ItemProperty);
             set => this.SetValue(ItemProperty, value);
+        }
+
+        public Temps Temperature
+        {
+            get => (Temps)this.GetValue(TemperatureProperty);
+            set => this.SetValue(TemperatureProperty, value);
+        }
+
+        public int ThermometerIndex
+        {
+            get => (int)this.GetValue(ThermometerIndexProperty);
+            set => this.SetValue(ThermometerIndexProperty, value);
         }
     }
 }

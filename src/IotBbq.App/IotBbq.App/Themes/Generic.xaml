@@ -65,10 +65,10 @@
                             <TextBlock Grid.Row="0" Grid.Column="0">Time Elapsed</TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="0">Target</TextBlock>
                             <TextBlock Grid.Row="2" Grid.Column="0">Phase</TextBlock>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">Temp</TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{Binding Temperature, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TemperatureConverter}}"/>
                             <TextBlock Grid.Row="2" Grid.Column="1">Item</TextBlock>
                             <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Opacity="1" Background="{TemplateBinding Background}"
-                                Visibility="{Binding Item, Source=TemplatedParent, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+                                    Visibility="{Binding Item, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
                                 <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">No Item</TextBlock>
                             </Border>
                         </Grid>

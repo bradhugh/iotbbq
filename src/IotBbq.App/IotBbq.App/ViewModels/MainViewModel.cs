@@ -39,7 +39,6 @@ namespace IotBbq.App.ViewModels
 
             this.TurnInTime = DateTime.Now.AddDays(1);
 
-            
             var defs = ItemDefinition.GetDefinitions();
 
             this.Item1 = new BbqItem
@@ -47,6 +46,13 @@ namespace IotBbq.App.ViewModels
                 Name = "Butts 1",
                 CurrentPhase = defs[0].Phases.PhaseName,
                 Definition = defs[0]
+            };
+
+            this.Item2 = new BbqItem
+            {
+                Name = "Ribs 1",
+                CurrentPhase = defs[1].Phases.PhaseName,
+                Definition = defs[1]
             };
         }
 

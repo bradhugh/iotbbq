@@ -7,3 +7,6 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\BbqItemPhas
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\ItemPhaseDefinition.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\ItemDefinition.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Converters\VisibilityConverter.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IPhaseChooser.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\PhaseChooserService.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Dialogs\PhaseChooserDialog.xaml

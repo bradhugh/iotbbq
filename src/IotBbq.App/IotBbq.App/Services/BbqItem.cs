@@ -14,6 +14,12 @@ namespace IotBbq.App.Services
 
         private string currentPhase;
 
+        private double weight;
+
+        private double targetTemperature;
+
+        private DateTime? cookStartTime;
+
         public string Name
         {
             get => this.name;
@@ -26,6 +32,29 @@ namespace IotBbq.App.Services
             set => this.Set(() => this.CurrentPhase, ref this.currentPhase, value);
         }
 
+        public double Weight
+        {
+            get => this.weight;
+            set => this.Set(() => this.Weight, ref this.weight, value);
+        }
+
+        public double TargetTemperature
+        {
+            get => this.targetTemperature;
+            set => this.Set(() => this.TargetTemperature, ref this.targetTemperature, value);
+        }
+
+        public DateTime? CookStartTime
+        {
+            get => this.cookStartTime;
+            set => this.Set(() => this.CookStartTime, ref this.cookStartTime, value);
+        }
+
         public ItemDefinition Definition { get; set; }
+
+        public void RaiseCookStartTimeChanged()
+        {
+            this.RaisePropertyChanged(() => this.CookStartTime);
+        }
     }
 }

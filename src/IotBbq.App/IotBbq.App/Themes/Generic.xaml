@@ -51,7 +51,8 @@
                     <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="2">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
@@ -62,13 +63,25 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0">Time Elapsed</TextBlock>
-                            <TextBlock Grid.Row="1" Grid.Column="0">Target</TextBlock>
-                            <Button Grid.Row="2" Grid.Column="0" Command="{Binding PhaseCommand, RelativeSource={RelativeSource TemplatedParent}}">
-                                <TextBlock Text="{Binding Path=Item.CurrentPhase, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            </Button>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{Binding Temperature, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TemperatureConverter}}"/>
-                            <TextBlock Grid.Row="2" Grid.Column="1">Item</TextBlock>
+                            <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center">Time Elapsed</TextBlock>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Item.CookStartTime, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ElapsedConverter}}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center">Target Temp</TextBlock>
+                                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding Path=Item.TargetTemperature, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </StackPanel>
+                            <Button BorderBrush="Black" BorderThickness="1" Margin="2" Grid.Row="2" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{Binding PhaseCommand, RelativeSource={RelativeSource TemplatedParent}}">Next Phase</Button>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{Binding Temperature, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TemperatureConverter}}"/>
+                            <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Item.Name, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <TextBlock> - </TextBlock>
+                                    <TextBlock Text="{Binding Path=Item.Weight, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <TextBlock> lbs.</TextBlock>
+                                </StackPanel>
+                                <TextBlock HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="18" Text="{Binding Path=Item.CurrentPhase, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </StackPanel>
                             <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Opacity="1" Background="{TemplateBinding Background}"
                                     Visibility="{Binding Item, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
                                 <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">No Item</TextBlock>
@@ -79,6 +92,9 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Margin" Value="2" />
     </Style>
 
     <Style TargetType="controls:SmokerControl">

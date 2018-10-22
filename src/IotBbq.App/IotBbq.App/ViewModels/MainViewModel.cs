@@ -44,6 +44,9 @@ namespace IotBbq.App.ViewModels
             this.Item1 = new BbqItem
             {
                 Name = "Butts 1",
+                Weight = 1.2,
+                CookStartTime = DateTime.Now,
+                TargetTemperature = defs[0].DefaultTargetTemperature,
                 CurrentPhase = defs[0].Phases.PhaseName,
                 Definition = defs[0]
             };
@@ -51,6 +54,9 @@ namespace IotBbq.App.ViewModels
             this.Item2 = new BbqItem
             {
                 Name = "Ribs 1",
+                Weight = 2.1,
+                CookStartTime = DateTime.Now,
+                TargetTemperature = defs[1].DefaultTargetTemperature,
                 CurrentPhase = defs[1].Phases.PhaseName,
                 Definition = defs[1]
             };

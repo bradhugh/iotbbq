@@ -11,3 +11,4 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IPhaseChoos
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\PhaseChooserService.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Dialogs\PhaseChooserDialog.xaml
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\ViewModels\ViewModelLocator.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Converters\ElapsedTimeConverter.cs

@@ -99,6 +99,7 @@
     <Compile Include="Controls\EventInfoControl.cs" />
     <Compile Include="Controls\BbqItemControl.cs" />
     <Compile Include="Controls\SmokerControl.cs" />
+    <Compile Include="Converters\ElapsedTimeConverter.cs" />
     <Compile Include="Converters\TemperatureConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Dialogs\PhaseChooserDialog.xaml.cs">

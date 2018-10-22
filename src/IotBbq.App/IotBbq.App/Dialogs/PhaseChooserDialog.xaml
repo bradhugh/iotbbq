@@ -9,9 +9,9 @@
     Title="Choose Next Phase"
     PrimaryButtonText="Ok"
     SecondaryButtonText="Cancel"
-    Name="phaseChooser">
+    Name="phaseChooser" Height="350.683" Width="361.904">
 
     <Grid DataContext="{Binding ElementName=phaseChooser}" HorizontalAlignment="Stretch" Margin="0,0,0,-13" VerticalAlignment="Stretch">
-        <ListView ItemsSource="{Binding Choices}" SelectedItem="{Binding SelectedChoice, Mode=TwoWay}" />
+        <ListView ItemsSource="{Binding Choices}" SelectedItem="{Binding SelectedChoice, Mode=TwoWay}" Height="120" />
     </Grid>
 </ContentDialog>

@@ -2,9 +2,6 @@
 namespace IotBbq.App.Controls
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.InteropServices.WindowsRuntime;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using CommonServiceLocator;
@@ -12,10 +9,6 @@ namespace IotBbq.App.Controls
     using IotBbq.App.Services;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
-    using Windows.UI.Xaml.Data;
-    using Windows.UI.Xaml.Documents;
-    using Windows.UI.Xaml.Input;
-    using Windows.UI.Xaml.Media;
 
     public sealed class BbqItemControl : Control
     {
@@ -43,9 +36,11 @@ namespace IotBbq.App.Controls
             typeof(BbqItemControl),
             null);
 
-        private Lazy<IThermometerService> thermometerService = new Lazy<IThermometerService>(() => ServiceLocator.Current.GetInstance<IThermometerService>());
+        private readonly Lazy<IThermometerService> thermometerService = new Lazy<IThermometerService>(() => ServiceLocator.Current.GetInstance<IThermometerService>());
 
-        private Lazy<IPhaseChooser> phaseChooser = new Lazy<IPhaseChooser>(() => ServiceLocator.Current.GetInstance<IPhaseChooser>());
+        private readonly Lazy<IPhaseChooser> phaseChooser = new Lazy<IPhaseChooser>(() => ServiceLocator.Current.GetInstance<IPhaseChooser>());
+
+        private readonly DispatcherTimer tempRefreshTimer = new DispatcherTimer();
 
         public BbqItemControl()
         {
@@ -54,6 +49,20 @@ namespace IotBbq.App.Controls
             this.Loaded += this.OnLoaded;
 
             this.PhaseCommand = new RelayCommand(this.ExecutePhaseCommand);
+
+            this.tempRefreshTimer.Interval = TimeSpan.FromSeconds(1);
+            this.tempRefreshTimer.Tick += this.OnTempRefreshTimer;
+        }
+
+        private void OnTempRefreshTimer(object sender, object e)
+        {
+            this.thermometerService.Value.ReadThermometer(this.ThermometerIndex).ContinueWith(t =>
+            {
+                this.Temperature = t.Result;
+            },
+            TaskScheduler.FromCurrentSynchronizationContext());
+
+            this.Item?.RaiseCookStartTimeChanged();
         }
 
         private async void ExecutePhaseCommand()
@@ -69,11 +78,7 @@ namespace IotBbq.App.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            this.thermometerService.Value.ReadThermometer(this.ThermometerIndex).ContinueWith(t =>
-            {
-                this.Temperature = t.Result;
-            },
-            TaskScheduler.FromCurrentSynchronizationContext());
+            this.tempRefreshTimer.Start();
         }
 
         public ItemPhaseDefinition CurrentPhase

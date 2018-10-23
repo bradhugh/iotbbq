@@ -16,6 +16,9 @@
             <TextBox Text="{Binding Event.EventName, Mode=TwoWay}"/>
             <TextBlock>Event Date</TextBlock>
             <DatePicker Date="{Binding Event.EventDate, Mode=TwoWay}"/>
+            <TextBlock>Turn-in Time</TextBlock>
+            <DatePicker Date="{Binding Event.TurnInTime, Mode=TwoWay}"/>
+            <TimePicker Time="{Binding Event.TurnInTime, Mode=TwoWay}"/>
         </StackPanel>
     </Grid>
 </ContentDialog>

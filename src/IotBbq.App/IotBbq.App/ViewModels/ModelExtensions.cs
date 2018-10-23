@@ -30,6 +30,7 @@ namespace IotBbq.App.ViewModels
             bbqEvent.Id = viewModel.Id;
             bbqEvent.EventName = viewModel.EventName;
             bbqEvent.EventDate = viewModel.EventDate.LocalDateTime;
+            bbqEvent.TurnInTime = viewModel.TurnInTime.LocalDateTime;
         }
     }
 }

@@ -10,6 +10,8 @@ namespace IotBbq.Model
 
         public string EventName { get; set; }
 
+        public DateTime TurnInTime { get; set; }
+
         public List<BbqItem> Items { get; set; }
 
         public override string ToString()

@@ -104,6 +104,21 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0">High Gate</TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="0">Low Gate</TextBlock>
+                            <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">Temp</TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">Current Setting</TextBlock>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

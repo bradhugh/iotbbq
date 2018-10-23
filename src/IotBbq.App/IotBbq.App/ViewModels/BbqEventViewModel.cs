@@ -16,6 +16,8 @@ namespace IotBbq.App.ViewModels
 
         private DateTimeOffset eventDate = new DateTimeOffset(DateTime.Today);
 
+        private DateTimeOffset turnInTime = DateTime.Today.AddDays(1).AddHours(10);
+
         public Guid Id
         {
             get => this.id;
@@ -34,11 +36,18 @@ namespace IotBbq.App.ViewModels
             set => this.Set(() => this.EventDate, ref this.eventDate, value);
         }
 
+        public DateTimeOffset TurnInTime
+        {
+            get => this.turnInTime;
+            set => this.Set(() => this.TurnInTime, ref this.turnInTime, value);
+        }
+
         public void Load(BbqEvent bbqEvent)
         {
             this.Id = bbqEvent.Id;
             this.EventName = bbqEvent.EventName;
             this.EventDate = bbqEvent.EventDate;
+            this.TurnInTime = bbqEvent.TurnInTime;
         }
 
         public void Load(BbqEventViewModel viewModel)
@@ -46,6 +55,7 @@ namespace IotBbq.App.ViewModels
             this.Id = viewModel.Id;
             this.EventName = viewModel.EventName;
             this.EventDate = viewModel.EventDate;
+            this.TurnInTime = viewModel.TurnInTime;
         }
     }
 }

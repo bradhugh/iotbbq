@@ -11,33 +11,39 @@ namespace IotBbq.Model.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    BbqEventId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     EventDate = table.Column<DateTime>(nullable: false),
                     EventName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.BbqEventId);
+                    table.PrimaryKey("PK_Events", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Items",
                 columns: table => new
                 {
-                    BbqModelItemId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    BbqEventId = table.Column<int>(nullable: true)
+                    BbqEventId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    ItemType = table.Column<string>(nullable: true),
+                    CurrentPhase = table.Column<string>(nullable: true),
+                    Weight = table.Column<double>(nullable: false),
+                    TargetTemperature = table.Column<double>(nullable: false),
+                    CookStartTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.BbqModelItemId);
+                    table.PrimaryKey("PK_Items", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Items_Events_BbqEventId",
                         column: x => x.BbqEventId,
                         principalTable: "Events",
-                        principalColumn: "BbqEventId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

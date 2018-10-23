@@ -22,7 +22,7 @@ namespace IotBbq.App.Dialogs
     {
         public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(
             "Item",
-            typeof(BbqItem),
+            typeof(BbqItemViewModel),
             typeof(EditItemDialog),
             null);
 
@@ -41,7 +41,7 @@ namespace IotBbq.App.Dialogs
             if (GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
             {
                 var defs = ItemDefinition.GetDefinitions();
-                this.Item = new BbqItem
+                this.Item = new BbqItemViewModel
                 {
                     Name = "Butt 1",
                     TargetTemperature = defs[0].DefaultTargetTemperature,
@@ -57,9 +57,9 @@ namespace IotBbq.App.Dialogs
             set => this.SetValue(ItemTypesProperty, value);
         }
 
-        public BbqItem Item
+        public BbqItemViewModel Item
         {
-            get => (BbqItem)this.GetValue(ItemProperty);
+            get => (BbqItemViewModel)this.GetValue(ItemProperty);
             set => this.SetValue(ItemProperty, value);
         }
     }

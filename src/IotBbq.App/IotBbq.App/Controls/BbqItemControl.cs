@@ -14,7 +14,7 @@ namespace IotBbq.App.Controls
     {
         public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(
             "Item",
-            typeof(BbqItem),
+            typeof(BbqItemViewModel),
             typeof(BbqItemControl),
             null);
 
@@ -96,9 +96,9 @@ namespace IotBbq.App.Controls
             }
         }
 
-        public BbqItem Item
+        public BbqItemViewModel Item
         {
-            get => (BbqItem)this.GetValue(ItemProperty);
+            get => (BbqItemViewModel)this.GetValue(ItemProperty);
             set => this.SetValue(ItemProperty, value);
         }
 

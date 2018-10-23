@@ -21,3 +21,4 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IEventEdito
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\EventEditorService.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IEventSelectionService.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\EventSelectionService.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\ViewModels\ModelExtensions.cs

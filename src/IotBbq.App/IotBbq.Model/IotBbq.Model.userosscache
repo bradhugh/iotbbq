@@ -5,3 +5,7 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\IotBbqC
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023021517_InitialCreate.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023021517_InitialCreate.Designer.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\IotBbqContextModelSnapshot.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023142733_InitialCreate.Designer.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023142733_InitialCreate.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023142733_InitialCreate.Designer.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\IotBbqContextModelSnapshot.cs

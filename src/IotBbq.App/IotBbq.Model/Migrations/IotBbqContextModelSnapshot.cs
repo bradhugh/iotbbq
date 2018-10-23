@@ -18,37 +18,50 @@ namespace IotBbq.Model.Migrations
 
             modelBuilder.Entity("IotBbq.Model.BbqEvent", b =>
                 {
-                    b.Property<int>("BbqEventId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("EventDate");
 
                     b.Property<string>("EventName");
 
-                    b.HasKey("BbqEventId");
+                    b.HasKey("Id");
 
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("IotBbq.Model.BbqModelItem", b =>
+            modelBuilder.Entity("IotBbq.Model.BbqItem", b =>
                 {
-                    b.Property<int>("BbqModelItemId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("BbqEventId");
+                    b.Property<int>("BbqEventId");
 
-                    b.HasKey("BbqModelItemId");
+                    b.Property<DateTime?>("CookStartTime");
+
+                    b.Property<string>("CurrentPhase");
+
+                    b.Property<string>("ItemType");
+
+                    b.Property<string>("Name");
+
+                    b.Property<double>("TargetTemperature");
+
+                    b.Property<double>("Weight");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("BbqEventId");
 
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("IotBbq.Model.BbqModelItem", b =>
+            modelBuilder.Entity("IotBbq.Model.BbqItem", b =>
                 {
-                    b.HasOne("IotBbq.Model.BbqEvent")
+                    b.HasOne("IotBbq.Model.BbqEvent", "BbqEvent")
                         .WithMany("Items")
-                        .HasForeignKey("BbqEventId");
+                        .HasForeignKey("BbqEventId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

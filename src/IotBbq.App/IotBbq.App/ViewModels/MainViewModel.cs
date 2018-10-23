@@ -46,12 +46,23 @@ namespace IotBbq.App.ViewModels
             // Populate the Items for the event
             using (var context = new IotBbqContext())
             {
+                foreach (var item in context.Items.Where(i => i.BbqEventId == this.CurrentEvent.Id).ToList())
+                {
+                    BbqItemViewModel vm = new BbqItemViewModel();
+                    vm.Load(item);
+                    this.Items.Add(vm);
+                }
             }
         }
 
         private async void AddItemCommand_Execute()
         {
-            var item = await this.itemEditor.EditItemAsync(null);
+            if (this.CurrentEvent == null)
+            {
+                return;
+            }
+
+            var item = await this.itemEditor.EditItemAsync(this.CurrentEvent.Id, null);
             if (item != null)
             {
                 this.Items.Add(item);
@@ -64,7 +75,7 @@ namespace IotBbq.App.ViewModels
             set => this.Set(() => this.CurrentEvent, ref this.currentEvent, value);
         }
 
-        public ObservableCollection<BbqItem> Items { get; set; } = new ObservableCollection<BbqItem>();
+        public ObservableCollection<BbqItemViewModel> Items { get; set; } = new ObservableCollection<BbqItemViewModel>();
 
         public ICommand SilenceCommand { get; private set; }
 

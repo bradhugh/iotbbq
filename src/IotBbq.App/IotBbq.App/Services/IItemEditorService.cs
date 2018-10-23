@@ -8,6 +8,6 @@ namespace IotBbq.App.Services
 {
     public interface IItemEditorService
     {
-        Task<BbqItem> EditItemAsync(BbqItem input);
+        Task<BbqItemViewModel> EditItemAsync(int eventId, BbqItemViewModel input);
     }
 }

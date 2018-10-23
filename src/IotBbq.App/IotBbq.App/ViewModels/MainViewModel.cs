@@ -22,6 +22,8 @@ namespace IotBbq.App.ViewModels
 
         private SmokerSettings smokerSettings;
 
+        private BbqItemViewModel selectedItem;
+
         private readonly IItemEditorService itemEditor;
 
         private readonly IEventSelectionService eventSelectionService;
@@ -41,10 +43,24 @@ namespace IotBbq.App.ViewModels
             this.SilenceCommand = new RelayCommand(this.SilenceCommand_Execute, this.SilenceCommand_CanExecute);
             this.AddItemCommand = new RelayCommand(this.AddItemCommand_Execute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommand_Execute);
+            this.EditItemCommand = new RelayCommand(this.EditItemCommand_Execute);
 
             this.alarmService.AlarmStateChanged += this.OnAlarmStateChanged;
 
             this.TurnInTime = DateTime.Now.AddDays(1);
+        }
+
+        private async void EditItemCommand_Execute()
+        {
+            var selected = this.SelectedItem;
+            if (selected != null)
+            {
+                var edited = await this.itemEditor.EditItemAsync(this.CurrentEvent.Id, selected);
+                if (edited != null && selected != edited)
+                {
+                    selected.Load(edited);
+                }
+            }
         }
 
         private async void LoadDataCommand_Execute()
@@ -92,6 +108,12 @@ namespace IotBbq.App.ViewModels
             set => this.Set(() => this.SmokerSettings, ref this.smokerSettings, value);
         }
 
+        public BbqItemViewModel SelectedItem
+        {
+            get => this.selectedItem;
+            set => this.Set(() => this.SelectedItem, ref this.selectedItem, value);
+        }
+
         public ObservableCollection<BbqItemViewModel> Items { get; set; } = new ObservableCollection<BbqItemViewModel>();
 
         public ICommand SilenceCommand { get; private set; }
@@ -99,6 +121,8 @@ namespace IotBbq.App.ViewModels
         public ICommand AddItemCommand { get; private set; }
 
         public ICommand LoadDataCommand { get; private set; }
+
+        public ICommand EditItemCommand { get; private set; }
 
         /// <summary>
         /// Gets or sets the turn in time

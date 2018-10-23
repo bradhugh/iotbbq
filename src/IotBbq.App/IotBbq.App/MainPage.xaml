@@ -34,7 +34,7 @@
         <controls:CountdownTimer Grid.Row="0" Grid.Column="2" DueTime="{Binding CurrentEvent.TurnInTime.LocalDateTime}" TimerEnabled="True" />
         <controls:EventInfoControl Grid.Row="0" Grid.Column="3" EventName="{Binding CurrentEvent.EventName}" />
         <GridView Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" Height="435"
-                  ItemsSource="{Binding Items}" BorderBrush="Black" BorderThickness="1">
+                  ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" BorderBrush="Black" BorderThickness="1">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <controls:BbqItemControl Item="{Binding}" Width="200" Height="200"  />
@@ -43,6 +43,7 @@
         </GridView>
         <controls:SmokerControl Grid.Row="1" Grid.Column="3" SmokerSettings="{Binding SmokerSettings, Mode=TwoWay}" ThermometerIndex="6" />
 
-        <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">Settings</Button>
+        <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                Command="{Binding EditItemCommand}">Settings</Button>
     </Grid>
 </Page>

@@ -25,15 +25,16 @@
         <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding SilenceCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">SILENCE!!</Button>
         <controls:CountdownTimer Grid.Row="0" Grid.Column="2" DueTime="{Binding TurnInTime}" TimerEnabled="True" />
         <controls:EventInfoControl Grid.Row="0" Grid.Column="3" EventName="Some Event" />
-        
-        <controls:BbqItemControl Grid.Row="1" Grid.Column="0" Item="{Binding Item1}" />
-        <controls:BbqItemControl Grid.Row="1" Grid.Column="1" Item="{Binding Item2}"  />
-        <controls:BbqItemControl Grid.Row="1" Grid.Column="2" Item="{Binding Item3}"  />
+        <GridView Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" Height="435"
+                  ItemsSource="{Binding Items}">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <controls:BbqItemControl Item="{Binding}" Width="200" Height="215"  />
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
         <controls:SmokerControl Grid.Row="1" Grid.Column="3"  />
 
-        <controls:BbqItemControl Grid.Row="2" Grid.Column="0" Item="{Binding Item4}"  />
-        <controls:BbqItemControl Grid.Row="2" Grid.Column="1" Item="{Binding Item5}"  />
-        <controls:BbqItemControl Grid.Row="2" Grid.Column="2" Item="{Binding Item6}"  />
         <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">Settings</Button>
     </Grid>
 </Page>

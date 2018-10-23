@@ -17,18 +17,6 @@ namespace IotBbq.App.ViewModels
     {
         private IAlarmService alarmService;
 
-        private BbqItem item1;
-
-        private BbqItem item2;
-
-        private BbqItem item3;
-
-        private BbqItem item4;
-
-        private BbqItem item5;
-
-        private BbqItem item6;
-
         public MainViewModel(IAlarmService alarmService)
         {
             this.alarmService = alarmService;
@@ -41,7 +29,7 @@ namespace IotBbq.App.ViewModels
 
             var defs = ItemDefinition.GetDefinitions();
 
-            this.Item1 = new BbqItem
+            var item1 = new BbqItem
             {
                 Name = "Butts 1",
                 Weight = 1.2,
@@ -51,7 +39,7 @@ namespace IotBbq.App.ViewModels
                 Definition = defs[0]
             };
 
-            this.Item2 = new BbqItem
+            var item2 = new BbqItem
             {
                 Name = "Ribs 1",
                 Weight = 2.1,
@@ -60,43 +48,23 @@ namespace IotBbq.App.ViewModels
                 CurrentPhase = defs[1].Phases.PhaseName,
                 Definition = defs[1]
             };
+
+            var item3 = new BbqItem
+            {
+                Name = "Ribs 1",
+                Weight = 7.2,
+                CookStartTime = DateTime.Now,
+                TargetTemperature = defs[1].DefaultTargetTemperature,
+                CurrentPhase = defs[1].Phases.PhaseName,
+                Definition = defs[1]
+            };
+
+            this.Items.Add(item1);
+            this.Items.Add(item2);
+            this.Items.Add(item3);
         }
 
-        public BbqItem Item1
-        {
-            get => this.item1;
-            set => this.Set(() => this.Item1, ref this.item1, value);
-        }
-
-        public BbqItem Item2
-        {
-            get => this.item2;
-            set => this.Set(() => this.Item2, ref this.item2, value);
-        }
-
-        public BbqItem Item3
-        {
-            get => this.item3;
-            set => this.Set(() => this.Item3, ref this.item3, value);
-        }
-
-        public BbqItem Item4
-        {
-            get => this.item4;
-            set => this.Set(() => this.Item4, ref this.item4, value);
-        }
-
-        public BbqItem Item5
-        {
-            get => this.item5;
-            set => this.Set(() => this.Item5, ref this.item5, value);
-        }
-
-        public BbqItem Item6
-        {
-            get => this.item6;
-            set => this.Set(() => this.Item6, ref this.item6, value);
-        }
+        public ObservableCollection<BbqItem> Items { get; set; } = new ObservableCollection<BbqItem>();
 
         public ICommand SilenceCommand { get; private set; }
 

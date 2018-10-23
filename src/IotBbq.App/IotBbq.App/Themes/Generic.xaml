@@ -76,7 +76,7 @@
                             <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Path=Item.Name, RelativeSource={RelativeSource TemplatedParent}}" />
-                                    <TextBlock> - </TextBlock>
+                                    <TextBlock> -</TextBlock>
                                     <TextBlock Text="{Binding Path=Item.Weight, RelativeSource={RelativeSource TemplatedParent}}" />
                                     <TextBlock> lbs.</TextBlock>
                                 </StackPanel>
@@ -94,7 +94,6 @@
         <Setter Property="Background" Value="White" />
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Margin" Value="2" />
     </Style>
 
     <Style TargetType="controls:SmokerControl">

@@ -105,6 +105,12 @@
     <Compile Include="Dialogs\EditItemDialog.xaml.cs">
       <DependentUpon>EditItemDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\EventEditorDialog.xaml.cs">
+      <DependentUpon>EventEditorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SelectEventDialog.xaml.cs">
+      <DependentUpon>SelectEventDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PhaseChooserDialog.xaml.cs">
       <DependentUpon>PhaseChooserDialog.xaml</DependentUpon>
     </Compile>
@@ -118,12 +124,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BbqItem.cs" />
     <Compile Include="Services\BbqItemPhase.cs" />
+    <Compile Include="Services\IEventEditorService.cs" />
+    <Compile Include="Services\IEventSelectionService.cs" />
     <Compile Include="Services\IItemEditorService.cs" />
     <Compile Include="Services\Implementation\BbqItemManager.cs" />
     <Compile Include="Services\IAlarmService.cs" />
     <Compile Include="Services\Implementation\AlarmService.cs" />
     <Compile Include="Services\Implementation\DesignAlarmService.cs" />
     <Compile Include="Services\Implementation\DesignThermometerService.cs" />
+    <Compile Include="Services\Implementation\EventEditorService.cs" />
+    <Compile Include="Services\Implementation\EventSelectionService.cs" />
     <Compile Include="Services\Implementation\ItemEditorService.cs" />
     <Compile Include="Services\Implementation\PhaseChooserService.cs" />
     <Compile Include="Services\IPhaseChooser.cs" />
@@ -157,6 +167,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Dialogs\EditItemDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\EventEditorDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SelectEventDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -31,6 +31,7 @@ namespace IotBbq.App
         public MainPage()
         {
             this.InitializeComponent();
+            this.Loaded += (s, a) => (this.DataContext as MainViewModel)?.LoadDataCommand?.Execute(null);
         }
     }
 }

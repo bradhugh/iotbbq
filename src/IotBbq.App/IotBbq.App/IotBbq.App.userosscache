@@ -15,3 +15,9 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Converters\ElapsedTi
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Dialogs\NewItemDialog.xaml
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IItemEditorService.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\ItemEditorService.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Dialogs\NewOrExistingEventDialog.xaml
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Dialogs\EventEditorDialog.xaml
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IEventEditorService.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\EventEditorService.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IEventSelectionService.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\EventSelectionService.cs

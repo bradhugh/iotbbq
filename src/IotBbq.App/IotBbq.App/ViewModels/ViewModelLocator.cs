@@ -28,6 +28,8 @@ namespace IotBbq.App.ViewModels
             SimpleIoc.Default.Register<IAlarmService, DesignAlarmService>();
             SimpleIoc.Default.Register<IPhaseChooser, PhaseChooserService>();
             SimpleIoc.Default.Register<IItemEditorService, ItemEditorService>();
+            SimpleIoc.Default.Register<IEventEditorService, EventEditorService>();
+            SimpleIoc.Default.Register<IEventSelectionService, EventSelectionService>();
 
             SimpleIoc.Default.Register<MainViewModel>();
 

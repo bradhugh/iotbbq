@@ -8,9 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Width="800"
-    Height="480">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          DataContext="{Binding Main, Source={StaticResource Locator}}">
+    Height="480"
+    DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="200" />

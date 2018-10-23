@@ -38,5 +38,10 @@ namespace IotBbq.App.Services
         {
             return definitions;
         }
+
+        public override string ToString()
+        {
+            return this.ItemType;
+        }
     }
 }

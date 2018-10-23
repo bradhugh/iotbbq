@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace IotBbq.App.Services
 {
-    public interface IPhaseChooser
+    public interface IItemEditorService
     {
-        Task<ItemPhaseDefinition> ChooseNextPhaseAsync(ItemDefinition definition, ItemPhaseDefinition currentPhase);
+        Task<BbqItem> EditItemAsync(BbqItem input);
     }
 }

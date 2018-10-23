@@ -9,8 +9,14 @@
 
     public class PhaseChooserService : IPhaseChooser
     {
-        public async Task<ItemPhaseDefinition> ChooseNextPhaseAsync(ItemPhaseDefinition currentPhase)
+        public async Task<ItemPhaseDefinition> ChooseNextPhaseAsync(ItemDefinition definition, ItemPhaseDefinition currentPhase)
         {
+            // Special case for first phase
+            if (currentPhase == null)
+            {
+                return definition.Phases;
+            }
+
             if (!currentPhase.NextPhases.Any())
             {
                 throw new InvalidOperationException("Phase has no next phases!");

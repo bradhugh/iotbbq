@@ -67,9 +67,10 @@ namespace IotBbq.App.Controls
 
         private async void ExecutePhaseCommand()
         {
-            var current = this.CurrentPhase;
+            var def = this.Item.Definition;
+            var phase = this.CurrentPhase;
 
-            var nextPhase = await this.phaseChooser.Value.ChooseNextPhaseAsync(current);
+            var nextPhase = await this.phaseChooser.Value.ChooseNextPhaseAsync(def, phase);
             if (nextPhase != null)
             {
                 this.Item.CurrentPhase = nextPhase.PhaseName;

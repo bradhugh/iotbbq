@@ -17,56 +17,34 @@ namespace IotBbq.App.ViewModels
     {
         private IAlarmService alarmService;
 
-        public MainViewModel(IAlarmService alarmService)
+        private readonly IItemEditorService itemEditor;
+
+        public MainViewModel(IAlarmService alarmService, IItemEditorService itemEditor)
         {
             this.alarmService = alarmService;
-
+            this.itemEditor = itemEditor;
             this.SilenceCommand = new RelayCommand(this.SilenceCommand_Execute, this.SilenceCommand_CanExecute);
+            this.AddItemCommand = new RelayCommand(this.AddItemCommand_Execute);
 
             this.alarmService.AlarmStateChanged += this.OnAlarmStateChanged;
 
             this.TurnInTime = DateTime.Now.AddDays(1);
+        }
 
-            var defs = ItemDefinition.GetDefinitions();
-
-            var item1 = new BbqItem
+        private async void AddItemCommand_Execute()
+        {
+            var item = await this.itemEditor.EditItemAsync(null);
+            if (item != null)
             {
-                Name = "Butts 1",
-                Weight = 1.2,
-                CookStartTime = DateTime.Now,
-                TargetTemperature = defs[0].DefaultTargetTemperature,
-                CurrentPhase = defs[0].Phases.PhaseName,
-                Definition = defs[0]
-            };
-
-            var item2 = new BbqItem
-            {
-                Name = "Ribs 1",
-                Weight = 2.1,
-                CookStartTime = DateTime.Now,
-                TargetTemperature = defs[1].DefaultTargetTemperature,
-                CurrentPhase = defs[1].Phases.PhaseName,
-                Definition = defs[1]
-            };
-
-            var item3 = new BbqItem
-            {
-                Name = "Ribs 1",
-                Weight = 7.2,
-                CookStartTime = DateTime.Now,
-                TargetTemperature = defs[1].DefaultTargetTemperature,
-                CurrentPhase = defs[1].Phases.PhaseName,
-                Definition = defs[1]
-            };
-
-            this.Items.Add(item1);
-            this.Items.Add(item2);
-            this.Items.Add(item3);
+                this.Items.Add(item);
+            }
         }
 
         public ObservableCollection<BbqItem> Items { get; set; } = new ObservableCollection<BbqItem>();
 
         public ICommand SilenceCommand { get; private set; }
+
+        public ICommand AddItemCommand { get; private set; }
 
         /// <summary>
         /// Gets or sets the turn in time

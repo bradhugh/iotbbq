@@ -57,11 +57,15 @@ namespace IotBbq.App.Controls
 
         private void OnTempRefreshTimer(object sender, object e)
         {
-            this.thermometerService.Value.ReadThermometer(this.ThermometerIndex).ContinueWith(t =>
+            int? thermometerIndex = this.Item?.ThermometerIndex;
+            if (thermometerIndex.HasValue)
             {
-                this.Temperature = t.Result;
-            },
-            TaskScheduler.FromCurrentSynchronizationContext());
+                this.thermometerService.Value.ReadThermometer(thermometerIndex.Value).ContinueWith(t =>
+                {
+                    this.Temperature = t.Result;
+                },
+                TaskScheduler.FromCurrentSynchronizationContext());
+            }
 
             this.Item?.RaiseCookStartTimeChanged();
         }
@@ -107,12 +111,6 @@ namespace IotBbq.App.Controls
         {
             get => (Temps)this.GetValue(TemperatureProperty);
             set => this.SetValue(TemperatureProperty, value);
-        }
-
-        public int ThermometerIndex
-        {
-            get => (int)this.GetValue(ThermometerIndexProperty);
-            set => this.SetValue(ThermometerIndexProperty, value);
         }
 
         public ICommand PhaseCommand

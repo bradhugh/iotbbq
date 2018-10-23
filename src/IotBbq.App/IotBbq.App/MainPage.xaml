@@ -33,7 +33,7 @@
         </Grid>
         <controls:CountdownTimer Grid.Row="0" Grid.Column="2" DueTime="{Binding CurrentEvent.TurnInTime.LocalDateTime}" TimerEnabled="True" />
         <controls:EventInfoControl Grid.Row="0" Grid.Column="3" EventName="{Binding CurrentEvent.EventName}" />
-        <GridView Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" Height="435"
+        <GridView Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3"
                   ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" BorderBrush="Black" BorderThickness="1">
             <GridView.ItemTemplate>
                 <DataTemplate>

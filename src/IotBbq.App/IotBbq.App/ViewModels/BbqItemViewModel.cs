@@ -24,6 +24,8 @@ namespace IotBbq.App.ViewModels
 
         private double targetTemperature;
 
+        private int thermometerIndex;
+
         private DateTime? cookStartTime;
 
         private ItemDefinition definition;
@@ -70,6 +72,12 @@ namespace IotBbq.App.ViewModels
             set => this.Set(() => this.CookStartTime, ref this.cookStartTime, value);
         }
 
+        public int ThermometerIndex
+        {
+            get => this.thermometerIndex;
+            set => this.Set(() => this.ThermometerIndex, ref this.thermometerIndex, value);
+        }
+
         public ItemDefinition Definition
         {
             get => this.definition;
@@ -90,6 +98,7 @@ namespace IotBbq.App.ViewModels
             this.Weight = item.Weight;
             this.TargetTemperature = item.TargetTemperature;
             this.CookStartTime = item.CookStartTime;
+            this.ThermometerIndex = item.ThermometerIndex;
 
             // Search for definition by ItemType
             this.Definition = ItemDefinition.GetDefinitions().First(d => d.ItemType == item.ItemType);
@@ -105,6 +114,7 @@ namespace IotBbq.App.ViewModels
             this.TargetTemperature = item.TargetTemperature;
             this.CookStartTime = item.CookStartTime;
             this.Definition = item.Definition;
+            this.ThermometerIndex = item.ThermometerIndex;
         }
     }
 }

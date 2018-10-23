@@ -3,3 +3,7 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\2018102
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\IotBbq.Model.userosscache
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023170113_TurnInTime.Designer.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\IotBbqContextModelSnapshot.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023200406_AddThermometerIndex.Designer.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023200406_AddThermometerIndex.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023200406_AddThermometerIndex.Designer.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\IotBbqContextModelSnapshot.cs

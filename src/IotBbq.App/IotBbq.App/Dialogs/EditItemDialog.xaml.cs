@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using IotBbq.App.Services;
 using IotBbq.App.ViewModels;
+using IotBbq.Model;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -33,11 +34,20 @@ namespace IotBbq.App.Dialogs
             typeof(EditItemDialog),
             null);
 
+        public static readonly DependencyProperty AvailableThermometersProperty = DependencyProperty.Register(
+            "AvailableThermometers",
+            typeof(IList<int>),
+            typeof(EditItemDialog),
+            null);
+
         public EditItemDialog()
         {
             this.InitializeComponent();
 
             this.ItemTypes = ItemDefinition.GetDefinitions();
+
+            // Todo - be smarter about this.
+            this.AvailableThermometers = new[] { 0, 1, 2, 3, 4, 5 };
 
             if (GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
             {
@@ -56,6 +66,12 @@ namespace IotBbq.App.Dialogs
         {
             get => (IList<ItemDefinition>)this.GetValue(ItemTypesProperty);
             set => this.SetValue(ItemTypesProperty, value);
+        }
+
+        public IList<int> AvailableThermometers
+        {
+            get => (IList<int>)this.GetValue(AvailableThermometersProperty);
+            set => this.SetValue(AvailableThermometersProperty, value);
         }
 
         public BbqItemViewModel Item

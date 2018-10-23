@@ -20,6 +20,7 @@ namespace IotBbq.App.ViewModels
             item.Weight = viewModel.Weight;
             item.TargetTemperature = viewModel.TargetTemperature;
             item.CookStartTime = viewModel.CookStartTime;
+            item.ThermometerIndex = viewModel.ThermometerIndex;
 
             // Get the item type from the definition
             item.ItemType = viewModel.Definition.ItemType;

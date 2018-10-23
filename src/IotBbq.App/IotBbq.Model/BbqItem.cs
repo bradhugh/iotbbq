@@ -21,6 +21,8 @@ namespace IotBbq.Model
 
         public DateTime? CookStartTime { get; set; }
 
+        public int ThermometerIndex { get; set; }
+
         public BbqEvent BbqEvent { get; set; }
     }
 }

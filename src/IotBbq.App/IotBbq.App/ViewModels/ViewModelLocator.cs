@@ -30,6 +30,7 @@ namespace IotBbq.App.ViewModels
             SimpleIoc.Default.Register<IItemEditorService, ItemEditorService>();
             SimpleIoc.Default.Register<IEventEditorService, EventEditorService>();
             SimpleIoc.Default.Register<IEventSelectionService, EventSelectionService>();
+            SimpleIoc.Default.Register<ISmokerSettingsManager, SmokerSettingsManager>();
 
             SimpleIoc.Default.Register<MainViewModel>();
 

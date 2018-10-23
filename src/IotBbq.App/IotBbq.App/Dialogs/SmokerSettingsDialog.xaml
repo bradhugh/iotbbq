@@ -1,0 +1,25 @@
+﻿<ContentDialog
+    x:Class="IotBbq.App.Dialogs.SmokerSettingsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IotBbq.App.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Smoker Settings"
+    PrimaryButtonText="Save"
+    SecondaryButtonText="Cancel"
+    Name="smokerSettingsDialog"
+    DataContext="{Binding ElementName=smokerSettingsDialog}">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock>Low Gate</TextBlock>
+            <TextBox InputScope="Number" Text="{Binding Settings.LowGate, Mode=TwoWay, Converter={StaticResource TextToDoubleConverter}}" />
+            <TextBlock>High Gate</TextBlock>
+            <TextBox InputScope="Number" Text="{Binding Settings.HighGate, Mode=TwoWay, Converter={StaticResource TextToDoubleConverter}}" />
+            <TextBlock>Set To</TextBlock>
+            <TextBox InputScope="Number" Text="{Binding Settings.CurrentSetting, Mode=TwoWay, Converter={StaticResource TextToDoubleConverter}}" />
+        </StackPanel>
+    </Grid>
+</ContentDialog>

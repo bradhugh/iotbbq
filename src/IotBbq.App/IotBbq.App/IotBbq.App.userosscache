@@ -23,3 +23,8 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IEventSelec
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\EventSelectionService.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\ViewModels\ModelExtensions.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\ViewModels\BbqEventViewModel.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\SmokerSettings.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\SmokerSettingsManager.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\SmokerSettingsManager.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Dialogs\SmokerSettingsDialog.xaml
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Converters\TextToDoubleConverter.cs

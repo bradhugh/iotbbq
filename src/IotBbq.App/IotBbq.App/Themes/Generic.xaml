@@ -114,10 +114,19 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0">High Gate</TextBlock>
-                            <TextBlock Grid.Row="1" Grid.Column="0">Low Gate</TextBlock>
+                            <StackPanel Grid.Row="0" Grid.Column="0">
+                                <TextBlock>High Gate</TextBlock>
+                                <TextBlock Text="{Binding SmokerSettings.HighGate, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="0">
+                                <TextBlock>Low Gate</TextBlock>
+                                <TextBlock Text="{Binding SmokerSettings.LowGate, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </StackPanel>
                             <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">Temp</TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">Current Setting</TextBlock>
+                            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                                <TextBlock>Current Setting</TextBlock>
+                                <TextBlock Text="{Binding SmokerSettings.CurrentSetting, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </StackPanel>
                         </Grid>
                     </Border>
                 </ControlTemplate>

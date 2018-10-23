@@ -41,7 +41,7 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-        <controls:SmokerControl Grid.Row="1" Grid.Column="3"  />
+        <controls:SmokerControl Grid.Row="1" Grid.Column="3" SmokerSettings="{Binding SmokerSettings, Mode=TwoWay}" />
 
         <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">Settings</Button>
     </Grid>

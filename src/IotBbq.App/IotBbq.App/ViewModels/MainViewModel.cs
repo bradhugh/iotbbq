@@ -20,15 +20,24 @@ namespace IotBbq.App.ViewModels
 
         private BbqEventViewModel currentEvent;
 
+        private SmokerSettings smokerSettings;
+
         private readonly IItemEditorService itemEditor;
 
         private readonly IEventSelectionService eventSelectionService;
 
-        public MainViewModel(IAlarmService alarmService, IItemEditorService itemEditor, IEventSelectionService eventSelectionService)
+        private readonly ISmokerSettingsManager smokerSettingsManager;
+
+        public MainViewModel(
+            IAlarmService alarmService,
+            IItemEditorService itemEditor,
+            IEventSelectionService eventSelectionService,
+            ISmokerSettingsManager smokerSettingsManager)
         {
             this.alarmService = alarmService;
             this.itemEditor = itemEditor;
             this.eventSelectionService = eventSelectionService;
+            this.smokerSettingsManager = smokerSettingsManager;
             this.SilenceCommand = new RelayCommand(this.SilenceCommand_Execute, this.SilenceCommand_CanExecute);
             this.AddItemCommand = new RelayCommand(this.AddItemCommand_Execute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommand_Execute);
@@ -40,6 +49,8 @@ namespace IotBbq.App.ViewModels
 
         private async void LoadDataCommand_Execute()
         {
+            this.SmokerSettings = await this.smokerSettingsManager.GetSmokerSettingsAsync();
+
             // First get the event
             this.CurrentEvent = await this.eventSelectionService.SelectEventAsync();
 
@@ -73,6 +84,12 @@ namespace IotBbq.App.ViewModels
         {
             get => this.currentEvent;
             set => this.Set(() => this.CurrentEvent, ref this.currentEvent, value);
+        }
+
+        public SmokerSettings SmokerSettings
+        {
+            get => this.smokerSettings;
+            set => this.Set(() => this.SmokerSettings, ref this.smokerSettings, value);
         }
 
         public ObservableCollection<BbqItemViewModel> Items { get; set; } = new ObservableCollection<BbqItemViewModel>();

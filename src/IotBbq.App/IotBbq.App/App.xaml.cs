@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Ioc;
 using IotBbq.App.Services;
 using IotBbq.App.Services.Implementation;
 using IotBbq.App.ViewModels;
+using IotBbq.Model;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -19,6 +20,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.EntityFrameworkCore;
 
 namespace IotBbq.App
 {
@@ -35,6 +37,11 @@ namespace IotBbq.App
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+
+            using (var db = new IotBbqContext())
+            {
+                db.Database.Migrate();
+            }
         }
 
         /// <summary>

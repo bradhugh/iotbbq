@@ -7,6 +7,12 @@ namespace IotBbq.App.Services
     using System.Text;
     using System.Threading.Tasks;
 
+    public enum AlarmPriority
+    {
+        Normal,
+        High
+    }
+
     public interface IAlarmService
     {
         event EventHandler<bool> AlarmStateChanged;
@@ -15,6 +21,6 @@ namespace IotBbq.App.Services
 
         void Silence();
 
-        void TriggerAlarm(TimeSpan? duration = null);
+        void TriggerAlarm(AlarmPriority priority, TimeSpan? duration = null);
     }
 }

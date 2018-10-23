@@ -21,7 +21,7 @@ namespace IotBbq.App.Services.Implementation
             }
         }
 
-        public void TriggerAlarm(TimeSpan? duration = null)
+        public void TriggerAlarm(AlarmPriority priority, TimeSpan? duration = null)
         {
             if (!this.IsAlarming)
             {

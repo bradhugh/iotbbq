@@ -24,7 +24,11 @@ namespace IotBbq.App.Services.Implementation
 
         private ManualResetEvent neverSignaledEvent = new ManualResetEvent(false);
 
-        private static TimeSpan Interval = TimeSpan.FromMilliseconds(300);
+        private static TimeSpan NormalPriorityInterval = TimeSpan.FromMilliseconds(300);
+
+        private static TimeSpan HighPriorityInterval = TimeSpan.FromMilliseconds(150);
+
+        private AlarmPriority currentPriority;
 
         public AlarmService()
         {
@@ -43,7 +47,7 @@ namespace IotBbq.App.Services.Implementation
                 return;
             }
 
-            this.DoOneBeep(new TimeSpan(Interval.Ticks / 2));
+            this.DoOneBeep(new TimeSpan(NormalPriorityInterval.Ticks / 2));
         }
 
         public void Silence()
@@ -58,9 +62,9 @@ namespace IotBbq.App.Services.Implementation
             }
         }
 
-        public void TriggerAlarm(TimeSpan? duration = null)
+        public void TriggerAlarm(AlarmPriority priority, TimeSpan? duration = null)
         {
-            if (!this.IsAlarming)
+            if (!this.IsAlarming || (priority == AlarmPriority.High && this.currentPriority == AlarmPriority.Normal))
             {
                 if (duration.HasValue)
                 {
@@ -71,8 +75,12 @@ namespace IotBbq.App.Services.Implementation
                     this.whenToStop = null;
                 }
 
-                // Trigger the timer immediately at 1 second intervals
-                this.alarmTimer.Change(TimeSpan.Zero, Interval);
+                // Trigger the timer immediately
+                this.currentPriority = priority;
+                this.alarmTimer.Change(
+                    TimeSpan.Zero,
+                    priority == AlarmPriority.High ? HighPriorityInterval : NormalPriorityInterval);
+
                 this.IsAlarming = true;
                 this.AlarmStateChanged?.Invoke(this, true);
             }

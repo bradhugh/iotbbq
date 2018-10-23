@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using CommonServiceLocator;
+using GalaSoft.MvvmLight.Command;
 using IotBbq.App.Services;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -41,17 +43,32 @@ namespace IotBbq.App.Controls
             typeof(SmokerControl),
             null);
 
+        public static readonly DependencyProperty SmokerSettingsCommandProperty = DependencyProperty.Register(
+            "SmokerSettingsCommand",
+            typeof(ICommand),
+            typeof(SmokerControl),
+            null);
+
         private readonly DispatcherTimer tempRefreshTimer = new DispatcherTimer();
 
         public SmokerControl()
         {
             this.DefaultStyleKey = typeof(SmokerControl);
 
-            this.Tapped += this.OnEditSmokerSettingsRequested;
-
             this.tempRefreshTimer.Interval = TimeSpan.FromSeconds(1);
             this.tempRefreshTimer.Tick += this.OnTempRefreshTimer;
             this.Loaded += (s, e) => this.tempRefreshTimer.Start();
+
+            this.SmokerSettingsCommand = new RelayCommand(this.ExecuteSmokerSettingsCommand);
+        }
+
+        private async void ExecuteSmokerSettingsCommand()
+        {
+            var settings = await this.smokerSettingsManager.Value.EditSmokerSettingsAsync();
+            if (settings != null)
+            {
+                this.SmokerSettings = settings;
+            }
         }
 
         private void OnTempRefreshTimer(object sender, object e)
@@ -63,19 +80,16 @@ namespace IotBbq.App.Controls
             TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-        private async void OnEditSmokerSettingsRequested(object sender, RoutedEventArgs e)
-        {
-            var settings = await this.smokerSettingsManager.Value.EditSmokerSettingsAsync();
-            if (settings != null)
-            {
-                this.SmokerSettings = settings;
-            }
-        }
-
         public SmokerSettings SmokerSettings
         {
             get => (SmokerSettings)this.GetValue(SmokerSettingsProperty);
             set => this.SetValue(SmokerSettingsProperty, value);
+        }
+
+        public ICommand SmokerSettingsCommand
+        {
+            get => (ICommand)this.GetValue(SmokerSettingsCommandProperty);
+            set => this.SetValue(SmokerSettingsCommandProperty, value);
         }
 
         public int ThermometerIndex

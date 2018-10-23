@@ -11,8 +11,7 @@ namespace IotBbq.Model.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(nullable: false),
                     EventDate = table.Column<DateTime>(nullable: false),
                     EventName = table.Column<string>(nullable: true)
                 },
@@ -25,9 +24,8 @@ namespace IotBbq.Model.Migrations
                 name: "Items",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    BbqEventId = table.Column<int>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    BbqEventId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     ItemType = table.Column<string>(nullable: true),
                     CurrentPhase = table.Column<string>(nullable: true),

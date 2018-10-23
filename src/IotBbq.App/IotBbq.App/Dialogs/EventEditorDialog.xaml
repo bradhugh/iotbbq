@@ -8,8 +8,9 @@
     mc:Ignorable="d"
     Title="Edit Event"
     PrimaryButtonText="Save"
-    SecondaryButtonText="Cancel">
-    <Grid>
+    SecondaryButtonText="Cancel"
+    Name="editEventDialog">
+    <Grid DataContext="{Binding ElementName=editEventDialog}">
         <StackPanel>
             <TextBlock>Event Name</TextBlock>
             <TextBox Text="{Binding Event.EventName, Mode=TwoWay}"/>

@@ -1,5 +1,5 @@
 ﻿
-namespace IotBbq.App.Services
+namespace IotBbq.App.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -7,13 +7,14 @@ namespace IotBbq.App.Services
     using System.Text;
     using System.Threading.Tasks;
     using GalaSoft.MvvmLight;
+    using IotBbq.App.Services;
     using IotBbq.Model;
 
     public class BbqItemViewModel : ViewModelBase
     {
-        private int id;
+        private Guid id = Guid.NewGuid();
 
-        private int bbqEventId;
+        private Guid bbqEventId;
 
         private string name;
 
@@ -27,13 +28,13 @@ namespace IotBbq.App.Services
 
         private ItemDefinition definition;
 
-        public int Id
+        public Guid Id
         {
             get => this.id;
             set => this.Set(() => this.Id, ref this.id, value);
         }
 
-        public int BbqEventId
+        public Guid BbqEventId
         {
             get => this.bbqEventId;
             set => this.Set(() => this.BbqEventId, ref this.bbqEventId, value);

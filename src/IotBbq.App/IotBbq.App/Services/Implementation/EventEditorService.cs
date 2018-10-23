@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IotBbq.App.ViewModels;
 using IotBbq.Model;
 using Windows.UI.Xaml.Controls;
 
@@ -10,40 +11,48 @@ namespace IotBbq.App.Services.Implementation
 {
     public class EventEditorService : IEventEditorService
     {
-        public async Task<BbqEvent> EditEventAsync(BbqEvent input)
+        public async Task<BbqEventViewModel> EditEventAsync(BbqEventViewModel input)
         {
-            using (IotBbqContext context = new IotBbqContext())
+            bool isNew = false;
+            var model = new BbqEventViewModel();
+            if (input == null)
             {
-                bool isNew = false;
-                if (input == null)
-                {
-                    input = new BbqEvent();
-                    isNew = true;
-                }
+                isNew = true;
+            }
+            else
+            {
+                model.Load(input);
+            }
 
-                var dialog = new Dialogs.EventEditorDialog();
-                dialog.Event = input;
+            var dialog = new Dialogs.EventEditorDialog();
+            dialog.Event = model;
 
-                var result = await dialog.ShowAsync();
-                if (result == ContentDialogResult.Primary)
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                model = dialog.Event;
+
+                using (IotBbqContext context = new IotBbqContext())
                 {
-                    input = dialog.Event;
+                    var entity = new BbqEvent();
+                    entity.Load(model);
+
                     if (isNew)
                     {
-                        context.Events.Add(input);
+                        context.Events.Add(entity);
                     }
                     else
                     {
-                        context.Events.Update(input);
+                        context.Events.Update(entity);
                     }
 
                     await context.SaveChangesAsync();
 
-                    return input;
+                    return model;
                 }
-
-                return null;
             }
+
+            return null;
         }
     }
 }

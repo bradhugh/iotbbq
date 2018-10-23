@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IotBbq.App.ViewModels;
 using IotBbq.Model;
 using Windows.UI.Xaml.Controls;
 
@@ -17,18 +18,19 @@ namespace IotBbq.App.Services.Implementation
             this.eventEditor = eventEditor;
         }
 
-        public async Task<BbqEvent> SelectEventAsync()
+        public async Task<BbqEventViewModel> SelectEventAsync()
         {
             var selectDialog = new Dialogs.SelectEventDialog();
 
-            BbqEvent selectedEvent = null;
+            BbqEventViewModel selectedEvent = null;
 
             do
             {
                 var result = await selectDialog.ShowAsync();
                 if (result == ContentDialogResult.Primary)
                 {
-                    selectedEvent = selectDialog.SelectedEvent;
+                    selectedEvent = new BbqEventViewModel();
+                    selectedEvent.Load(selectDialog.SelectedEvent);
                 }
                 else if (result == ContentDialogResult.Secondary)
                 {

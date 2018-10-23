@@ -18,7 +18,7 @@ namespace IotBbq.App.ViewModels
     {
         private IAlarmService alarmService;
 
-        private BbqEvent currentEvent;
+        private BbqEventViewModel currentEvent;
 
         private readonly IItemEditorService itemEditor;
 
@@ -69,7 +69,7 @@ namespace IotBbq.App.ViewModels
             }
         }
 
-        public BbqEvent CurrentEvent
+        public BbqEventViewModel CurrentEvent
         {
             get => this.currentEvent;
             set => this.Set(() => this.CurrentEvent, ref this.currentEvent, value);

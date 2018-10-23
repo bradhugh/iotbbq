@@ -122,7 +122,7 @@
     <Compile Include="Mcp3008\Mcp3008Reading.cs" />
     <Compile Include="Mcp3008\NumericExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BbqItemViewModel.cs" />
+    <Compile Include="ViewModels\BbqItemViewModel.cs" />
     <Compile Include="Services\BbqItemPhase.cs" />
     <Compile Include="Services\IEventEditorService.cs" />
     <Compile Include="Services\IEventSelectionService.cs" />
@@ -142,6 +142,7 @@
     <Compile Include="Services\IThermometerService.cs" />
     <Compile Include="Services\Implementation\ThermometerService.cs" />
     <Compile Include="TempUtils.cs" />
+    <Compile Include="ViewModels\BbqEventViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ModelExtensions.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IotBbq.Model.Migrations
 {
     [DbContext(typeof(IotBbqContext))]
-    [Migration("20181023142733_InitialCreate")]
+    [Migration("20181023163453_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace IotBbq.Model.Migrations
 
             modelBuilder.Entity("IotBbq.Model.BbqEvent", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("EventDate");
@@ -34,10 +34,10 @@ namespace IotBbq.Model.Migrations
 
             modelBuilder.Entity("IotBbq.Model.BbqItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BbqEventId");
+                    b.Property<Guid>("BbqEventId");
 
                     b.Property<DateTime?>("CookStartTime");
 

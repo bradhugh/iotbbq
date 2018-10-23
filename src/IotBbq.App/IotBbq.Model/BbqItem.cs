@@ -5,11 +5,9 @@ namespace IotBbq.Model
     using System.Collections.Generic;
     using System.Text;
 
-    public class BbqItem
+    public class BbqItem : EntityBase
     {
-        public int Id { get; set; }
-
-        public int BbqEventId { get; set; }
+        public Guid BbqEventId { get; set; }
 
         public string Name { get; set; }
 

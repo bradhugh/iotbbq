@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using IotBbq.App.ViewModels;
 using IotBbq.Model;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -22,7 +23,7 @@ namespace IotBbq.App.Dialogs
     {
         public static readonly DependencyProperty EventProperty = DependencyProperty.Register(
             "Event",
-            typeof(BbqEvent),
+            typeof(BbqEventViewModel),
             typeof(EventEditorDialog),
             null);
 
@@ -31,9 +32,9 @@ namespace IotBbq.App.Dialogs
             this.InitializeComponent();
         }
 
-        public BbqEvent Event
+        public BbqEventViewModel Event
         {
-            get => (BbqEvent)this.GetValue(EventProperty);
+            get => (BbqEventViewModel)this.GetValue(EventProperty);
             set => this.SetValue(EventProperty, value);
         }
     }

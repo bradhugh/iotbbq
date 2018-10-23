@@ -18,7 +18,7 @@ namespace IotBbq.Model.Migrations
 
             modelBuilder.Entity("IotBbq.Model.BbqEvent", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("EventDate");
@@ -32,10 +32,10 @@ namespace IotBbq.Model.Migrations
 
             modelBuilder.Entity("IotBbq.Model.BbqItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BbqEventId");
+                    b.Property<Guid>("BbqEventId");
 
                     b.Property<DateTime?>("CookStartTime");
 

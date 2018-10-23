@@ -24,5 +24,12 @@ namespace IotBbq.App.ViewModels
             // Get the item type from the definition
             item.ItemType = viewModel.Definition.ItemType;
         }
+
+        public static void Load(this BbqEvent bbqEvent, BbqEventViewModel viewModel)
+        {
+            bbqEvent.Id = viewModel.Id;
+            bbqEvent.EventName = viewModel.EventName;
+            bbqEvent.EventDate = viewModel.EventDate.LocalDateTime;
+        }
     }
 }

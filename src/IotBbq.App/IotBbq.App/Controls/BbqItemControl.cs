@@ -7,6 +7,7 @@ namespace IotBbq.App.Controls
     using CommonServiceLocator;
     using GalaSoft.MvvmLight.Command;
     using IotBbq.App.Services;
+    using IotBbq.App.ViewModels;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
 

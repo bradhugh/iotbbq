@@ -11,7 +11,7 @@ namespace IotBbq.App.Services.Implementation
 {
     public class ItemEditorService : IItemEditorService
     {
-        public async Task<BbqItemViewModel> EditItemAsync(int eventId, BbqItemViewModel input)
+        public async Task<BbqItemViewModel> EditItemAsync(Guid eventId, BbqItemViewModel input)
         {
             bool isNew = false;
             BbqItemViewModel model = new BbqItemViewModel();

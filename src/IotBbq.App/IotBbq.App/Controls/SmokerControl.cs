@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using CommonServiceLocator;
 using IotBbq.App.Services;
 using Windows.UI.Xaml;
@@ -20,20 +21,49 @@ namespace IotBbq.App.Controls
         private readonly Lazy<ISmokerSettingsManager> smokerSettingsManager = new Lazy<ISmokerSettingsManager>(
             () => ServiceLocator.Current.GetInstance<ISmokerSettingsManager>());
 
+        private readonly Lazy<IThermometerService> thermometerService = new Lazy<IThermometerService>(() => ServiceLocator.Current.GetInstance<IThermometerService>());
+
         public static readonly DependencyProperty SmokerSettingsProperty = DependencyProperty.Register(
             "SmokerSettings",
             typeof(SmokerSettings),
             typeof(SmokerControl),
             null);
 
+        public static readonly DependencyProperty TemperatureProperty = DependencyProperty.Register(
+            "Temperature",
+            typeof(Temps),
+            typeof(SmokerControl),
+            null);
+
+        public static readonly DependencyProperty ThermometerIndexProperty = DependencyProperty.Register(
+            "ThermometerIndex",
+            typeof(int),
+            typeof(SmokerControl),
+            null);
+
+        private readonly DispatcherTimer tempRefreshTimer = new DispatcherTimer();
+
         public SmokerControl()
         {
             this.DefaultStyleKey = typeof(SmokerControl);
 
-            this.DoubleTapped += this.OnEditSmokerSettingsRequested;
+            this.Tapped += this.OnEditSmokerSettingsRequested;
+
+            this.tempRefreshTimer.Interval = TimeSpan.FromSeconds(1);
+            this.tempRefreshTimer.Tick += this.OnTempRefreshTimer;
+            this.Loaded += (s, e) => this.tempRefreshTimer.Start();
         }
 
-        private async void OnEditSmokerSettingsRequested(object sender, DoubleTappedRoutedEventArgs e)
+        private void OnTempRefreshTimer(object sender, object e)
+        {
+            this.thermometerService.Value.ReadThermometer(this.ThermometerIndex).ContinueWith(t =>
+            {
+                this.Temperature = t.Result;
+            },
+            TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private async void OnEditSmokerSettingsRequested(object sender, RoutedEventArgs e)
         {
             var settings = await this.smokerSettingsManager.Value.EditSmokerSettingsAsync();
             if (settings != null)
@@ -46,6 +76,18 @@ namespace IotBbq.App.Controls
         {
             get => (SmokerSettings)this.GetValue(SmokerSettingsProperty);
             set => this.SetValue(SmokerSettingsProperty, value);
+        }
+
+        public int ThermometerIndex
+        {
+            get => (int)this.GetValue(ThermometerIndexProperty);
+            set => this.SetValue(ThermometerIndexProperty, value);
+        }
+
+        public Temps Temperature
+        {
+            get => (Temps)this.GetValue(TemperatureProperty);
+            set => this.SetValue(TemperatureProperty, value);
         }
     }
 }

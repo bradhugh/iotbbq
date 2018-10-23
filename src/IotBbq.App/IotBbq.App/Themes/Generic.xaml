@@ -12,9 +12,9 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="CountdownLabel">Due:</TextBlock>
-                            <TextBlock x:Name="CountdownTextBlock"></TextBlock>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center" FontSize="18" x:Name="CountdownLabel">Time till turn-in</TextBlock>
+                            <TextBlock HorizontalAlignment="Center" FontSize="24" FontWeight="SemiBold" x:Name="CountdownTextBlock"></TextBlock>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>
@@ -30,14 +30,10 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="{TemplateBinding DateAndTime}" />
-                            <TextBlock Grid.Row="1" Text="{TemplateBinding EventName}" />
-                        </Grid>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" Text="{TemplateBinding DateAndTime}" />
+                            <TextBlock FontStyle="Italic" HorizontalAlignment="Center" Text="{TemplateBinding EventName}" />
+                        </StackPanel>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -114,23 +110,25 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0">
-                                <TextBlock>High Gate</TextBlock>
-                                <TextBlock Text="{Binding SmokerSettings.HighGate, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center">High Gate</TextBlock>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding SmokerSettings.HighGate, RelativeSource={RelativeSource TemplatedParent}}" />
                             </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="0">
-                                <TextBlock>Low Gate</TextBlock>
-                                <TextBlock Text="{Binding SmokerSettings.LowGate, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center">Low Gate</TextBlock>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding SmokerSettings.LowGate, RelativeSource={RelativeSource TemplatedParent}}" />
                             </StackPanel>
-                            <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">Temp</TextBlock>
-                            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-                                <TextBlock>Current Setting</TextBlock>
-                                <TextBlock Text="{Binding SmokerSettings.CurrentSetting, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Text="{Binding Temperature, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TemperatureConverter}}" />
+                            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center">Current Setting</TextBlock>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding SmokerSettings.CurrentSetting, RelativeSource={RelativeSource TemplatedParent}}" />
                             </StackPanel>
                         </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
     </Style>
 </ResourceDictionary>

@@ -8,8 +8,10 @@ namespace IotBbq.App.Controls
     using GalaSoft.MvvmLight.Command;
     using IotBbq.App.Services;
     using IotBbq.App.ViewModels;
+    using Windows.UI;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Media;
 
     public sealed class BbqItemControl : Control
     {
@@ -63,6 +65,15 @@ namespace IotBbq.App.Controls
                 this.thermometerService.Value.ReadThermometer(thermometerIndex.Value).ContinueWith(t =>
                 {
                     this.Temperature = t.Result;
+
+                    if (this.Temperature.Farenheight >= this.Item.TargetTemperature)
+                    {
+                        this.Background = new SolidColorBrush(Colors.Red);
+                    }
+                    else
+                    {
+                        this.Background = new SolidColorBrush(Colors.White);
+                    }
                 },
                 TaskScheduler.FromCurrentSynchronizationContext());
             }

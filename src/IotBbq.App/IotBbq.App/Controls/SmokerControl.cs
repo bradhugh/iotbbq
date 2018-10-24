@@ -7,6 +7,7 @@ using System.Windows.Input;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Command;
 using IotBbq.App.Services;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -76,6 +77,16 @@ namespace IotBbq.App.Controls
             this.thermometerService.Value.ReadThermometer(this.ThermometerIndex).ContinueWith(t =>
             {
                 this.Temperature = t.Result;
+
+                if (this.Temperature.Farenheight >= this.SmokerSettings.HighGate
+                    || this.Temperature.Farenheight < this.SmokerSettings.LowGate)
+                {
+                    this.Background = new SolidColorBrush(Colors.Red);
+                }
+                else
+                {
+                    this.Background = new SolidColorBrush(Colors.White);
+                }
             },
             TaskScheduler.FromCurrentSynchronizationContext());
         }

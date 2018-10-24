@@ -10,6 +10,8 @@ namespace IotBbq.App.Services
     {
         public string PhaseName { get; set; }
 
+        public bool IsCookingPhase { get; set; }
+
         public override string ToString()
         {
             return this.PhaseName;
@@ -35,16 +37,19 @@ namespace IotBbq.App.Services
                         new ItemPhaseDefinition
                         {
                             PhaseName = "On Smoker",
+                            IsCookingPhase = true,
                             NextPhases = new[]
                             {
                                 new ItemPhaseDefinition
                                 {
                                     PhaseName = "Wrap",
+                                    IsCookingPhase = true,
                                     NextPhases = new[]
                                     {
                                         new ItemPhaseDefinition
                                         {
                                             PhaseName = "Unwrap",
+                                            IsCookingPhase = true,
                                             NextPhases = new[]
                                             {
                                                 DonePhase
@@ -74,16 +79,19 @@ namespace IotBbq.App.Services
                         new ItemPhaseDefinition
                         {
                             PhaseName = "On Smoker",
+                            IsCookingPhase = true,
                             NextPhases = new[]
                             {
                                 new ItemPhaseDefinition
                                 {
                                     PhaseName = "Wrap",
+                                    IsCookingPhase = true,
                                     NextPhases = new[]
                                     {
                                         new ItemPhaseDefinition
                                         {
                                             PhaseName = "Unwrap",
+                                            IsCookingPhase = true,
                                             NextPhases = new[]
                                             {
                                                 DonePhase

@@ -79,5 +79,21 @@ namespace IotBbq.App.Services.Implementation
                 return this.context.Items.Where(i => i.BbqEventId == eventId).ToList();
             }
         }
+
+        public async Task<BbqItem> GetItemByIdAsync(Guid id)
+        {
+            using (await this.dbLock.LockAsync())
+            {
+                return await this.context.FindAsync<BbqItem>(id);
+            }
+        }
+
+        public async Task<BbqEvent> GetEventByIdAsync(Guid id)
+        {
+            using (await this.dbLock.LockAsync())
+            {
+                return await this.context.FindAsync<BbqEvent>(id);
+            }
+        }
     }
 }

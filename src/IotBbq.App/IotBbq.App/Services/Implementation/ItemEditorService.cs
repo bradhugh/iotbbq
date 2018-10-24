@@ -39,7 +39,7 @@ namespace IotBbq.App.Services.Implementation
             if (result == ContentDialogResult.Primary)
             {
                 // Save item to database
-                var item = new BbqItem();
+                var item = isNew ? new BbqItem() : await this.dataProvider.GetItemByIdAsync(model.Id);
                 item.Load(model);
 
                 if (isNew)

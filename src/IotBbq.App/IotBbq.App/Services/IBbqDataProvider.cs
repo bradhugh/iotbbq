@@ -19,6 +19,10 @@ namespace IotBbq.App.Services
 
         Task<BbqItem> UpdateItemAsync(BbqItem bbqItem);
 
+        Task<BbqItem> GetItemByIdAsync(Guid id);
+
+        Task<BbqEvent> GetEventByIdAsync(Guid id);
+
         Task<IList<BbqItem>> GetItemsForEventAsync(Guid eventId);
     }
 }

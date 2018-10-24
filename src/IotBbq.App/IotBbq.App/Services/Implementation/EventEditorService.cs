@@ -36,7 +36,7 @@ namespace IotBbq.App.Services.Implementation
             {
                 model = dialog.Event;
 
-                var entity = new BbqEvent();
+                var entity = isNew ? new BbqEvent() : await this.dataProvider.GetEventByIdAsync(model.Id);
                 entity.Load(model);
 
                 if (isNew)

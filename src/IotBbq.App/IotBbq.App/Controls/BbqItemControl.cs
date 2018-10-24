@@ -8,6 +8,7 @@ namespace IotBbq.App.Controls
     using GalaSoft.MvvmLight.Command;
     using IotBbq.App.Services;
     using IotBbq.App.ViewModels;
+    using IotBbq.Model;
     using Windows.UI;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
@@ -42,6 +43,8 @@ namespace IotBbq.App.Controls
         private readonly Lazy<IThermometerService> thermometerService = new Lazy<IThermometerService>(() => ServiceLocator.Current.GetInstance<IThermometerService>());
 
         private readonly Lazy<IPhaseChooser> phaseChooser = new Lazy<IPhaseChooser>(() => ServiceLocator.Current.GetInstance<IPhaseChooser>());
+
+        private readonly Lazy<IBbqDataProvider> dataProvider = new Lazy<IBbqDataProvider>(() => ServiceLocator.Current.GetInstance<IBbqDataProvider>());
 
         private readonly DispatcherTimer tempRefreshTimer = new DispatcherTimer();
 
@@ -90,6 +93,17 @@ namespace IotBbq.App.Controls
             if (nextPhase != null)
             {
                 this.Item.CurrentPhase = nextPhase.PhaseName;
+
+                if (nextPhase.IsCookingPhase && !this.Item.CookStartTime.HasValue)
+                {
+                    this.Item.CookStartTime = DateTime.Now;
+                }
+
+                // Update the Db Item
+                var dbItem = await this.dataProvider.Value.GetItemByIdAsync(this.Item.Id);
+                dbItem.Load(this.Item);
+
+                await this.dataProvider.Value.UpdateItemAsync(dbItem);
             }
         }
 

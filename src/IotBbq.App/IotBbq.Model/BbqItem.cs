@@ -24,5 +24,7 @@ namespace IotBbq.Model
         public int ThermometerIndex { get; set; }
 
         public BbqEvent BbqEvent { get; set; }
+
+        public List<BbqItemLog> ItemLogs { get; set; }
     }
 }

@@ -128,6 +128,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AsyncLock.cs" />
     <Compile Include="Services\IBbqDataProvider.cs" />
+    <Compile Include="Services\IItemLoggerService.cs" />
     <Compile Include="Services\Implementation\BbqDataProvider.cs" />
     <Compile Include="Services\Implementation\SmokerSettingsManager.cs" />
     <Compile Include="Services\SmokerSettings.cs" />

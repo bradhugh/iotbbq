@@ -7,3 +7,8 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\2018102
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023200406_AddThermometerIndex.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181023200406_AddThermometerIndex.Designer.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\IotBbqContextModelSnapshot.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\BbqItemLog.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181024141742_AddItemLogs.Designer.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181024141742_AddItemLogs.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\20181024141742_AddItemLogs.Designer.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.Model\Migrations\IotBbqContextModelSnapshot.cs

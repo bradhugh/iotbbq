@@ -3,14 +3,16 @@ using System;
 using IotBbq.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IotBbq.Model.Migrations
 {
     [DbContext(typeof(IotBbqContext))]
-    partial class IotBbqContextModelSnapshot : ModelSnapshot
+    [Migration("20181024141742_AddItemLogs")]
+    partial class AddItemLogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

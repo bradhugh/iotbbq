@@ -68,7 +68,14 @@
                                 <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding Path=Item.TargetTemperature, RelativeSource={RelativeSource TemplatedParent}}" />
                             </StackPanel>
                             <Button BorderBrush="Black" BorderThickness="1" Margin="2" Grid.Row="2" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{Binding PhaseCommand, RelativeSource={RelativeSource TemplatedParent}}">Next Phase</Button>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{Binding Temperature, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TemperatureConverter}}"/>
+                            <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" HorizontalAlignment="Right" Margin="10" FontSize="18" FontWeight="Bold" Text="{Binding Item.ThermometerIndex, RelativeSource={RelativeSource TemplatedParent}}">1</TextBlock>
+                                <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Text="{Binding Temperature, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TemperatureConverter}}" Margin="0,-20,0,0"/>
+                            </Grid>
                             <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Path=Item.Name, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -99,7 +106,7 @@
                     <Button
                         VerticalAlignment="Stretch"
                         HorizontalAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
+                        
                         HorizontalContentAlignment="Stretch"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"

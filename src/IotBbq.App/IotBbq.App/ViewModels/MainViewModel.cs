@@ -78,7 +78,7 @@ namespace IotBbq.App.ViewModels
                 BbqEventId = this.CurrentEvent.Id,
                 Name = "Butt 2",
                 TargetTemperature = 110,
-                ThermometerIndex = 0,
+                ThermometerIndex = 1,
                 Weight = 1.5
             });
 
@@ -87,7 +87,7 @@ namespace IotBbq.App.ViewModels
                 BbqEventId = this.CurrentEvent.Id,
                 Name = "Butt 3",
                 TargetTemperature = 110,
-                ThermometerIndex = 0,
+                ThermometerIndex = 2,
                 Weight = 1.5
             });
 
@@ -96,7 +96,7 @@ namespace IotBbq.App.ViewModels
                 BbqEventId = this.CurrentEvent.Id,
                 Name = "Butt 4",
                 TargetTemperature = 110,
-                ThermometerIndex = 0,
+                ThermometerIndex = 3,
                 Weight = 1.5
             });
 
@@ -105,7 +105,7 @@ namespace IotBbq.App.ViewModels
                 BbqEventId = this.CurrentEvent.Id,
                 Name = "Butt 5",
                 TargetTemperature = 110,
-                ThermometerIndex = 0,
+                ThermometerIndex = 4,
                 Weight = 1.5
             });
         }

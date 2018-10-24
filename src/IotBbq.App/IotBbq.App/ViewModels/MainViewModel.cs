@@ -36,6 +36,8 @@ namespace IotBbq.App.ViewModels
 
         private readonly IBbqDataProvider dataProvider;
 
+        private readonly IItemLoggerService loggerService;
+
         private static readonly SolidColorBrush AlarmingBackgroundBrush = new SolidColorBrush(Colors.Red);
 
         public MainViewModel(
@@ -43,13 +45,15 @@ namespace IotBbq.App.ViewModels
             IItemEditorService itemEditor,
             IEventSelectionService eventSelectionService,
             ISmokerSettingsManager smokerSettingsManager,
-            IBbqDataProvider dataProvider)
+            IBbqDataProvider dataProvider,
+            IItemLoggerService loggerService)
         {
             this.alarmService = alarmService;
             this.itemEditor = itemEditor;
             this.eventSelectionService = eventSelectionService;
             this.smokerSettingsManager = smokerSettingsManager;
             this.dataProvider = dataProvider;
+            this.loggerService = loggerService;
             this.SilenceCommand = new RelayCommand(this.SilenceCommand_Execute, this.SilenceCommand_CanExecute);
             this.AddItemCommand = new RelayCommand(this.AddItemCommand_Execute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommand_Execute);
@@ -139,6 +143,9 @@ namespace IotBbq.App.ViewModels
 
             // First get the event
             this.CurrentEvent = await this.eventSelectionService.SelectEventAsync();
+
+            // Start the item logger
+            this.loggerService.Start(this.CurrentEvent.Id);
 
             // Populate the Items for the event
             foreach (var item in await this.dataProvider.GetItemsForEventAsync(this.CurrentEvent.Id))

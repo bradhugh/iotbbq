@@ -95,5 +95,16 @@ namespace IotBbq.App.Services.Implementation
                 return await this.context.FindAsync<BbqEvent>(id);
             }
         }
+
+        public async Task<BbqItemLog> InsertItemLogAsync(BbqItemLog bbqItemLog)
+        {
+            using (await this.dbLock.LockAsync())
+            {
+                this.context.ItemLogs.Add(bbqItemLog);
+                await this.context.SaveChangesAsync();
+
+                return bbqItemLog;
+            }
+        }
     }
 }

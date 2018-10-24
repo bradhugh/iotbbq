@@ -9,7 +9,7 @@ namespace IotBbq.App.Services
 
     public interface IItemLoggerService
     {
-        void Start();
+        void Start(Guid eventId);
 
         void Stop();
     }

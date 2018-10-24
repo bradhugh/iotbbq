@@ -24,5 +24,7 @@ namespace IotBbq.App.Services
         Task<BbqEvent> GetEventByIdAsync(Guid id);
 
         Task<IList<BbqItem>> GetItemsForEventAsync(Guid eventId);
+
+        Task<BbqItemLog> InsertItemLogAsync(BbqItemLog bbqItemLog);
     }
 }

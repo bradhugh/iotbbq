@@ -32,3 +32,4 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IBbqDataPro
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\AsyncLock.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\BbqDataProvider.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IItemLoggerService.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\ItemLoggerService.cs

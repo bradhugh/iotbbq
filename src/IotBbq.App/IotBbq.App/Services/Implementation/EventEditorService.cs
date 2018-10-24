@@ -8,6 +8,13 @@ namespace IotBbq.App.Services.Implementation
 {
     public class EventEditorService : IEventEditorService
     {
+        private readonly IBbqDataProvider dataProvider;
+
+        public EventEditorService(IBbqDataProvider dataProvider)
+        {
+            this.dataProvider = dataProvider;
+        }
+
         public async Task<BbqEventViewModel> EditEventAsync(BbqEventViewModel input)
         {
             bool isNew = false;
@@ -29,24 +36,19 @@ namespace IotBbq.App.Services.Implementation
             {
                 model = dialog.Event;
 
-                using (IotBbqContext context = new IotBbqContext())
+                var entity = new BbqEvent();
+                entity.Load(model);
+
+                if (isNew)
                 {
-                    var entity = new BbqEvent();
-                    entity.Load(model);
-
-                    if (isNew)
-                    {
-                        context.Events.Add(entity);
-                    }
-                    else
-                    {
-                        context.Events.Update(entity);
-                    }
-
-                    await context.SaveChangesAsync();
-
-                    return model;
+                    await this.dataProvider.InsertEventAsync(entity);
                 }
+                else
+                {
+                    await this.dataProvider.UpdateEventAsync(entity);
+                }
+
+                return model;
             }
 
             return null;

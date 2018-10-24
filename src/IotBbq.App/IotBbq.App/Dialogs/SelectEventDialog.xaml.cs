@@ -24,7 +24,7 @@ namespace IotBbq.App.Dialogs
     {
         public static readonly DependencyProperty ExistingEventsProperty = DependencyProperty.Register(
             "ExistingEvents",
-            typeof(List<BbqEvent>),
+            typeof(IList<BbqEvent>),
             typeof(SelectEventDialog),
             null);
 
@@ -34,6 +34,9 @@ namespace IotBbq.App.Dialogs
             typeof(SelectEventDialog),
             null);
 
+        private readonly Lazy<IBbqDataProvider> dataProvider = new Lazy<IBbqDataProvider>(
+            () => ServiceLocator.Current.GetInstance<IBbqDataProvider>());
+
         public SelectEventDialog()
         {
             this.InitializeComponent();
@@ -41,9 +44,9 @@ namespace IotBbq.App.Dialogs
             this.Loaded += this.OnLoaded;
         }
 
-        public List<BbqEvent> ExistingEvents
+        public IList<BbqEvent> ExistingEvents
         {
-            get => (List<BbqEvent>)this.GetValue(ExistingEventsProperty);
+            get => (IList<BbqEvent>)this.GetValue(ExistingEventsProperty);
             set => this.SetValue(ExistingEventsProperty, value);
         }
 
@@ -53,12 +56,9 @@ namespace IotBbq.App.Dialogs
             set => this.SetValue(SelectedEventProperty, value);
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            using (var context = new IotBbqContext())
-            {
-                this.ExistingEvents = context.Events.ToList();
-            }
+            this.ExistingEvents = await this.dataProvider.Value.GetAllEventsAsync();
         }
     }
 }

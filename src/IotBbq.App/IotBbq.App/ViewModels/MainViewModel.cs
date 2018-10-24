@@ -29,17 +29,20 @@ namespace IotBbq.App.ViewModels
         private readonly IEventSelectionService eventSelectionService;
 
         private readonly ISmokerSettingsManager smokerSettingsManager;
+        private readonly IBbqDataProvider dataProvider;
 
         public MainViewModel(
             IAlarmService alarmService,
             IItemEditorService itemEditor,
             IEventSelectionService eventSelectionService,
-            ISmokerSettingsManager smokerSettingsManager)
+            ISmokerSettingsManager smokerSettingsManager,
+            IBbqDataProvider dataProvider)
         {
             this.alarmService = alarmService;
             this.itemEditor = itemEditor;
             this.eventSelectionService = eventSelectionService;
             this.smokerSettingsManager = smokerSettingsManager;
+            this.dataProvider = dataProvider;
             this.SilenceCommand = new RelayCommand(this.SilenceCommand_Execute, this.SilenceCommand_CanExecute);
             this.AddItemCommand = new RelayCommand(this.AddItemCommand_Execute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommand_Execute);
@@ -131,14 +134,11 @@ namespace IotBbq.App.ViewModels
             this.CurrentEvent = await this.eventSelectionService.SelectEventAsync();
 
             // Populate the Items for the event
-            using (var context = new IotBbqContext())
+            foreach (var item in await this.dataProvider.GetItemsForEventAsync(this.CurrentEvent.Id))
             {
-                foreach (var item in context.Items.Where(i => i.BbqEventId == this.CurrentEvent.Id).ToList())
-                {
-                    BbqItemViewModel vm = new BbqItemViewModel();
-                    vm.Load(item);
-                    this.Items.Add(vm);
-                }
+                BbqItemViewModel vm = new BbqItemViewModel();
+                vm.Load(item);
+                this.Items.Add(vm);
             }
         }
 

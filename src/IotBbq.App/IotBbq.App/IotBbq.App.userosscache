@@ -28,3 +28,6 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\SmokerSetti
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\SmokerSettingsManager.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Dialogs\SmokerSettingsDialog.xaml
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Converters\TextToDoubleConverter.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IBbqDataProvider.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\AsyncLock.cs
+ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\BbqDataProvider.cs

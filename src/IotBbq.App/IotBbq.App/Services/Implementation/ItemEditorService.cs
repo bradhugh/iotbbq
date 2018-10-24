@@ -11,6 +11,13 @@ namespace IotBbq.App.Services.Implementation
 {
     public class ItemEditorService : IItemEditorService
     {
+        private readonly IBbqDataProvider dataProvider;
+
+        public ItemEditorService(IBbqDataProvider dataProvider)
+        {
+            this.dataProvider = dataProvider;
+        }
+
         public async Task<BbqItemViewModel> EditItemAsync(Guid eventId, BbqItemViewModel input)
         {
             bool isNew = false;
@@ -32,21 +39,16 @@ namespace IotBbq.App.Services.Implementation
             if (result == ContentDialogResult.Primary)
             {
                 // Save item to database
-                using (var context = new IotBbqContext())
+                var item = new BbqItem();
+                item.Load(model);
+
+                if (isNew)
                 {
-                    var item = new BbqItem();
-                    item.Load(model);
-
-                    if (isNew)
-                    {
-                        context.Items.Add(item);
-                    }
-                    else
-                    {
-                        context.Items.Update(item);
-                    }
-
-                    await context.SaveChangesAsync();
+                    await this.dataProvider.InsertItemAsync(item);
+                }
+                else
+                {
+                    await this.dataProvider.UpdateItemAsync(item);
                 }
 
                 return dialog.Item;

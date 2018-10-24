@@ -4,6 +4,7 @@ namespace IotBbq.App.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace IotBbq.App.ViewModels
     using GalaSoft.MvvmLight.Ioc;
     using IotBbq.App.Services;
     using IotBbq.Model;
+    using Windows.Storage.Pickers;
     using Windows.UI;
     using Windows.UI.Xaml.Media;
 
@@ -58,6 +60,7 @@ namespace IotBbq.App.ViewModels
             this.AddItemCommand = new RelayCommand(this.AddItemCommand_Execute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommand_Execute);
             this.EditItemCommand = new RelayCommand(this.EditItemCommand_Execute);
+            this.ExportCommand = new RelayCommand(this.ExportCommand_Execute);
 
             this.alarmService.AlarmStateChanged += this.OnAlarmStateChanged;
 
@@ -204,6 +207,8 @@ namespace IotBbq.App.ViewModels
 
         public ICommand EditItemCommand { get; private set; }
 
+        public ICommand ExportCommand { get; private set; }
+
         /// <summary>
         /// Gets or sets the turn in time
         /// </summary>
@@ -230,6 +235,40 @@ namespace IotBbq.App.ViewModels
         private void SilenceCommand_Execute()
         {
             this.alarmService.Silence();
+        }
+
+        private async void ExportCommand_Execute()
+        {
+            var localEvent = this.CurrentEvent;
+            if (localEvent == null)
+            {
+                return;
+            }
+
+            // TODO: Probably eventually move this into a service
+            var picker = new FolderPicker();
+            picker.CommitButtonText = "Export";
+            picker.FileTypeFilter.Add("*");
+
+            var exportFolder = await picker.PickSingleFolderAsync();
+
+            // Create export file
+            string fileName = $"ItemLog_{localEvent.EventName}_{DateTime.Now:yyyy-MM-dd_HHmmss}.csv";
+            var exportFile = await exportFolder.CreateFileAsync(fileName);
+
+            using (var fs = await exportFile.OpenStreamForWriteAsync())
+            using (var writer = new StreamWriter(fs))
+            {
+                var items = await this.dataProvider.GetItemsForEventAsync(localEvent.Id);
+                foreach (var item in items)
+                {
+                    var logs = await this.dataProvider.GetLogsForItemAsync(item.Id);
+                    foreach (var log in logs)
+                    {
+                        await writer.WriteLineAsync($"{log.Id},{log.Timestamp},{log.BbqItemId},{log.ItemName},{log.Temperature},{log.CurrentPhase},{log.Thermometer}");
+                    }
+                }
+            }  
         }
     }
 }

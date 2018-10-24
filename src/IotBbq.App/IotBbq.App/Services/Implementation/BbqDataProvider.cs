@@ -106,5 +106,13 @@ namespace IotBbq.App.Services.Implementation
                 return bbqItemLog;
             }
         }
+
+        public async Task<IList<BbqItemLog>> GetLogsForItemAsync(Guid itemId)
+        {
+            using (await this.dbLock.LockAsync())
+            {
+                return this.context.ItemLogs.Where(l => l.BbqItemId == itemId).ToList();
+            }
+        }
     }
 }

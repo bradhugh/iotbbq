@@ -9,8 +9,6 @@ namespace IotBbq.Model
     {
         public DateTime Timestamp { get; set; }
 
-        public BbqItem BbqItem { get; set; }
-
         public Guid BbqItemId { get; set; }
 
         public string ItemName { get; set; }
@@ -20,5 +18,7 @@ namespace IotBbq.Model
         public int Thermometer { get; set; }
 
         public string CurrentPhase { get; set; }
+
+        public BbqItem BbqItem { get; set; }
     }
 }

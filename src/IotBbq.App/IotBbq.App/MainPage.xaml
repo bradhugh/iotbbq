@@ -30,11 +30,14 @@
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Command="{Binding AddItemCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock FontSize="50" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-10,0,0">+</TextBlock></Button>
-            <Button Grid.Column="1" Command="{Binding SilenceCommand}" Background="{Binding SilenceButtonBackgroundBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">SILENCE!!</Button>
+                <TextBlock FontSize="50" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-10,0,0">+</TextBlock>
+            </Button>
+            <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  FontSize="20" FontWeight="Bold" Command="{Binding ExportCommand}">EXP</Button>
+            <Button Grid.Column="2" FontSize="24" FontWeight="Bold" Command="{Binding SilenceCommand}" Background="{Binding SilenceButtonBackgroundBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">SILENCE!!</Button>
         </Grid>
         <controls:CountdownTimer Grid.Row="0" Grid.Column="2" DueTime="{Binding CurrentEvent.TurnInTime.LocalDateTime}" TimerEnabled="True" />
         <controls:EventInfoControl Grid.Row="0" Grid.Column="3" EventName="{Binding CurrentEvent.EventName}" />

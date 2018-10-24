@@ -16,6 +16,7 @@ namespace IotBbq.App.ViewModels
     using IotBbq.Model;
     using Windows.Storage.Pickers;
     using Windows.UI;
+    using Windows.UI.Popups;
     using Windows.UI.Xaml.Media;
 
     public class MainViewModel : ViewModelBase
@@ -252,14 +253,19 @@ namespace IotBbq.App.ViewModels
 
             var exportFolder = await picker.PickSingleFolderAsync();
 
+            var items = await this.dataProvider.GetItemsForEventAsync(localEvent.Id);
+
             // Create export file
-            string fileName = $"ItemLog_{localEvent.EventName}_{DateTime.Now:yyyy-MM-dd_HHmmss}.csv";
+            DateTime now = DateTime.Now;
+
+            string fileName = $"ItemLog_{localEvent.EventName}_{now:yyyy-MM-dd_HHmmss}.csv";
             var exportFile = await exportFolder.CreateFileAsync(fileName);
 
             using (var fs = await exportFile.OpenStreamForWriteAsync())
             using (var writer = new StreamWriter(fs))
             {
-                var items = await this.dataProvider.GetItemsForEventAsync(localEvent.Id);
+                await writer.WriteLineAsync("ItemLogId,Timestamp,BbqItemId,ItemName,Temperature,CurrentPhase,Thermometer");
+
                 foreach (var item in items)
                 {
                     var logs = await this.dataProvider.GetLogsForItemAsync(item.Id);
@@ -268,7 +274,35 @@ namespace IotBbq.App.ViewModels
                         await writer.WriteLineAsync($"{log.Id},{log.Timestamp},{log.BbqItemId},{log.ItemName},{log.Temperature},{log.CurrentPhase},{log.Thermometer}");
                     }
                 }
-            }  
+            }
+
+            fileName = $"Items_{localEvent.EventName}_{now:yyyy-MM-dd_HHmmss}.csv";
+            exportFile = await exportFolder.CreateFileAsync(fileName);
+
+            using (var fs = await exportFile.OpenStreamForWriteAsync())
+            using (var writer = new StreamWriter(fs))
+            {
+                await writer.WriteLineAsync("ItemId,BbqEventId,Name,ItemType,CurrentPhase,Weight,TargetTemperature,CookStartTime,ThermometerIndex");
+                foreach (var item in items)
+                {
+                    await writer.WriteLineAsync($"{item.Id},{item.BbqEventId},{item.Name},{item.ItemType},{item.CurrentPhase},{item.Weight},{item.TargetTemperature},{item.CookStartTime},{item.ThermometerIndex}");
+                }
+            }
+
+            fileName = $"Events_{localEvent.EventName}_{now:yyyy-MM-dd_HHmmss}.csv";
+            exportFile = await exportFolder.CreateFileAsync(fileName);
+
+            var dbEvent = await this.dataProvider.GetEventByIdAsync(localEvent.Id);
+
+            using (var fs = await exportFile.OpenStreamForWriteAsync())
+            using (var writer = new StreamWriter(fs))
+            {
+                await writer.WriteLineAsync("EventId,EventDate,EventName,TurnInTime");
+                await writer.WriteLineAsync($"{dbEvent.Id},{dbEvent.EventDate},{dbEvent.EventName},{dbEvent.TurnInTime}");
+            }
+
+            var md = new MessageDialog("Export complete");
+            await md.ShowAsync();
         }
     }
 }

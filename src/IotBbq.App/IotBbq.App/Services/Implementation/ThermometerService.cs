@@ -10,6 +10,7 @@ namespace IotBbq.App.Services.Implementation
     using IotBbq.App.Mcp3008;
     using Windows.Devices.Spi;
     using System.Diagnostics;
+    using Microsoft.EntityFrameworkCore.Internal;
 
     public class ThermometerService : IThermometerService
     {
@@ -18,6 +19,8 @@ namespace IotBbq.App.Services.Implementation
         private const double BalancingResistorOhms = 100000;
 
         private Task initTask;
+
+        private AsyncLock thermometerLock = new AsyncLock();
 
         private struct CoefficientSet
         {
@@ -74,23 +77,26 @@ namespace IotBbq.App.Services.Implementation
                 throw new IndexOutOfRangeException("Index must be from 0-7");
             }
 
-            await this.initTask;
+            using (await this.thermometerLock.LockAsync())
+            {
+                await this.initTask;
 
-            var reading = this.mcp.Read(Channels[index]);
-            Debug.WriteLine($"Reading for thermometer {index} is {reading.RawValue}, Normalized: {reading.NormalizedValue}");
+                var reading = this.mcp.Read(Channels[index]);
+                Debug.WriteLine($"Reading for thermometer {index} is {reading.RawValue}, Normalized: {reading.NormalizedValue}");
 
-            double voltage = reading.RawValue * InputVoltage;
-            double resistance = TempUtils.GetThermistorResistenceFromVoltage(3.3, voltage, BalancingResistorOhms);
-            Debug.WriteLine($"Got Resistance {resistance} from voltage {voltage}");
+                double voltage = reading.RawValue * InputVoltage;
+                double resistance = TempUtils.GetThermistorResistenceFromVoltage(3.3, voltage, BalancingResistorOhms);
+                Debug.WriteLine($"Got Resistance {resistance} from voltage {voltage}");
 
-            CoefficientSet coefficients = Coefficients[0];
+                CoefficientSet coefficients = Coefficients[0];
 
-            var temps = new Temps();
-            temps.Kelvin = TempUtils.ResistanceToTemp(coefficients.A, coefficients.B, coefficients.C, resistance);
-            temps.Celcius = TempUtils.KelvinToCelcius(temps.Kelvin);
-            temps.Farenheight = TempUtils.CelciusToFarenheight(temps.Celcius);
+                var temps = new Temps();
+                temps.Kelvin = TempUtils.ResistanceToTemp(coefficients.A, coefficients.B, coefficients.C, resistance);
+                temps.Celcius = TempUtils.KelvinToCelcius(temps.Kelvin);
+                temps.Farenheight = TempUtils.CelciusToFarenheight(temps.Celcius);
 
-            return temps;
-    }
+                return temps;
+            }
+        }
     }
 }

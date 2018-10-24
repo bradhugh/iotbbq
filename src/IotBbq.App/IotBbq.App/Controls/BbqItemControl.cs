@@ -40,13 +40,21 @@ namespace IotBbq.App.Controls
             typeof(BbqItemControl),
             null);
 
+        private static readonly SolidColorBrush AlarmingBackgroundBrush = new SolidColorBrush(Colors.Red);
+
+        private static readonly SolidColorBrush NormalBackgroundBrush = new SolidColorBrush(Colors.White);
+
         private readonly Lazy<IThermometerService> thermometerService = new Lazy<IThermometerService>(() => ServiceLocator.Current.GetInstance<IThermometerService>());
 
         private readonly Lazy<IPhaseChooser> phaseChooser = new Lazy<IPhaseChooser>(() => ServiceLocator.Current.GetInstance<IPhaseChooser>());
 
         private readonly Lazy<IBbqDataProvider> dataProvider = new Lazy<IBbqDataProvider>(() => ServiceLocator.Current.GetInstance<IBbqDataProvider>());
 
+        private readonly Lazy<IAlarmService> alarmService = new Lazy<IAlarmService>(() => ServiceLocator.Current.GetInstance<IAlarmService>());
+
         private readonly DispatcherTimer tempRefreshTimer = new DispatcherTimer();
+
+        private bool isAlarming;
 
         public BbqItemControl()
         {
@@ -71,17 +79,34 @@ namespace IotBbq.App.Controls
 
                     if (this.Temperature.Farenheight >= this.Item.TargetTemperature)
                     {
-                        this.Background = new SolidColorBrush(Colors.Red);
+                        this.SetAlarmState();
                     }
                     else
                     {
-                        this.Background = new SolidColorBrush(Colors.White);
+                        this.ClearAlarmState();
                     }
                 },
                 TaskScheduler.FromCurrentSynchronizationContext());
             }
 
             this.Item?.RaiseCookStartTimeChanged();
+        }
+
+        private void ClearAlarmState()
+        {
+            this.isAlarming = false;
+            this.Background = NormalBackgroundBrush;
+        }
+
+        private void SetAlarmState()
+        {
+            if (!this.isAlarming)
+            {
+                this.isAlarming = true;
+                this.Background = AlarmingBackgroundBrush;
+
+                this.alarmService.Value.TriggerAlarm(AlarmPriority.Normal);
+            }
         }
 
         private async void ExecutePhaseCommand()

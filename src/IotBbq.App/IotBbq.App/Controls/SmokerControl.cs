@@ -26,6 +26,10 @@ namespace IotBbq.App.Controls
 
         private readonly Lazy<IThermometerService> thermometerService = new Lazy<IThermometerService>(() => ServiceLocator.Current.GetInstance<IThermometerService>());
 
+        private static readonly SolidColorBrush AlarmingBackgroundBrush = new SolidColorBrush(Colors.Red);
+
+        private static readonly SolidColorBrush NormalBackgroundBrush = new SolidColorBrush(Colors.White);
+
         public static readonly DependencyProperty SmokerSettingsProperty = DependencyProperty.Register(
             "SmokerSettings",
             typeof(SmokerSettings),
@@ -50,7 +54,11 @@ namespace IotBbq.App.Controls
             typeof(SmokerControl),
             null);
 
+        private readonly Lazy<IAlarmService> alarmService = new Lazy<IAlarmService>(() => ServiceLocator.Current.GetInstance<IAlarmService>());
+
         private readonly DispatcherTimer tempRefreshTimer = new DispatcherTimer();
+
+        private bool isAlarming;
 
         public SmokerControl()
         {
@@ -81,14 +89,31 @@ namespace IotBbq.App.Controls
                 if (this.Temperature.Farenheight >= this.SmokerSettings.HighGate
                     || this.Temperature.Farenheight < this.SmokerSettings.LowGate)
                 {
-                    this.Background = new SolidColorBrush(Colors.Red);
+                    this.SetAlarmState();
                 }
                 else
                 {
-                    this.Background = new SolidColorBrush(Colors.White);
+                    this.ClearAlarmState();
                 }
             },
             TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private void ClearAlarmState()
+        {
+            this.isAlarming = false;
+            this.Background = NormalBackgroundBrush;
+        }
+
+        private void SetAlarmState()
+        {
+            if (!this.isAlarming)
+            {
+                this.isAlarming = true;
+                this.Background = AlarmingBackgroundBrush;
+
+                this.alarmService.Value.TriggerAlarm(AlarmPriority.Normal);
+            }
         }
 
         public SmokerSettings SmokerSettings

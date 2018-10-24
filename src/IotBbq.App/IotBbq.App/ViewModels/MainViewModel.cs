@@ -13,6 +13,8 @@ namespace IotBbq.App.ViewModels
     using GalaSoft.MvvmLight.Ioc;
     using IotBbq.App.Services;
     using IotBbq.Model;
+    using Windows.UI;
+    using Windows.UI.Xaml.Media;
 
     public class MainViewModel : ViewModelBase
     {
@@ -24,12 +26,17 @@ namespace IotBbq.App.ViewModels
 
         private BbqItemViewModel selectedItem;
 
+        private Brush silenceButtonBackgroundBrush;
+
         private readonly IItemEditorService itemEditor;
 
         private readonly IEventSelectionService eventSelectionService;
 
         private readonly ISmokerSettingsManager smokerSettingsManager;
+
         private readonly IBbqDataProvider dataProvider;
+
+        private static readonly SolidColorBrush AlarmingBackgroundBrush = new SolidColorBrush(Colors.Red);
 
         public MainViewModel(
             IAlarmService alarmService,
@@ -174,6 +181,12 @@ namespace IotBbq.App.ViewModels
             set => this.Set(() => this.SelectedItem, ref this.selectedItem, value);
         }
 
+        public Brush SilenceButtonBackgroundBrush
+        {
+            get => this.silenceButtonBackgroundBrush;
+            set => this.Set(() => this.SilenceButtonBackgroundBrush, ref this.silenceButtonBackgroundBrush, value);
+        }
+
         public ObservableCollection<BbqItemViewModel> Items { get; set; } = new ObservableCollection<BbqItemViewModel>();
 
         public ICommand SilenceCommand { get; private set; }
@@ -192,6 +205,14 @@ namespace IotBbq.App.ViewModels
         private void OnAlarmStateChanged(object sender, bool e)
         {
             ((RelayCommand)this.SilenceCommand).RaiseCanExecuteChanged();
+            if (this.alarmService.IsAlarming)
+            {
+                this.SilenceButtonBackgroundBrush = AlarmingBackgroundBrush;
+            }
+            else
+            {
+                this.SilenceButtonBackgroundBrush = null;
+            }
         }
 
         private bool SilenceCommand_CanExecute()

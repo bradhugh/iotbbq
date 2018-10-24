@@ -10,6 +10,11 @@
     Width="800"
     Height="480"
     DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Page.Resources>
+        <ItemsPanelTemplate x:Key="GridViewItemsPanel1">
+            <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3"/>
+        </ItemsPanelTemplate>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -33,7 +38,7 @@
         </Grid>
         <controls:CountdownTimer Grid.Row="0" Grid.Column="2" DueTime="{Binding CurrentEvent.TurnInTime.LocalDateTime}" TimerEnabled="True" />
         <controls:EventInfoControl Grid.Row="0" Grid.Column="3" EventName="{Binding CurrentEvent.EventName}" />
-        <GridView Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3"
+        <GridView ItemsPanel="{StaticResource GridViewItemsPanel1}" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3"
                   ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                   BorderBrush="Black" BorderThickness="1">
             <GridView.ItemTemplate>

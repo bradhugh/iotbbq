@@ -38,13 +38,17 @@
                   BorderBrush="Black" BorderThickness="1">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <controls:BbqItemControl Item="{Binding}" Width="200" Height="200"  />
+                    <controls:BbqItemControl Item="{Binding}" Width="195" Height="195"  />
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-        <controls:SmokerControl Grid.Row="1" Grid.Column="3" SmokerSettings="{Binding SmokerSettings, Mode=TwoWay}" ThermometerIndex="6" />
+        <Border Grid.Row="1" Grid.Column="3" Margin="0,0,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="2">
+            <controls:SmokerControl SmokerSettings="{Binding SmokerSettings, Mode=TwoWay}" ThermometerIndex="6" />
+        </Border>
 
-        <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                Command="{Binding EditItemCommand}">Settings</Button>
+        <Border Grid.Row="2" Grid.Column="3" Margin="0,0,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="2">
+            <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20"
+                    Command="{Binding EditItemCommand}">Edit Item</Button>
+        </Border>
     </Grid>
 </Page>

@@ -48,6 +48,66 @@ namespace IotBbq.App.ViewModels
             this.alarmService.AlarmStateChanged += this.OnAlarmStateChanged;
 
             this.TurnInTime = DateTime.Now.AddDays(1);
+
+            if (this.IsInDesignMode)
+            {
+                this.SetDesignData();
+            }
+        }
+
+        private void SetDesignData()
+        {
+            this.CurrentEvent = new BbqEventViewModel
+            {
+                EventDate = DateTime.Today,
+                EventName = "Design event",
+                TurnInTime = DateTime.Now.AddHours(1)
+            };
+
+            this.Items.Add(new BbqItemViewModel
+            {
+                BbqEventId = this.CurrentEvent.Id,
+                Name = "Butt 1",
+                TargetTemperature = 110,
+                ThermometerIndex = 0,
+                Weight = 1.5
+            });
+
+            this.Items.Add(new BbqItemViewModel
+            {
+                BbqEventId = this.CurrentEvent.Id,
+                Name = "Butt 2",
+                TargetTemperature = 110,
+                ThermometerIndex = 0,
+                Weight = 1.5
+            });
+
+            this.Items.Add(new BbqItemViewModel
+            {
+                BbqEventId = this.CurrentEvent.Id,
+                Name = "Butt 3",
+                TargetTemperature = 110,
+                ThermometerIndex = 0,
+                Weight = 1.5
+            });
+
+            this.Items.Add(new BbqItemViewModel
+            {
+                BbqEventId = this.CurrentEvent.Id,
+                Name = "Butt 4",
+                TargetTemperature = 110,
+                ThermometerIndex = 0,
+                Weight = 1.5
+            });
+
+            this.Items.Add(new BbqItemViewModel
+            {
+                BbqEventId = this.CurrentEvent.Id,
+                Name = "Butt 5",
+                TargetTemperature = 110,
+                ThermometerIndex = 0,
+                Weight = 1.5
+            });
         }
 
         private async void EditItemCommand_Execute()

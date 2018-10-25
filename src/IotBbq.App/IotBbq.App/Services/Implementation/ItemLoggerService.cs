@@ -52,7 +52,16 @@ namespace IotBbq.App.Services.Implementation
 
                 // Now get the thermometer reading
                 var temps = await this.thermometerService.ReadThermometer(item.ThermometerIndex);
-                log.Temperature = temps.Farenheight;
+
+                // Handle the scenarios where the thermometer is reading bad values
+                if (double.IsNaN(temps.Farenheight) || double.IsInfinity(temps.Farenheight))
+                {
+                    log.Temperature = -1;
+                }
+                else
+                {
+                    log.Temperature = temps.Farenheight;
+                }
 
                 // Now do the insert
                 await this.dataProvider.InsertItemLogAsync(log);

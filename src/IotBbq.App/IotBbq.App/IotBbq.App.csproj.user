@@ -13,7 +13,7 @@
     <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <UseEmulator>false</UseEmulator>
-    <RemoteDebugMachine>heimdall</RemoteDebugMachine>
+    <RemoteDebugMachine>192.168.0.238</RemoteDebugMachine>
     <AuthenticationMode>Universal</AuthenticationMode>
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
   </PropertyGroup>

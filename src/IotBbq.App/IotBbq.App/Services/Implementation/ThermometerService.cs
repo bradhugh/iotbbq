@@ -84,14 +84,22 @@ namespace IotBbq.App.Services.Implementation
                 var reading = this.mcp.Read(Channels[index]);
                 Debug.WriteLine($"Reading for thermometer {index} is {reading.RawValue}, Normalized: {reading.NormalizedValue}");
 
-                double voltage = reading.RawValue * InputVoltage;
+                double voltage = reading.NormalizedValue * InputVoltage;
                 double resistance = TempUtils.GetThermistorResistenceFromVoltage(3.3, voltage, BalancingResistorOhms);
                 Debug.WriteLine($"Got Resistance {resistance} from voltage {voltage}");
 
                 CoefficientSet coefficients = Coefficients[0];
 
                 var temps = new Temps();
-                temps.Kelvin = TempUtils.ResistanceToTemp(coefficients.A, coefficients.B, coefficients.C, resistance);
+                if (double.IsInfinity(resistance))
+                {
+                    temps.Kelvin = 0;
+                }
+                else
+                {
+                    temps.Kelvin = TempUtils.ResistanceToTemp(coefficients.A, coefficients.B, coefficients.C, resistance);
+                }
+
                 temps.Celcius = TempUtils.KelvinToCelcius(temps.Kelvin);
                 temps.Farenheight = TempUtils.CelciusToFarenheight(temps.Celcius);
 

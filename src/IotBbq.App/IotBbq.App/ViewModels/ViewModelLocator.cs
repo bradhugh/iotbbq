@@ -24,8 +24,14 @@ namespace IotBbq.App.ViewModels
         {
             DispatcherHelper.Initialize();
 
+#if ARM_IOT
+            SimpleIoc.Default.Register<IThermometerService, ThermometerService>();
+            SimpleIoc.Default.Register<IAlarmService, AlarmService>();
+#else
             SimpleIoc.Default.Register<IThermometerService, DesignThermometerService>();
             SimpleIoc.Default.Register<IAlarmService, DesignAlarmService>();
+#endif
+
             SimpleIoc.Default.Register<IPhaseChooser, PhaseChooserService>();
             SimpleIoc.Default.Register<IItemEditorService, ItemEditorService>();
             SimpleIoc.Default.Register<IEventEditorService, EventEditorService>();

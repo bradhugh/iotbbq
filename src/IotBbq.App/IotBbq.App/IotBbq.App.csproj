@@ -132,6 +132,7 @@
     <Compile Include="Services\IItemLoggerService.cs" />
     <Compile Include="Services\Implementation\BbqDataProvider.cs" />
     <Compile Include="Services\Implementation\FolderPickerService.cs" />
+    <Compile Include="Services\Implementation\IotExportFolderPickerService.cs" />
     <Compile Include="Services\Implementation\ItemLoggerService.cs" />
     <Compile Include="Services\Implementation\SmokerSettingsManager.cs" />
     <Compile Include="Services\SmokerSettings.cs" />

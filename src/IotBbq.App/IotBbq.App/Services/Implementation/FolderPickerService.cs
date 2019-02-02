@@ -12,7 +12,7 @@ namespace IotBbq.App.Services.Implementation
 
     public class FolderPickerService : IExportFolderPickerService
     {
-        public async Task<StorageFolder> PickFolderAsync()
+        public async Task<StorageFolder> PickFolderAsync(string eventName, DateTime timestamp)
         {
             var picker = new FolderPicker();
             picker.CommitButtonText = "Export";

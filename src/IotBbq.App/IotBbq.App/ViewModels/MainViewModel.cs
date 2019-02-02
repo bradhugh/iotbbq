@@ -250,13 +250,18 @@ namespace IotBbq.App.ViewModels
                 return;
             }
 
-            var exportFolder = await this.folderPicker.PickFolderAsync();            
+            DateTime now = DateTime.Now;
+            var exportFolder = await this.folderPicker.PickFolderAsync(localEvent.EventName, now);
+            if (exportFolder == null)
+            {
+                var dialog = new MessageDialog("Sorry, no export folder selected");
+                await dialog.ShowAsync();
+                return;
+            }
 
             var items = await this.dataProvider.GetItemsForEventAsync(localEvent.Id);
 
             // Create export file
-            DateTime now = DateTime.Now;
-
             string fileName = $"ItemLog_{localEvent.EventName}_{now:yyyy-MM-dd_HHmmss}.csv";
             var exportFile = await exportFolder.CreateFileAsync(fileName);
 

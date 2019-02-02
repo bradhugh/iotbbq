@@ -9,6 +9,6 @@ namespace IotBbq.App.Services
 {
     public interface IExportFolderPickerService
     {
-        Task<StorageFolder> PickFolderAsync();
+        Task<StorageFolder> PickFolderAsync(string eventName, DateTime timestamp);
     }
 }

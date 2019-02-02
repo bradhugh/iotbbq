@@ -20,6 +20,17 @@
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="iotbbqfile">
+            <uap:DisplayName>IotBbq File</uap:DisplayName>
+            <uap:EditFlags OpenIsSafe="true" AlwaysUnsafe="true" />
+            <uap:SupportedFileTypes>
+              <uap:FileType>.csv</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

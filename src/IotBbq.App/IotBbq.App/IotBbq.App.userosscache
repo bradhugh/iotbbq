@@ -35,3 +35,4 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IItemLogger
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\ItemLoggerService.cs
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\IExportFolderPickerService.cs
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\FolderPickerService.cs
+ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\IotExportPickerService.cs

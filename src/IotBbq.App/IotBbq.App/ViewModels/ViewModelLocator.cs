@@ -27,10 +27,12 @@ namespace IotBbq.App.ViewModels
 #if ARM_IOT
             SimpleIoc.Default.Register<IThermometerService, ThermometerService>();
             SimpleIoc.Default.Register<IAlarmService, AlarmService>();
+            SimpleIoc.Default.Register<IExportFolderPickerService, IotExportFolderPickerService>();
 #else
             SimpleIoc.Default.Register<IThermometerService, DesignThermometerService>();
             SimpleIoc.Default.Register<IAlarmService, DesignAlarmService>();
-            SimpleIoc.Default.Register<IExportFolderPickerService, FolderPickerService>();
+            SimpleIoc.Default.Register<IExportFolderPickerService, IotExportFolderPickerService>();
+            // SimpleIoc.Default.Register<IExportFolderPickerService, FolderPickerService>();
 #endif
             SimpleIoc.Default.Register<IPhaseChooser, PhaseChooserService>();
             SimpleIoc.Default.Register<IItemEditorService, ItemEditorService>();

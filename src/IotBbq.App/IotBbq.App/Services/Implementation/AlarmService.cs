@@ -37,6 +37,9 @@ namespace IotBbq.App.Services.Implementation
 
             this.pinToBuzz = this.gpio.OpenPin(16, GpioSharingMode.Exclusive);
             this.pinToBuzz.SetDriveMode(GpioPinDriveMode.Output);
+
+            // Make sure we start low
+            this.pinToBuzz.Write(GpioPinValue.Low);
         }
 
         private void OnAlarmTimerTick(object state)

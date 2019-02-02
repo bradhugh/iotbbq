@@ -6,7 +6,7 @@
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
     <AuthenticationMode>Universal</AuthenticationMode>
     <CreateCleanLayout>false</CreateCleanLayout>
-    <RemoteDebugMachine>192.168.0.238</RemoteDebugMachine>
+    <RemoteDebugMachine>192.168.0.105</RemoteDebugMachine>
     <DeployOptionalPackages>true</DeployOptionalPackages>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">

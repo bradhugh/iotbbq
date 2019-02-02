@@ -41,6 +41,8 @@ namespace IotBbq.App.ViewModels
 
         private readonly IItemLoggerService loggerService;
 
+        private readonly IExportFolderPickerService folderPicker;
+
         private static readonly SolidColorBrush AlarmingBackgroundBrush = new SolidColorBrush(Colors.Red);
 
         public MainViewModel(
@@ -49,7 +51,8 @@ namespace IotBbq.App.ViewModels
             IEventSelectionService eventSelectionService,
             ISmokerSettingsManager smokerSettingsManager,
             IBbqDataProvider dataProvider,
-            IItemLoggerService loggerService)
+            IItemLoggerService loggerService,
+            IExportFolderPickerService folderPicker)
         {
             this.alarmService = alarmService;
             this.itemEditor = itemEditor;
@@ -57,6 +60,7 @@ namespace IotBbq.App.ViewModels
             this.smokerSettingsManager = smokerSettingsManager;
             this.dataProvider = dataProvider;
             this.loggerService = loggerService;
+            this.folderPicker = folderPicker;
             this.SilenceCommand = new RelayCommand(this.SilenceCommand_Execute, this.SilenceCommand_CanExecute);
             this.AddItemCommand = new RelayCommand(this.AddItemCommand_Execute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommand_Execute);
@@ -246,12 +250,7 @@ namespace IotBbq.App.ViewModels
                 return;
             }
 
-            // TODO: Probably eventually move this into a service
-            var picker = new FolderPicker();
-            picker.CommitButtonText = "Export";
-            picker.FileTypeFilter.Add("*");
-
-            var exportFolder = await picker.PickSingleFolderAsync();
+            var exportFolder = await this.folderPicker.PickFolderAsync();            
 
             var items = await this.dataProvider.GetItemsForEventAsync(localEvent.Id);
 

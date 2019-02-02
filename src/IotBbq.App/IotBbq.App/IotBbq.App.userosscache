@@ -33,3 +33,5 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\AsyncLock.c
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\BbqDataProvider.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\IItemLoggerService.cs
 ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\ItemLoggerService.cs
+ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\IExportFolderPickerService.cs
+ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\FolderPickerService.cs

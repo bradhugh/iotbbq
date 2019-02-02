@@ -30,8 +30,8 @@ namespace IotBbq.App.ViewModels
 #else
             SimpleIoc.Default.Register<IThermometerService, DesignThermometerService>();
             SimpleIoc.Default.Register<IAlarmService, DesignAlarmService>();
+            SimpleIoc.Default.Register<IExportFolderPickerService, FolderPickerService>();
 #endif
-
             SimpleIoc.Default.Register<IPhaseChooser, PhaseChooserService>();
             SimpleIoc.Default.Register<IItemEditorService, ItemEditorService>();
             SimpleIoc.Default.Register<IEventEditorService, EventEditorService>();

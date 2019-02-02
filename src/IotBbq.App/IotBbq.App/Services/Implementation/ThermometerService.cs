@@ -82,11 +82,11 @@ namespace IotBbq.App.Services.Implementation
                 await this.initTask;
 
                 var reading = this.mcp.Read(Channels[index]);
-                Debug.WriteLine($"Reading for thermometer {index} is {reading.RawValue}, Normalized: {reading.NormalizedValue}");
+                //Debug.WriteLine($"Reading for thermometer {index} is {reading.RawValue}, Normalized: {reading.NormalizedValue}");
 
                 double voltage = reading.NormalizedValue * InputVoltage;
                 double resistance = TempUtils.GetThermistorResistenceFromVoltage(3.3, voltage, BalancingResistorOhms);
-                Debug.WriteLine($"Got Resistance {resistance} from voltage {voltage}");
+                //Debug.WriteLine($"Got Resistance {resistance} from voltage {voltage}");
 
                 CoefficientSet coefficients = Coefficients[0];
 

@@ -27,7 +27,7 @@ namespace IotBbq.App.Services.Implementation
             do
             {
                 var result = await selectDialog.ShowAsync();
-                if (result == ContentDialogResult.Primary)
+                if (result == ContentDialogResult.Primary && selectDialog.SelectedEvent != null)
                 {
                     selectedEvent = new BbqEventViewModel();
                     selectedEvent.Load(selectDialog.SelectedEvent);

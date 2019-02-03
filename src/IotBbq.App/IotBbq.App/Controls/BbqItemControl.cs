@@ -73,7 +73,7 @@ namespace IotBbq.App.Controls
             int? thermometerIndex = this.Item?.ThermometerIndex;
             if (thermometerIndex.HasValue)
             {
-                this.thermometerService.Value.ReadThermometer(thermometerIndex.Value).ContinueWith(t =>
+                this.thermometerService.Value.ReadThermometer(thermometerIndex.Value - 1).ContinueWith(t =>
                 {
                     this.Temperature = t.Result;
 

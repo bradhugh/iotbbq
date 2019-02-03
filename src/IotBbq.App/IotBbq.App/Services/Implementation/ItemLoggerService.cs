@@ -51,7 +51,7 @@ namespace IotBbq.App.Services.Implementation
                 };
 
                 // Now get the thermometer reading
-                var temps = await this.thermometerService.ReadThermometer(item.ThermometerIndex);
+                var temps = await this.thermometerService.ReadThermometer(item.ThermometerIndex - 1);
 
                 // Handle the scenarios where the thermometer is reading bad values
                 if (double.IsNaN(temps.Farenheight) || double.IsInfinity(temps.Farenheight))

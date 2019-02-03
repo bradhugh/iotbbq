@@ -47,7 +47,7 @@ namespace IotBbq.App.Dialogs
             this.ItemTypes = ItemDefinition.GetDefinitions();
 
             // Todo - be smarter about this.
-            this.AvailableThermometers = new[] { 0, 1, 2, 3, 4, 5 };
+            this.AvailableThermometers = new[] { 1, 2, 3, 4, 5, 6 };
 
             if (GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
             {

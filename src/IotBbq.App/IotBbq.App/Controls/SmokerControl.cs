@@ -60,13 +60,19 @@ namespace IotBbq.App.Controls
 
         private bool isAlarming;
 
+        private DateTime loadedTime;
+
         public SmokerControl()
         {
             this.DefaultStyleKey = typeof(SmokerControl);
 
             this.tempRefreshTimer.Interval = TimeSpan.FromSeconds(1);
             this.tempRefreshTimer.Tick += this.OnTempRefreshTimer;
-            this.Loaded += (s, e) => this.tempRefreshTimer.Start();
+            this.Loaded += (s, e) =>
+            {
+                this.tempRefreshTimer.Start();
+                this.loadedTime = DateTime.UtcNow;
+            };
 
             this.SmokerSettingsCommand = new RelayCommand(this.ExecuteSmokerSettingsCommand);
         }
@@ -82,14 +88,18 @@ namespace IotBbq.App.Controls
 
         private void OnTempRefreshTimer(object sender, object e)
         {
-            this.thermometerService.Value.ReadThermometer(this.ThermometerIndex).ContinueWith(t =>
+            this.thermometerService.Value.ReadThermometer(this.ThermometerIndex - 1).ContinueWith(t =>
             {
                 this.Temperature = t.Result;
 
                 if (this.Temperature.Farenheight >= this.SmokerSettings.HighGate
                     || this.Temperature.Farenheight < this.SmokerSettings.LowGate)
                 {
-                    this.SetAlarmState();
+                    // Only trigger the alarm if it's been five minutes
+                    if (DateTime.UtcNow - this.loadedTime > TimeSpan.FromMinutes(5))
+                    {
+                        this.SetAlarmState();
+                    }
                 }
                 else
                 {

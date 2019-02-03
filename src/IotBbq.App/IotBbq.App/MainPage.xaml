@@ -51,7 +51,7 @@
             </GridView.ItemTemplate>
         </GridView>
         <Border Grid.Row="1" Grid.Column="3" Margin="0,0,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="2">
-            <controls:SmokerControl SmokerSettings="{Binding SmokerSettings, Mode=TwoWay}" ThermometerIndex="6" />
+            <controls:SmokerControl SmokerSettings="{Binding SmokerSettings, Mode=TwoWay}" ThermometerIndex="7" />
         </Border>
 
         <Border Grid.Row="2" Grid.Column="3" Margin="0,0,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="2">

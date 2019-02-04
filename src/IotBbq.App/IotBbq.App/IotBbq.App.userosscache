@@ -36,3 +36,5 @@ ProjectItem:C:\sources\git\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementat
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\IExportFolderPickerService.cs
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\FolderPickerService.cs
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\IotExportPickerService.cs
+ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\LoggingService.cs
+ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\ILoggingService.cs

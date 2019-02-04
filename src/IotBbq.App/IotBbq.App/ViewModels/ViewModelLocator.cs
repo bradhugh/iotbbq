@@ -41,6 +41,7 @@ namespace IotBbq.App.ViewModels
             SimpleIoc.Default.Register<ISmokerSettingsManager, SmokerSettingsManager>();
             SimpleIoc.Default.Register<IBbqDataProvider, BbqDataProvider>();
             SimpleIoc.Default.Register<IItemLoggerService, ItemLoggerService>();
+            SimpleIoc.Default.Register<ILoggingService, LoggingService>();
 
             SimpleIoc.Default.Register<MainViewModel>();
 

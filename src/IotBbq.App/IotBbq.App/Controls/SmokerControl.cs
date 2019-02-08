@@ -66,7 +66,7 @@ namespace IotBbq.App.Controls
         {
             this.DefaultStyleKey = typeof(SmokerControl);
 
-            this.tempRefreshTimer.Interval = TimeSpan.FromSeconds(1);
+            this.tempRefreshTimer.Interval = TimeSpan.FromSeconds(5);
             this.tempRefreshTimer.Tick += this.OnTempRefreshTimer;
             this.Loaded += (s, e) =>
             {

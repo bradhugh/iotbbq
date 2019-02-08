@@ -64,7 +64,7 @@ namespace IotBbq.App.Controls
 
             this.PhaseCommand = new RelayCommand(this.ExecutePhaseCommand);
 
-            this.tempRefreshTimer.Interval = TimeSpan.FromSeconds(1);
+            this.tempRefreshTimer.Interval = TimeSpan.FromSeconds(5);
             this.tempRefreshTimer.Tick += this.OnTempRefreshTimer;
         }
 

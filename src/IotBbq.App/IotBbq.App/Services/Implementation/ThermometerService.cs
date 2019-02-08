@@ -11,6 +11,7 @@ namespace IotBbq.App.Services.Implementation
     using Windows.Devices.Spi;
     using System.Diagnostics;
     using Microsoft.EntityFrameworkCore.Internal;
+    using System.Threading;
 
     public class ThermometerService : IThermometerService
     {
@@ -81,10 +82,20 @@ namespace IotBbq.App.Services.Implementation
             {
                 await this.initTask;
 
-                var reading = this.mcp.Read(Channels[index]);
+                float sum = 0;
+                const int numSamples = 3;
+                for (int i = 0; i < numSamples; i++)
+                {
+                    var reading = this.mcp.Read(Channels[index]);
+                    sum += reading.NormalizedValue;
+                    await Task.Delay(100);
+                }
+
+                float averageValue = sum / numSamples;
+
                 //Debug.WriteLine($"Reading for thermometer {index} is {reading.RawValue}, Normalized: {reading.NormalizedValue}");
 
-                double voltage = reading.NormalizedValue * InputVoltage;
+                double voltage = averageValue * InputVoltage;
                 double resistance = TempUtils.GetThermistorResistenceFromVoltage(3.3, voltage, BalancingResistorOhms);
                 //Debug.WriteLine($"Got Resistance {resistance} from voltage {voltage}");
 

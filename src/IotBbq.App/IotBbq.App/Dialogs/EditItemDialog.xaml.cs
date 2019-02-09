@@ -60,6 +60,35 @@ namespace IotBbq.App.Dialogs
                     Weight = 8.2
                 };
             }
+
+            this.Closing += OnClosing;
+        }
+
+        private void OnClosing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        {
+            var item = this.Item;
+            if (item != null && args.Result == ContentDialogResult.Primary)
+            {
+                var validationResult = item.Validator.ValidateAll();
+                if (validationResult != null && !validationResult.IsValid)
+                {
+                    foreach (var error in validationResult.ErrorList)
+                    {
+                        string originalText = this.validationErrors.Text;
+
+                        if (!string.IsNullOrEmpty(originalText))
+                        {
+                            this.validationErrors.Text += Environment.NewLine;
+                        }
+
+                        this.validationErrors.Text += error.ErrorText;
+                    }
+
+                    // Show the error and don't allow the dialog to close
+                    this.validationErrors.Visibility = Visibility.Visible;
+                    args.Cancel = true;
+                }
+            }
         }
 
         public IList<ItemDefinition> ItemTypes

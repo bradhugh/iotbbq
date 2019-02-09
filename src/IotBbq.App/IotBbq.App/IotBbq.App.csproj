@@ -162,6 +162,7 @@
     <Compile Include="ViewModels\BbqEventViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ModelExtensions.cs" />
+    <Compile Include="ViewModels\ValidatingViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +221,9 @@
     </PackageReference>
     <PackageReference Include="MvvmLight">
       <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmValidation">
+      <Version>3.1.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

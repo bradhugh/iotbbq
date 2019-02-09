@@ -22,6 +22,7 @@
             <TextBox Text="{Binding Item.TargetTemperature, Mode=TwoWay}" />
             <TextBlock>Thermometer</TextBlock>
             <ComboBox ItemsSource="{Binding AvailableThermometers}" SelectedItem="{Binding Item.ThermometerIndex, Mode=TwoWay}" />
+            <TextBlock Name="validationErrors" Foreground="Red" Visibility="Collapsed" />
         </StackPanel>
     </Grid>
 </ContentDialog>

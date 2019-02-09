@@ -38,3 +38,4 @@ ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\Folder
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\IotExportPickerService.cs
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\LoggingService.cs
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\Services\Implementation\ILoggingService.cs
+ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.App\ViewModels\ValidatingViewModel.cs

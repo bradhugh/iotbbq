@@ -9,8 +9,9 @@ namespace IotBbq.App.ViewModels
     using GalaSoft.MvvmLight;
     using IotBbq.App.Services;
     using IotBbq.Model;
+    using MvvmValidation;
 
-    public class BbqItemViewModel : ViewModelBase
+    public class BbqItemViewModel : ValidatingViewModel
     {
         private Guid id = Guid.NewGuid();
 
@@ -29,6 +30,19 @@ namespace IotBbq.App.ViewModels
         private DateTime? cookStartTime;
 
         private ItemDefinition definition;
+
+        public BbqItemViewModel()
+        {
+            this.Validator.AddRule(nameof(this.Name), () => RuleResult.Assert(!string.IsNullOrEmpty(this.Name), "Name must be set"));
+
+            this.Validator.AddRule(nameof(this.Definition), () =>
+                RuleResult.Assert(this.Definition != null, "Item type must be selected!"));
+
+            this.Validator.AddRule(nameof(this.ThermometerIndex), () =>
+                RuleResult.Assert(this.ThermometerIndex > 0 && this.ThermometerIndex < 8, "Select a thermometer"));
+
+            this.Validator.ResultChanged += (s, args) => this.RaisePropertyChanged(nameof(this.HasErrors));
+        }
 
         public Guid Id
         {

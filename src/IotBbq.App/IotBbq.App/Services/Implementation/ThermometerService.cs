@@ -39,15 +39,24 @@ namespace IotBbq.App.Services.Implementation
         {
             // These coeificients calculated based on test results
             // 3-19-2018
-            // http://www.thinksrs.com/downloads/programs/Therm%20Calc/NTCCalibrator/NTCcalculator.htm
+            // https://www.thinksrs.com/downloads/programs/therm%20calc/ntccalibrator/ntccalculator.html
             // R1 293466 / T1 1.66C
             // R2  96358 / T2 23C
             // R3  42082 / T3 44.44C
+            //new CoefficientSet
+            //{
+            //    A = -1.373357407E-3,
+            //    B = 4.914938378E-4,
+            //    C = -5.890760444E-7,
+            //}
+
+            // When changing these values,
+            // don't forget the exponential notation!
             new CoefficientSet
             {
-                A = -1.373357407E-3,
-                B = 4.914938378E-4,
-                C = -5.890760444E-7,
+                A = 0.5037245563E-3,
+                B = 2.472223870E-4,
+                C = 0.07524447351E-7
             }
         };
 
@@ -82,7 +91,7 @@ namespace IotBbq.App.Services.Implementation
             {
                 await this.initTask;
 
-                float sum = 0;
+                double sum = 0;
                 const int numSamples = 3;
                 for (int i = 0; i < numSamples; i++)
                 {
@@ -91,7 +100,7 @@ namespace IotBbq.App.Services.Implementation
                     await Task.Delay(100);
                 }
 
-                float averageValue = sum / numSamples;
+                double averageValue = sum / numSamples;
 
                 //Debug.WriteLine($"Reading for thermometer {index} is {reading.RawValue}, Normalized: {reading.NormalizedValue}");
 

@@ -1,0 +1,14 @@
+<div class="container bbq-container">
+  <div class="btnBar">
+    <button id="btnAdd">Add</button>
+    <button id="btnExp">EXP</button>
+    <button id="btnSilence">Slience</button>
+  </div>
+  <div class="turnInCountdown"><app-countdown></app-countdown></div>
+  <div class="eventInfo">Event info</div>
+  <div class="bbq-item-container">
+      <app-bbq-item *ngFor="let item of items" [item]="item"></app-bbq-item>
+  </div>
+  <div class="smoker-monitor"><app-smoker></app-smoker></div>
+  <button id="btnEditItem">Edit Item</button>
+</div>

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IBbqEvent } from '../../services/BbqEvent';
+import { Observable, timer } from 'rxjs';
 
 @Component({
   selector: 'app-event-info',
@@ -6,6 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: [ './event-info.component.scss' ]
 })
 export class EventInfoComponent implements OnInit {
+
+  @Input() public event: IBbqEvent = null;
+
+  public currentTime: string;
+
+  public timer: Observable<number>;
+
   ngOnInit() {
+    this.timer = timer(0, 1000);
+    this.timer.subscribe(() => {
+      this.currentTime = new Date().toLocaleString();
+    });
   }
 }

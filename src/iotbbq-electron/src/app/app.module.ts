@@ -22,6 +22,7 @@ import { CookComponent } from './components/cook/cook.component';
 import { BbqItemComponent } from './components/bbq-item/bbq-item.component';
 import { SmokerComponent } from './components/smoker/smoker.component';
 import { CountdownComponent } from './components/countdown/countdown.component';
+import { EventInfoComponent } from './components/event-info/event-info.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -36,7 +37,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CookComponent,
     BbqItemComponent,
     SmokerComponent,
-    CountdownComponent
+    CountdownComponent,
+    EventInfoComponent,
   ],
   imports: [
     BrowserModule,

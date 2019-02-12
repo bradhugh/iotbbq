@@ -2,9 +2,9 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
-let win, serve;
+let win: BrowserWindow;
 const args = process.argv.slice(1);
-serve = args.some(val => val === '--serve');
+let serve = args.some(val => val === '--serve');
 
 function createWindow() {
 
@@ -16,8 +16,12 @@ function createWindow() {
     x: 0,
     y: 0,
     width: size.width,
-    height: size.height
+    height: size.height,
+    // frame: false,
   });
+
+  // Set Full Screen
+  // win.setFullScreen(true);
 
   if (serve) {
     require('electron-reload')(__dirname, {
@@ -32,7 +36,7 @@ function createWindow() {
     }));
   }
 
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {

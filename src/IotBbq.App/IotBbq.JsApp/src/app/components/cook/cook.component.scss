@@ -1,0 +1,65 @@
+.bbq-item-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    width: 600px;
+}
+
+.bbq-container {
+  display: grid;
+  grid-template-columns: 200px 200px 200px 200px;
+  grid-template-rows: 80px 200px 200px;
+}
+
+.btnBar {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row: 1;
+  height: 80px;
+  display: grid;
+  grid-template-columns: 50px 50px auto;
+}
+
+#btnAdd {
+  grid-column: 1;
+}
+
+#btnExp {
+  grid-column: 2;
+}
+
+#btnSilence {
+  grid-column: 3;
+}
+
+.eventInfo {
+  grid-column: 4;
+  grid-row: 1;
+  border: 1px solid black;
+}
+
+.turnInCountdown {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row: 1;
+  border: 1px solid red;
+}
+
+.smoker-monitor {
+  width: 198px;
+  height: 198px;
+  border: 1px solid black;
+  grid-column:4;
+  grid-row: 2;
+}
+
+#btnEditItem {
+  height: 198px;
+  width: 198px;
+  grid-column: 4;
+  grid-row: 3;
+}

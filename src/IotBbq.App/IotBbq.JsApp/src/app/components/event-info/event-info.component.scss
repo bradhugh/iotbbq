@@ -1,3 +1,23 @@
 .event-info-container {
   text-align: center;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.event-text-container {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.event-datetime {
+  font-style: italic;
+  font-size: larger;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.event-name {
+  font-style: italic;
+  margin: 5px;
 }

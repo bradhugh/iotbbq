@@ -1,5 +1,6 @@
 <div class="event-info-container">
-  <div>{{ currentTime | date:'mediumDate' }}</div>
-  <div>{{ currentTime | date:'mediumTime' }}</div>
-  <div>{{ event.name }}</div>
+  <div class="event-text-container">
+    <div class="event-datetime">{{ currentTime | date:'short' }}</div>
+    <div class="event-name">{{ event.name }}</div>
+  </div>
 </div>

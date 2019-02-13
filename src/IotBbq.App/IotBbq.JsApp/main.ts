@@ -4,7 +4,7 @@ import * as url from 'url';
 
 let win: BrowserWindow;
 const args = process.argv.slice(1);
-let serve = args.some(val => val === '--serve');
+const serve = args.some(val => val === '--serve');
 
 function createWindow() {
 
@@ -15,13 +15,14 @@ function createWindow() {
   win = new BrowserWindow({
     x: 0,
     y: 0,
-    width: size.width,
-    height: size.height,
-    // frame: false,
+    width: 800,
+    height: 480,
   });
 
   // Set Full Screen
-  // win.setFullScreen(true);
+  if (size.width <= 800) {
+    win.setFullScreen(true);
+  }
 
   if (serve) {
     require('electron-reload')(__dirname, {

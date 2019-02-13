@@ -28,6 +28,7 @@ import { UwpSpiClient } from './services/uwp/UwpSpiClient';
 import { THERM_SVC_TOKEN } from './services/IThermometerService';
 import { ThermometerService } from './services/ThermometerService';
 import { DesignSpiClient } from './services/design/DesignSpiClient';
+import { ExitService } from './services/ExitService';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SmokerComponent,
     CountdownComponent,
     EventInfoComponent,
+    ExitService
   ],
   imports: [
     BrowserModule,

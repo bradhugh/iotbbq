@@ -2,7 +2,8 @@
     display: grid;
     width: 100%;
     height: 100%;
-    border: 1px solid black;
+    padding: 5px;
+    box-sizing: border-box;
 
     grid-template-columns: 50% 50%;
     grid-template-rows: 33% 34% 33%;
@@ -18,35 +19,89 @@
 
 .bbq-item-elapsed {
   grid-column: 1;
-  grid-row: 1
+  grid-row: 1;
+  text-align: center;
+  font-size: small;
+
+  transform-style: preserve-3d;
+  .container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    div {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }
 }
 
 .bbq-item-thermindex {
   grid-column: 2;
   grid-row: 1;
+  text-align: right;
+  font-size: larger;
+  font-weight: bold;
+  div {
+    margin: 10px;
+  }
 }
 
 .bbq-item-targettemp {
   grid-column: 1;
   grid-row: 2;
+  transform-style: preserve-3d;
+  text-align: center;
+  font-size: small;
+  .container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    div {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+  }
 }
 
 .bbq-item-temp {
   grid-column: 2;
   grid-row: 2;
+  text-align: center;
+  transform-style: preserve-3d;
+  .text {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); 
+    font-weight: bolder;
+    font-size: x-large;
+  }
 }
 
 .bbq-item-phase {
   grid-column: 1;
   grid-row: 3;
+
+  button {
+    width: 100%;
+    height: 100%;
+    font-size: large;
+  }
 }
 
 .bbq-item-nameweight {
   grid-column: 2;
   grid-row: 3;
-}
+  transform-style: preserve-3d;
+  text-align: center;
+  .container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 
-.next-phase-button {
-  width: 100%;
-  height: 100%;
+    .name {
+      font-size: larger;
+      margin-bottom: 5px;
+    }
+  }
 }

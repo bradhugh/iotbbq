@@ -1,16 +1,29 @@
 <div class="bbq-item" [class.alarming]="isAlarming" [class.selected]="isSelected" (click)="itemClicked()" >
   <div class="bbq-item-elapsed">
-    <label>Time elapsed</label>
-    <div>Not started</div>
+    <div class="container">
+      <label>Time elapsed</label>
+      <div>Not started</div>
+    </div>
   </div>
-  <div class="bbq-item-thermindex">{{item.thermometerIndex}}</div>
+  <div class="bbq-item-thermindex">
+    <div>{{item.thermometerIndex}}</div>
+  </div>
   <div class="bbq-item-targettemp">
-    <label>Target Temp</label>
-    <div>{{item.targetTemperature}} F</div>
+    <div class="container">
+      <label>Target Temp</label>
+      <div>{{item.targetTemperature}} F</div>
   </div>
-  <div class="bbq-item-temp">{{item.temperature | number:'1.2-2'}} F</div>
+  </div>
+  <div class="bbq-item-temp">
+    <div class="text">{{item.temperature | number:'1.2-2'}} F</div>
+  </div>
   <div class="bbq-item-phase">
-    <button class="next-phase-button">Next Phase</button>
+    <button>Next Phase</button>
   </div>
-  <div class="bbq-item-nameweight">{{item.name}}</div>
+  <div class="bbq-item-nameweight">
+    <div class="container">
+      <div class="name">{{item.name}}</div>
+      <div class="weight">{{item.weight}} lbs.</div>
+    </div>
+  </div>
 </div>

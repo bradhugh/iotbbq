@@ -6,6 +6,7 @@
   </div>
   <div class="turnInCountdown"><app-countdown [dueTime]="event.turnInTime" ></app-countdown></div>
   <div class="eventInfo"><app-event-info [event]="event"></app-event-info></div>
+  <div class="backButton"><a routerLink="/">X</a></div>
   <div class="bbq-item-container">
       <app-bbq-item *ngFor="let item of items" [item]="item"></app-bbq-item>
   </div>

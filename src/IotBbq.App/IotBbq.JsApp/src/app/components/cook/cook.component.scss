@@ -63,3 +63,15 @@
   grid-row: 3;
   font-size: x-large;
 }
+
+.backButton {
+  position: absolute;
+  z-index: 1000;
+  top: 0px;
+  right: 0px;
+  margin-right: 2px;
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}

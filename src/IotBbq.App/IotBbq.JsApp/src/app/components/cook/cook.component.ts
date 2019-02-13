@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { IBbqItem } from '../../services/BbqItem';
 import { IBbqEvent } from '../../services/BbqEvent';
 import { BbqItemComponent } from '../bbq-item/bbq-item.component';
+import { ActivatedRoute } from '@angular/router';
+import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';
 
 @Component({
   selector: 'app-cook',
@@ -14,64 +16,21 @@ export class CookComponent implements OnInit {
 
   public event: IBbqEvent;
 
-  constructor() { }
+  private eventId: string = null;
+
+  constructor(
+    activatedroute: ActivatedRoute,
+    @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
+  ) {
+      activatedroute.params.subscribe(params => {
+        this.eventId = params['id'];
+
+        this.event = this.dataStorage.getEventById(this.eventId);
+        this.items = this.dataStorage.getItems(this.eventId);
+      });
+  }
 
   ngOnInit() {
-
-    this.event = {
-      id: '1',
-      eventDate: new Date('2019-02-11'),
-      name: 'Bbq Country Classic',
-      turnInTime: new Date('2019-02-11T22:00:00Z'),
-    };
-
-    this.items.push({
-      id: '1',
-      eventId: '1',
-      name: 'Item 1',
-      cookStartTime: new Date('2019-02-11'),
-      currentPhase: 'On Smoker',
-      targetTemperature: 70,
-      temperature: 0,
-      thermometerIndex: 1,
-      weight: 10
-    });
-
-    this.items.push({
-      id: '2',
-      eventId: '1',
-      name: 'Item 2',
-      cookStartTime: new Date('2019-02-11'),
-      currentPhase: 'On Smoker',
-      targetTemperature: 70,
-      temperature: 0,
-      thermometerIndex: 2,
-      weight: 10
-    });
-
-    this.items.push({
-      id: '3',
-      eventId: '1',
-      name: 'Item 3',
-      cookStartTime: new Date('2019-02-11'),
-      currentPhase: 'On Smoker',
-      targetTemperature: 70,
-      temperature: 0,
-      thermometerIndex: 3,
-      weight: 10
-    });
-
-    this.items.push({
-      id: '4',
-      eventId: '1',
-      name: 'Item 4',
-      cookStartTime: new Date('2019-02-11'),
-      currentPhase: 'On Smoker',
-      targetTemperature: 70,
-      temperature: 0,
-      thermometerIndex: 4,
-      weight: 10
-    });
   }
 
   public editItemClicked() {

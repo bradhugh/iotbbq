@@ -2,7 +2,7 @@
   <h1 class="title">
     {{ 'PAGES.HOME.TITLE' | translate }}
   </h1>
-  <a routerLink="/cook">Go to Cook</a>
+  <a [routerLink] = "['/cook', '1']">Go to Event 1</a>
 
   <button (click)="exitButtonClicked()">Exit App</button>
 </div>

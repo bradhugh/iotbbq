@@ -5,7 +5,7 @@ export class NodeSpiClient implements ISpiClient {
 
   private spi: SPI.SPIClient;
 
-  async initialize(): Promise<void> {
+  async initialize(chipSelectLine: number): Promise<void> {
     this.spi = SPI.initialize('/dev/spidev0.0');
     this.spi.clockSpeed(1000000);
     this.spi.dataMode(SPI.mode.CPHA);

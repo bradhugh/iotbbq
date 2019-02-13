@@ -6,8 +6,8 @@ export class UwpSpiClient implements ISpiClient {
 
   private device: Windows.Devices.Spi.SpiDevice = null;
 
-  async initialize(): Promise<void> {
-    const settings = new Windows.Devices.Spi.SpiConnectionSettings(0);
+  async initialize(chipSelectLine: number): Promise<void> {
+    const settings = new Windows.Devices.Spi.SpiConnectionSettings(chipSelectLine);
     settings.clockFrequency = 1000000;
     settings.mode = Windows.Devices.Spi.SpiMode.mode0;
     settings.sharingMode = Windows.Devices.Spi.SpiSharingMode.exclusive;

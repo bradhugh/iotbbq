@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 
 export interface ISpiClient {
-  initialize(): Promise<void>;
+  initialize(chipSelectLine: number): Promise<void>;
   transfer(buffer: Uint8Array): Promise<Uint8Array>;
   close(): void;
 }

@@ -1,7 +1,7 @@
 import { ISpiClient } from '../ISpiClient';
 
 export class DesignSpiClient implements ISpiClient {
-  async initialize(): Promise<void> {
+  async initialize(chipSelectLine: number): Promise<void> {
   }
 
   async transfer(buffer: Uint8Array): Promise<Uint8Array> {

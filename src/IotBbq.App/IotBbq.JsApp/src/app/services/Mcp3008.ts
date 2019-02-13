@@ -60,7 +60,7 @@ export class Mcp3008 {
   constructor(
     private spiClient: ISpiClient,
     chipSelectLine: number) {
-      this.initTask = this.spiClient.initialize();
+      this.initTask = this.spiClient.initialize(chipSelectLine);
   }
 
   public async read(channel: Channel): Promise<Mcp3008Reading> {

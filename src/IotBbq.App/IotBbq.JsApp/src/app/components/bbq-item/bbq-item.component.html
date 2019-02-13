@@ -8,7 +8,7 @@
     <label>Target Temp</label>
     <div>{{item.targetTemperature}} F</div>
   </div>
-  <div class="bbq-item-temp">{{item.temperature}} F</div>
+  <div class="bbq-item-temp">{{item.temperature | number:'1.2-2' }} F</div>
   <div class="bbq-item-phase">
     <button class="next-phase-button">Next Phase</button>
   </div>

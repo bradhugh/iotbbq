@@ -21,8 +21,12 @@ export class BbqItemComponent implements OnInit {
     this.timer = timer(0, 10000);
     this.timer.subscribe(async () => {
       try {
-        await this.thermometerService.readThermometer(0);
-        console.log('Thermometer was read.');
+        const temps = await this.thermometerService.readThermometer(0);
+
+        if (this.item) {
+          this.item.temperature = temps.farenheight;
+        }
+
       } catch (err) {
         console.log(`Error ${err}`);
       }

@@ -1,4 +1,4 @@
-<div class="bbq-item">
+<div class="bbq-item" [class.alarming]="isAlarming">
   <div class="bbq-item-elapsed">
     <label>Time elapsed</label>
     <div>Not started</div>
@@ -8,7 +8,7 @@
     <label>Target Temp</label>
     <div>{{item.targetTemperature}} F</div>
   </div>
-  <div class="bbq-item-temp">{{item.temperature | number:'1.2-2' }} F</div>
+  <div class="bbq-item-temp">{{item.temperature | number:'1.2-2'}} F</div>
   <div class="bbq-item-phase">
     <button class="next-phase-button">Next Phase</button>
   </div>

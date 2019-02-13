@@ -8,6 +8,10 @@
     grid-template-rows: 33% 34% 33%;
 }
 
+.alarming {
+  background-color: red;
+}
+
 .bbq-item-elapsed {
   grid-column: 1;
   grid-row: 1

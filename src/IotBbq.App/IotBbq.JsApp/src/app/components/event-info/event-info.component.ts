@@ -11,14 +11,14 @@ export class EventInfoComponent implements OnInit {
 
   @Input() public event: IBbqEvent = null;
 
-  public currentTime: string;
+  public currentTime: Date;
 
   public timer: Observable<number>;
 
   ngOnInit() {
     this.timer = timer(0, 1000);
     this.timer.subscribe(() => {
-      this.currentTime = new Date().toLocaleString();
+      this.currentTime = new Date();
     });
   }
 }

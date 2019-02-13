@@ -30,8 +30,8 @@ export class CookComponent implements OnInit {
       name: 'Item 1',
       cookStartTime: new Date('2019-02-11'),
       currentPhase: 'On Smoker',
-      targetTemperature: 190,
-      temperature: 140,
+      targetTemperature: 70,
+      temperature: 0,
       thermometerIndex: 1,
       weight: 10
     });
@@ -42,8 +42,8 @@ export class CookComponent implements OnInit {
       name: 'Item 2',
       cookStartTime: new Date('2019-02-11'),
       currentPhase: 'On Smoker',
-      targetTemperature: 190,
-      temperature: 110,
+      targetTemperature: 70,
+      temperature: 0,
       thermometerIndex: 2,
       weight: 10
     });
@@ -54,8 +54,8 @@ export class CookComponent implements OnInit {
       name: 'Item 3',
       cookStartTime: new Date('2019-02-11'),
       currentPhase: 'On Smoker',
-      targetTemperature: 190,
-      temperature: 120,
+      targetTemperature: 70,
+      temperature: 0,
       thermometerIndex: 3,
       weight: 10
     });
@@ -66,11 +66,10 @@ export class CookComponent implements OnInit {
       name: 'Item 4',
       cookStartTime: new Date('2019-02-11'),
       currentPhase: 'On Smoker',
-      targetTemperature: 190,
-      temperature: 80,
+      targetTemperature: 70,
+      temperature: 0,
       thermometerIndex: 4,
       weight: 10
     });
   }
-
 }

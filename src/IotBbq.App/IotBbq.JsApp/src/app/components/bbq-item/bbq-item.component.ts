@@ -12,6 +12,8 @@ export class BbqItemComponent implements OnInit {
 
   @Input() public item: IBbqItem;
 
+  public isAlarming: boolean = false;
+
   private timer: Observable<number>;
 
   constructor(
@@ -25,6 +27,7 @@ export class BbqItemComponent implements OnInit {
 
         if (this.item) {
           this.item.temperature = temps.farenheight;
+          this.isAlarming = this.item.temperature >= this.item.targetTemperature;
         }
 
       } catch (err) {

@@ -23,6 +23,10 @@ import { BbqItemComponent } from './components/bbq-item/bbq-item.component';
 import { SmokerComponent } from './components/smoker/smoker.component';
 import { CountdownComponent } from './components/countdown/countdown.component';
 import { EventInfoComponent } from './components/event-info/event-info.component';
+import { SPICLIENT_TOKEN } from './services/ISpiClient';
+import { UwpSpiClient } from './services/uwp/UwpSpiClient';
+import { THERM_SVC_TOKEN } from './services/IThermometerService';
+import { ThermometerService } from './services/ThermometerService';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -53,7 +57,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [ElectronService],
+  providers: [
+    ElectronService,
+    { provide: SPICLIENT_TOKEN, useClass: UwpSpiClient },
+    { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

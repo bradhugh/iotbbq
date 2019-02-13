@@ -39,6 +39,9 @@
     "e2e": "npm run postinstall:web && ng e2e",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
+  "optionalDependencies": {
+    "pi-spi": "^1.0.3"
+  },
   "dependencies": {},
   "devDependencies": {
     "@angular-devkit/build-angular": "0.11.4",
@@ -58,6 +61,7 @@
     "@types/jasmine": "2.8.7",
     "@types/jasminewd2": "2.0.3",
     "@types/node": "8.9.4",
+    "@types/winrt-uwp": "0.0.19",
     "codelyzer": "4.5.0",
     "conventional-changelog-cli": "2.0.11",
     "core-js": "2.6.1",

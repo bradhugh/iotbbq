@@ -24,7 +24,7 @@ export class ExitService {
       this.exitPattern += 't';
       this.performExit();
     } else {
-      this.exitPattern = null;
+      this.exitPattern = '';
     }
   }
 

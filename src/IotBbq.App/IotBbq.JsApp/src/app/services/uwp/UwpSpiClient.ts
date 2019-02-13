@@ -17,11 +17,13 @@ export class UwpSpiClient implements ISpiClient {
     this.device = await Windows.Devices.Spi.SpiDevice.fromIdAsync(deviceInfo[0].id, settings);
   }
 
-  transfer(buffer: Uint8Array): Promise<Uint8Array> {
-    throw new Error('Method not implemented.');
+  async transfer(buffer: Uint8Array): Promise<Uint8Array> {
+    const writeBuffer: number[] = Array.from(buffer);
+    const readBuffer = this.device.transferFullDuplex(writeBuffer);
+    return new Uint8Array(readBuffer);
   }
 
   close(): void {
-    throw new Error('Method not implemented.');
+    this.device.close();
   }
 }

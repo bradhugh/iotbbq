@@ -55,12 +55,18 @@ export class Channels {
 
 export class Mcp3008 {
 
+  private initTask: Promise<void> = null;
+
   constructor(
     private spiClient: ISpiClient,
     chipSelectLine: number) {
+      this.initTask = this.spiClient.initialize();
   }
 
   public async read(channel: Channel): Promise<Mcp3008Reading> {
+
+    await this.initTask;
+
     const writeBuffer = new Uint8Array(3);
     writeBuffer[0] = channel.inputConfiguration;
     writeBuffer[1] = channel.id + 8 << 4;
@@ -69,5 +75,9 @@ export class Mcp3008 {
     const readBuffer = await this.spiClient.transfer(writeBuffer);
 
     return new Mcp3008Reading(((readBuffer[1] & 3) << 8) + readBuffer[2]);
+  }
+
+  public close(): void {
+    this.spiClient.close();
   }
 }

@@ -1,4 +1,4 @@
-<div class="bbq-item" [class.alarming]="isAlarming">
+<div class="bbq-item" [class.alarming]="isAlarming" [class.selected]="isSelected" (click)="itemClicked()" >
   <div class="bbq-item-elapsed">
     <label>Time elapsed</label>
     <div>Not started</div>

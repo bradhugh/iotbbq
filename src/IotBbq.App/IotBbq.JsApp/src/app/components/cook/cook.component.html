@@ -10,5 +10,5 @@
       <app-bbq-item *ngFor="let item of items" [item]="item"></app-bbq-item>
   </div>
   <div class="smoker-monitor"><app-smoker></app-smoker></div>
-  <button id="btnEditItem">Edit Item</button>
+  <button id="btnEditItem" (click)="editItemClicked()">Edit Item</button>
 </div>

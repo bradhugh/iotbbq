@@ -10,11 +10,15 @@ import { Observable, timer } from 'rxjs';
 })
 export class BbqItemComponent implements OnInit {
 
+  public static selectedItem: BbqItemComponent = null;
+
   @Input() public item: IBbqItem;
 
-  public isAlarming: boolean = false;
+  public isAlarming = false;
 
   private timer: Observable<number>;
+
+  public isSelected = false;
 
   constructor(
     @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService
@@ -36,7 +40,20 @@ export class BbqItemComponent implements OnInit {
     });
   }
 
+  public static getSelected() {
+    return BbqItemComponent.selectedItem;
+  }
+
   ngOnInit() {
   }
 
+  public itemClicked() {
+    const wasSelected = BbqItemComponent.selectedItem;
+    if (wasSelected) {
+      wasSelected.isSelected = false;
+    }
+
+    BbqItemComponent.selectedItem = this;
+    this.isSelected = true;
+  }
 }

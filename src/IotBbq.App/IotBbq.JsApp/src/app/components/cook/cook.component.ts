@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IBbqItem } from '../../services/BbqItem';
 import { IBbqEvent } from '../../services/BbqEvent';
+import { BbqItemComponent } from '../bbq-item/bbq-item.component';
 
 @Component({
   selector: 'app-cook',
@@ -71,5 +72,14 @@ export class CookComponent implements OnInit {
       thermometerIndex: 4,
       weight: 10
     });
+  }
+
+  public editItemClicked() {
+    const selected = BbqItemComponent.getSelected();
+    if (selected) {
+      console.log(`Edit item ${selected.item.name}`);
+    } else {
+      console.log('No item selected');
+    }
   }
 }

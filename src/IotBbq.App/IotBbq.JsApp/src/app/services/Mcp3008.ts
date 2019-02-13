@@ -1,3 +1,5 @@
+// tslint:disable: no-bitwise
+
 import { ISpiClient } from './ISpiClient';
 
 export enum InputConfiguration {
@@ -7,7 +9,7 @@ export enum InputConfiguration {
 
 export class Channel {
     constructor(
-      public selection: InputConfiguration,
+      public inputConfiguration: InputConfiguration,
       public id: number) {}
 }
 
@@ -56,5 +58,16 @@ export class Mcp3008 {
   constructor(
     private spiClient: ISpiClient,
     chipSelectLine: number) {
+  }
+
+  public async read(channel: Channel): Promise<Mcp3008Reading> {
+    const writeBuffer = new Uint8Array(3);
+    writeBuffer[0] = channel.inputConfiguration;
+    writeBuffer[1] = channel.id + 8 << 4;
+    writeBuffer[2] = 0;
+
+    const readBuffer = await this.spiClient.transfer(writeBuffer);
+
+    return new Mcp3008Reading(((readBuffer[1] & 3) << 8) + readBuffer[2]);
   }
 }

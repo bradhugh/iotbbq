@@ -17,7 +17,7 @@ export class UwpSpiClient implements ISpiClient {
     this.device = await Windows.Devices.Spi.SpiDevice.fromIdAsync(deviceInfo[0].id, settings);
   }
 
-  transfer(buffer: Buffer): Promise<Buffer> {
+  transfer(buffer: Uint8Array): Promise<Uint8Array> {
     throw new Error('Method not implemented.');
   }
 

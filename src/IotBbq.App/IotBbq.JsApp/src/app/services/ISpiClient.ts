@@ -2,7 +2,7 @@ import { InjectionToken } from '@angular/core';
 
 export interface ISpiClient {
   initialize(): Promise<void>;
-  transfer(buffer: Buffer): Promise<Buffer>;
+  transfer(buffer: Uint8Array): Promise<Uint8Array>;
   close(): void;
 }
 

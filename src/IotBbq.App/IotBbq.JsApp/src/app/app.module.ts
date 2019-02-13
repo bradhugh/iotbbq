@@ -27,6 +27,7 @@ import { SPICLIENT_TOKEN } from './services/ISpiClient';
 import { UwpSpiClient } from './services/uwp/UwpSpiClient';
 import { THERM_SVC_TOKEN } from './services/IThermometerService';
 import { ThermometerService } from './services/ThermometerService';
+import { DesignSpiClient } from './services/design/DesignSpiClient';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -59,7 +60,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     ElectronService,
-    { provide: SPICLIENT_TOKEN, useClass: UwpSpiClient },
+    { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
   ],
   bootstrap: [AppComponent]

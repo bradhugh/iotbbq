@@ -17,6 +17,7 @@ export class BbqItemComponent implements OnInit {
   constructor(
     @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService
   ) {
+
     this.timer = timer(0, 10000);
     this.timer.subscribe(async () => {
       try {

@@ -4,6 +4,7 @@ import { IBbqEvent } from '../../services/BbqEvent';
 import { BbqItemComponent } from '../bbq-item/bbq-item.component';
 import { ActivatedRoute } from '@angular/router';
 import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';
+import { ItemEditorService } from '../../services/ItemEditorService';
 
 @Component({
   selector: 'app-cook',
@@ -21,6 +22,7 @@ export class CookComponent implements OnInit {
   constructor(
     activatedroute: ActivatedRoute,
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
+    private itemEditor: ItemEditorService,
   ) {
       activatedroute.params.subscribe(async (params) => {
         this.eventId = params['id'];
@@ -33,10 +35,11 @@ export class CookComponent implements OnInit {
   ngOnInit() {
   }
 
-  public editItemClicked() {
+  public async editItemClicked() {
     const selected = BbqItemComponent.getSelected();
     if (selected) {
       console.log(`Edit item ${selected.item.name}`);
+      await this.itemEditor.editItem();
     } else {
       console.log('No item selected');
     }

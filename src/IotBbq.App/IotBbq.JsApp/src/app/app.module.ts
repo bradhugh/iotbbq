@@ -12,6 +12,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+// NGX-Bootstrap
+import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+
 import { ElectronService } from './providers/electron.service';
 
 import { WebviewDirective } from './directives/webview.directive';
@@ -32,6 +35,8 @@ import { ExitService } from './services/ExitService';
 import { DATA_STORAGE_TOKEN } from './services/IDataStorage';
 import { InMemoryStorage } from './services/design/InMemoryStorage';
 import { IndexedDbDataStorage } from './services/IndexedDbDataStorage';
+import { ItemEditorService } from './services/ItemEditorService';
+import { ItemEditorComponent } from './components/item-editor/item-editor.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -48,13 +53,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     SmokerComponent,
     CountdownComponent,
     EventInfoComponent,
-    ExitService
+    ExitService,
+    ItemEditorComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    ModalModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -63,8 +70,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
+  entryComponents: [ItemEditorComponent],
   providers: [
     ElectronService,
+    ItemEditorService,
     { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },

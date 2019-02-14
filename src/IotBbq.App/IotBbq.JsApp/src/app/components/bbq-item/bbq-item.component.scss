@@ -24,7 +24,7 @@
   font-size: small;
 
   transform-style: preserve-3d;
-  .container {
+  .nested-container {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -53,7 +53,7 @@
   transform-style: preserve-3d;
   text-align: center;
   font-size: small;
-  .container {
+  .nested-container {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -94,7 +94,7 @@
   grid-row: 3;
   transform-style: preserve-3d;
   text-align: center;
-  .container {
+  .nested-container {
     position: relative;
     top: 50%;
     transform: translateY(-50%);

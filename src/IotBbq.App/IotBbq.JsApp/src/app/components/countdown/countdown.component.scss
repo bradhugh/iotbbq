@@ -1,21 +1,21 @@
-.countdown-box {
+.countdown-component {
   text-align: center;
   height: 100%;
   transform-style: preserve-3d;
-}
 
-.turnin-text-container {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
+  .text-container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 
-.turnin-text {
-  font-size: medium;
-}
+    .text {
+      font-size: medium;
+    }
 
-.turnin-time {
-  font-weight: bold;
-  font-size: x-large;
-  margin: 10px;
+    .time {
+      font-weight: bold;
+      font-size: x-large;
+      margin: 10px;
+    }
+  }
 }

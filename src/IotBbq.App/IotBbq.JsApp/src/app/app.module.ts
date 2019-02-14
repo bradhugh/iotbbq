@@ -37,6 +37,7 @@ import { InMemoryStorage } from './services/design/InMemoryStorage';
 import { IndexedDbDataStorage } from './services/IndexedDbDataStorage';
 import { ItemEditorService } from './services/ItemEditorService';
 import { ItemEditorComponent } from './components/item-editor/item-editor.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -68,7 +69,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: (HttpLoaderFactory),
         deps: [HttpClient]
       }
-    })
+    }),
+    BrowserAnimationsModule
   ],
   entryComponents: [ItemEditorComponent],
   providers: [

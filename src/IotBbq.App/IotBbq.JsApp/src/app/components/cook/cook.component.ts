@@ -36,14 +36,27 @@ export class CookComponent implements OnInit {
   }
 
   public async addItemClicked() {
-    await this.itemEditor.editItem();
+    const item: IBbqItem = {
+      id: 'TODO:FIXME',
+      cookStartTime: null,
+      currentPhase: null,
+      eventId: this.eventId,
+      name: null,
+      itemType: null,
+      targetTemperature: 0,
+      temperature: 0,
+      thermometerIndex: null,
+      weight: 0
+    };
+
+    await this.itemEditor.editItem(item);
   }
 
   public async editItemClicked() {
     const selected = BbqItemComponent.getSelected();
     if (selected) {
       console.log(`Edit item ${selected.item.name}`);
-      await this.itemEditor.editItem();
+      await this.itemEditor.editItem(selected.item);
     } else {
       console.log('No item selected');
     }

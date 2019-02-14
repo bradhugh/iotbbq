@@ -5,10 +5,32 @@
   </button>
 </div>
 <div class="modal-body">
-  <ul *ngIf="list.length">
-    <li *ngFor="let item of list">{{item}}</li>
-  </ul>
+  <div class="form-group">
+    <label for="name">Item Name</label>
+    <input type="text" class="form-control" id="name" [(ngModel)]="item.name" placeholder="Item name (eg. Butt 1)">
+  </div>
+  <div class="form-group">
+    <label for="type">Item Type</label>
+    <select class="form-control" id="type" [(ngModel)]="item.itemType">
+      <option *ngFor="let c of itemTypeChoices" [ngValue]="c">{{c}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="weight">Weight</label>
+    <input type="number" class="form-control" id="weight" [(ngModel)]="item.weight" placeholder="Item weight (in lbs)">
+  </div>
+  <div class="form-group">
+    <label for="targetTemp">Target Temperature</label>
+    <input type="number" class="form-control" id="targetTemp" [(ngModel)]="item.targetTemperature" placeholder="Target temp for the item">
+  </div>
+  <div class="form-group">
+    <label for="probeno">Probe Number</label>
+    <select class="form-control" id="probeno" [(ngModel)]="item.thermometerIndex">
+        <option *ngFor="let c of probeNumberChoices" [ngValue]="c">{{c}}</option>
+      </select>
+  </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+    <button type="button" class="btn btn-primary" (click)="bsModalRef.hide()">Save</button>
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
 </div>

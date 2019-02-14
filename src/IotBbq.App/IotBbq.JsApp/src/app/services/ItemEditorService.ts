@@ -1,6 +1,7 @@
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Inject } from '@angular/core';
 import { ItemEditorComponent } from '../components/item-editor/item-editor.component';
+import { IBbqItem } from './BbqItem';
 
 export class ItemEditorService {
 
@@ -10,21 +11,20 @@ export class ItemEditorService {
     @Inject(BsModalService) private modalService: BsModalService) {
   }
 
-  public async editItem(): Promise<void> {
-    this.openModalWithComponent();
-  }
+  public async editItem(item: IBbqItem): Promise<void> {
 
-  private openModalWithComponent() {
     const initialState = {
-      list: [
-        'Open a modal with component',
-        'Pass your data',
-        'Do something else',
-        '...'
+      item: item,
+      title: 'Edit Item',
+      itemTypeChoices: [
+        'Butt',
+        'Ribs'
       ],
-      title: 'Modal with component'
+      probeNumberChoices: [
+        1, 2, 3, 4, 5, 6
+      ]
     };
+
     this.bsModalRef = this.modalService.show(ItemEditorComponent, {initialState});
-    this.bsModalRef.content.closeBtnName = 'Close';
   }
 }

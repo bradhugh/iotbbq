@@ -10,14 +10,26 @@ export class InMemoryStorage implements IDataStorage {
   getEventById(eventId: string): IBbqEvent {
     const found = this.events.find(e => e.id === eventId);
     if (found) {
-      return JSON.parse(JSON.stringify(found));
+      return JSON.parse(JSON.stringify(found), (k, v) => {
+        if (k === 'eventDate' || k === 'turnInTime') {
+          return new Date(v);
+        }
+
+        return v;
+      });
     }
 
     return null;
   }
 
   getEvents(): IBbqEvent[] {
-    return JSON.parse(JSON.stringify(this.events));
+    return JSON.parse(JSON.stringify(this.events), (k, v) => {
+      if (k === 'eventDate' || k === 'turnInTime') {
+        return new Date(v);
+      }
+
+      return v;
+    });
   }
 
   insertEvent(event: IBbqEvent): void {

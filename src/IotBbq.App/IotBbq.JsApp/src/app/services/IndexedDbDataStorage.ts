@@ -38,6 +38,7 @@ export class IndexedDbDataStorage implements IDataStorage {
         const cursor = cursorRequest.result;
         if (cursor) {
           bbqEvents.push(cursor.value as IBbqEvent);
+          cursor.continue();
         } else {
           resolve(bbqEvents);
         }
@@ -58,12 +59,42 @@ export class IndexedDbDataStorage implements IDataStorage {
   }
 
   public async getItems(eventId: string): Promise<IBbqItem[]> {
-    // throw new Error('Method not implemented.');
-    return [];
+    await this.ensureDb();
+
+    const transaction = this.db.transaction([ IndexedDbDataStorage.itemsTableName ], 'readonly');
+    const itemStore = transaction.objectStore(IndexedDbDataStorage.itemsTableName);
+
+    const eventIdIndex = itemStore.index('eventId');
+    const keyRange = IDBKeyRange.only(eventId);
+
+    const cursorRequest = eventIdIndex.openCursor(keyRange);
+
+    return new Promise<IBbqItem[]>((resolve, reject) => {
+      cursorRequest.onerror = () => reject(cursorRequest.error);
+
+      const bbqItems: IBbqItem[] = [];
+      cursorRequest.onsuccess = () => {
+        const cursor = cursorRequest.result;
+        if (cursor) {
+          bbqItems.push(cursor.value as IBbqItem);
+          cursor.continue();
+        } else {
+          resolve(bbqItems);
+        }
+      };
+    });
   }
 
   public async insertItem(item: IBbqItem): Promise<void> {
-    // throw new Error('Method not implemented.');
+    await this.ensureDb();
+
+    const transaction = this.db.transaction([ IndexedDbDataStorage.itemsTableName ], 'readwrite');
+    const eventStore = transaction.objectStore(IndexedDbDataStorage.itemsTableName);
+    const putRequest = eventStore.put(item);
+    return new Promise<void>((resolve, reject) => {
+      putRequest.onerror = () => reject(putRequest.error);
+      putRequest.onsuccess = () => resolve();
+    });
   }
 
   private async ensureDb(): Promise<void> {
@@ -99,6 +130,7 @@ export class IndexedDbDataStorage implements IDataStorage {
 
         // define items table
         const itemStore = db.createObjectStore(IndexedDbDataStorage.itemsTableName, { keyPath: 'id' });
+        itemStore.createIndex('eventId', 'eventId', { unique: false });
         itemStore.createIndex('name', 'name', { unique: false });
         itemStore.createIndex('eventDate', 'eventDate', { unique: false });
         itemStore.createIndex('currentPhase', 'currentPhase', { unique: false });

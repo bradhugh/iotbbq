@@ -14,62 +14,62 @@ export class HomeComponent implements OnInit {
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    // this.dataStorage.insertEvent({
+    // await this.dataStorage.insertEvent({
     //   id: '1',
     //   eventDate: new Date('2019-02-11'),
     //   name: 'Bbq Country Classic',
     //   turnInTime: new Date('2019-02-11T22:00:00Z'),
     // });
 
-    this.dataStorage.insertItem({
-      id: '1',
-      eventId: '1',
-      name: 'Item 1',
-      cookStartTime: new Date('2019-02-11'),
-      currentPhase: 'On Smoker',
-      targetTemperature: 70,
-      temperature: 0,
-      thermometerIndex: 1,
-      weight: 10
-    });
+    // await this.dataStorage.insertItem({
+    //   id: '1',
+    //   eventId: '1',
+    //   name: 'Item 1',
+    //   cookStartTime: new Date('2019-02-11'),
+    //   currentPhase: 'On Smoker',
+    //   targetTemperature: 70,
+    //   temperature: 0,
+    //   thermometerIndex: 1,
+    //   weight: 10
+    // });
 
-    this.dataStorage.insertItem({
-      id: '2',
-      eventId: '1',
-      name: 'Item 2',
-      cookStartTime: new Date('2019-02-11'),
-      currentPhase: 'On Smoker',
-      targetTemperature: 70,
-      temperature: 0,
-      thermometerIndex: 2,
-      weight: 10
-    });
+    // await this.dataStorage.insertItem({
+    //   id: '2',
+    //   eventId: '1',
+    //   name: 'Item 2',
+    //   cookStartTime: new Date('2019-02-11'),
+    //   currentPhase: 'On Smoker',
+    //   targetTemperature: 70,
+    //   temperature: 0,
+    //   thermometerIndex: 2,
+    //   weight: 10
+    // });
 
-    this.dataStorage.insertItem({
-      id: '3',
-      eventId: '1',
-      name: 'Item 3',
-      cookStartTime: new Date('2019-02-11'),
-      currentPhase: 'On Smoker',
-      targetTemperature: 70,
-      temperature: 0,
-      thermometerIndex: 3,
-      weight: 10
-    });
+    // await this.dataStorage.insertItem({
+    //   id: '3',
+    //   eventId: '1',
+    //   name: 'Item 3',
+    //   cookStartTime: new Date('2019-02-11'),
+    //   currentPhase: 'On Smoker',
+    //   targetTemperature: 70,
+    //   temperature: 0,
+    //   thermometerIndex: 3,
+    //   weight: 10
+    // });
 
-    this.dataStorage.insertItem({
-      id: '4',
-      eventId: '1',
-      name: 'Item 4',
-      cookStartTime: new Date('2019-02-11'),
-      currentPhase: 'On Smoker',
-      targetTemperature: 70,
-      temperature: 0,
-      thermometerIndex: 4,
-      weight: 10
-    });
+    // await this.dataStorage.insertItem({
+    //   id: '4',
+    //   eventId: '1',
+    //   name: 'Item 4',
+    //   cookStartTime: new Date('2019-02-11'),
+    //   currentPhase: 'On Smoker',
+    //   targetTemperature: 70,
+    //   temperature: 0,
+    //   thermometerIndex: 4,
+    //   weight: 10
+    // });
   }
 
   public exitButtonClicked() {

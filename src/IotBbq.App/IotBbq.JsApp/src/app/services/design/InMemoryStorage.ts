@@ -7,7 +7,7 @@ export class InMemoryStorage implements IDataStorage {
   private events: IBbqEvent[] = [];
   private items: IBbqItem[] = [];
 
-  getEventById(eventId: string): IBbqEvent {
+  public async getEventById(eventId: string): Promise<IBbqEvent> {
     const found = this.events.find(e => e.id === eventId);
     if (found) {
       return JSON.parse(JSON.stringify(found), (k, v) => {
@@ -22,7 +22,7 @@ export class InMemoryStorage implements IDataStorage {
     return null;
   }
 
-  getEvents(): IBbqEvent[] {
+  public async getEvents(): Promise<IBbqEvent[]> {
     return JSON.parse(JSON.stringify(this.events), (k, v) => {
       if (k === 'eventDate' || k === 'turnInTime') {
         return new Date(v);
@@ -32,7 +32,7 @@ export class InMemoryStorage implements IDataStorage {
     });
   }
 
-  insertEvent(event: IBbqEvent): void {
+  public async insertEvent(event: IBbqEvent): Promise<void> {
 
     if (this.events.find(e => e.id === event.id)) {
       throw new Error(`Key ${event.id} already exists`);
@@ -42,12 +42,12 @@ export class InMemoryStorage implements IDataStorage {
     this.events.push(clone);
   }
 
-  getItems(eventId: string): IBbqItem[] {
+  public async getItems(eventId: string): Promise<IBbqItem[]> {
     const matches = this.items.filter(e => e.eventId === eventId);
     return JSON.parse(JSON.stringify(matches));
   }
 
-  insertItem(item: IBbqItem): void {
+  public async insertItem(item: IBbqItem): Promise<void> {
     if (!this.events.find(e => e.id === item.eventId)) {
       throw new Error(`An existing event with ID ${item.eventId} must be added before the items.`);
     }

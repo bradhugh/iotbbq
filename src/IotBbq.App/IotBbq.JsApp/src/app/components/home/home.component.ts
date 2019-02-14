@@ -16,12 +16,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataStorage.insertEvent({
-      id: '1',
-      eventDate: new Date('2019-02-11'),
-      name: 'Bbq Country Classic',
-      turnInTime: new Date('2019-02-11T22:00:00Z'),
-    });
+    // this.dataStorage.insertEvent({
+    //   id: '1',
+    //   eventDate: new Date('2019-02-11'),
+    //   name: 'Bbq Country Classic',
+    //   turnInTime: new Date('2019-02-11T22:00:00Z'),
+    // });
 
     this.dataStorage.insertItem({
       id: '1',

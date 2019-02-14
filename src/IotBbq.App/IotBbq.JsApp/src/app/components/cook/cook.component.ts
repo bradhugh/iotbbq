@@ -22,11 +22,11 @@ export class CookComponent implements OnInit {
     activatedroute: ActivatedRoute,
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
   ) {
-      activatedroute.params.subscribe(params => {
+      activatedroute.params.subscribe(async (params) => {
         this.eventId = params['id'];
 
-        this.event = this.dataStorage.getEventById(this.eventId);
-        this.items = this.dataStorage.getItems(this.eventId);
+        this.event = await this.dataStorage.getEventById(this.eventId);
+        this.items = await this.dataStorage.getItems(this.eventId);
       });
   }
 

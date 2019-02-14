@@ -31,6 +31,7 @@ import { DesignSpiClient } from './services/design/DesignSpiClient';
 import { ExitService } from './services/ExitService';
 import { DATA_STORAGE_TOKEN } from './services/IDataStorage';
 import { InMemoryStorage } from './services/design/InMemoryStorage';
+import { IndexedDbDataStorage } from './services/IndexedDbDataStorage';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -66,7 +67,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ElectronService,
     { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
-    { provide: DATA_STORAGE_TOKEN, useClass: InMemoryStorage },
+    { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
   ],
   bootstrap: [AppComponent]
 })

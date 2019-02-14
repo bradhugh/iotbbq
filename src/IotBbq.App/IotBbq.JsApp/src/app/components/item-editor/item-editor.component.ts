@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { MatDialogRef } from '@angular/material/dialog';
 import { IBbqItem } from '../../services/BbqItem';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-item-editor-content',
+  selector: 'app-item-editor',
   templateUrl: './item-editor.component.html',
 })
 export class ItemEditorComponent implements OnInit {
@@ -16,7 +18,10 @@ export class ItemEditorComponent implements OnInit {
 
   @Input() public probeNumberChoices: number[] = [];
 
-  constructor(public bsModalRef: BsModalRef) {}
+  constructor(
+    public dialogRef: MatDialogRef<ItemEditorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
 
   ngOnInit() {
   }

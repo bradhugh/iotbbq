@@ -2,13 +2,14 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Inject } from '@angular/core';
 import { ItemEditorComponent } from '../components/item-editor/item-editor.component';
 import { IBbqItem } from './BbqItem';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 export class ItemEditorService {
 
-  private bsModalRef: BsModalRef;
+  private dialogRef: MatDialogRef<ItemEditorComponent>;
 
   constructor(
-    @Inject(BsModalService) private modalService: BsModalService) {
+    @Inject(MatDialog) private modalService: MatDialog) {
   }
 
   public async editItem(item: IBbqItem): Promise<void> {
@@ -25,6 +26,8 @@ export class ItemEditorService {
       ]
     };
 
-    this.bsModalRef = this.modalService.show(ItemEditorComponent, {initialState});
+    this.dialogRef = this.modalService.open(ItemEditorComponent, {
+      data: initialState
+    });
   }
 }

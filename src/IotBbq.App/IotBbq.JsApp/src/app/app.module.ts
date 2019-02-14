@@ -39,6 +39,11 @@ import { ItemEditorService } from './services/ItemEditorService';
 import { ItemEditorComponent } from './components/item-editor/item-editor.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatButtonModule } from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
+
+import { MatKeyboardModule } from 'ngx7-material-keyboard';
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -62,7 +67,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+
+    // ngx-bootstrap
     ModalModule.forRoot(),
+
+    // translate module
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -70,7 +79,12 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
+    // Material Modules
+    MatButtonModule,
+    MatKeyboardModule,
+    MatDialogModule,
   ],
   entryComponents: [ItemEditorComponent],
   providers: [

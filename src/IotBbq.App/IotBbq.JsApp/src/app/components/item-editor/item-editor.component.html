@@ -1,36 +1,31 @@
-<div class="modal-header">
-  <h4 class="modal-title pull-left">{{title}}</h4>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<div class="modal-body">
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
   <div class="form-group">
     <label for="name">Item Name</label>
-    <input type="text" class="form-control" id="name" [(ngModel)]="item.name" placeholder="Item name (eg. Butt 1)">
+    <input type="text" [matKeyboard] class="form-control" id="name" [(ngModel)]="data.item.name" placeholder="Item name (eg. Butt 1)">
   </div>
   <div class="form-group">
     <label for="type">Item Type</label>
-    <select class="form-control" id="type" [(ngModel)]="item.itemType">
-      <option *ngFor="let c of itemTypeChoices" [ngValue]="c">{{c}}</option>
+    <select class="form-control" id="type" [(ngModel)]="data.item.itemType">
+      <option *ngFor="let c of data.itemTypeChoices" [ngValue]="c">{{c}}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="weight">Weight</label>
-    <input type="number" class="form-control" id="weight" [(ngModel)]="item.weight" placeholder="Item weight (in lbs)">
+    <input type="number" class="form-control" id="weight" [(ngModel)]="data.item.weight" placeholder="Item weight (in lbs)">
   </div>
   <div class="form-group">
     <label for="targetTemp">Target Temperature</label>
-    <input type="number" class="form-control" id="targetTemp" [(ngModel)]="item.targetTemperature" placeholder="Target temp for the item">
+    <input type="number" class="form-control" id="targetTemp" [(ngModel)]="data.item.targetTemperature" placeholder="Target temp for the item">
   </div>
   <div class="form-group">
     <label for="probeno">Probe Number</label>
-    <select class="form-control" id="probeno" [(ngModel)]="item.thermometerIndex">
-        <option *ngFor="let c of probeNumberChoices" [ngValue]="c">{{c}}</option>
+    <select class="form-control" id="probeno" [(ngModel)]="data.item.thermometerIndex">
+        <option *ngFor="let c of data.probeNumberChoices" [ngValue]="c">{{c}}</option>
       </select>
   </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="bsModalRef.hide()">Save</button>
-  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
-</div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button type="button" class="btn btn-primary" [mat-dialog-close]="true">Save</button>
+  <button type="button" class="btn btn-default" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

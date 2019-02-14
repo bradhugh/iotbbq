@@ -47,6 +47,11 @@ export class BbqItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  public nextPhaseClicked(event: Event) {
+    event.stopPropagation();
+    alert('Next Phase');
+  }
+
   public itemClicked() {
     const wasSelected = BbqItemComponent.selectedItem;
     if (wasSelected) {

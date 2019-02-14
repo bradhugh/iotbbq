@@ -1,8 +1,8 @@
 <div class="bbq-container">
-  <div class="btnBar">
-    <button id="btnAdd">+</button>
-    <button id="btnExp">EXP</button>
-    <button id="btnSilence">SILENCE!!</button>
+  <div class="btnBar btn-group">
+    <button id="btnAdd" class="btn btn-primary" (click)="addItemClicked()">+</button>
+    <button id="btnExp" class="btn btn-primary">EXP</button>
+    <button id="btnSilence" class="btn btn-primary">SILENCE!!</button>
   </div>
   <div class="turnInCountdown"><app-countdown [dueTime]="event?.turnInTime" ></app-countdown></div>
   <div class="eventInfo"><app-event-info [event]="event"></app-event-info></div>
@@ -11,5 +11,5 @@
       <app-bbq-item *ngFor="let item of items" [item]="item"></app-bbq-item>
   </div>
   <div class="smoker-monitor"><app-smoker></app-smoker></div>
-  <button id="btnEditItem" (click)="editItemClicked()">Edit Item</button>
+  <button id="btnEditItem" class="btn btn-secondary" (click)="editItemClicked()">Edit Item</button>
 </div>

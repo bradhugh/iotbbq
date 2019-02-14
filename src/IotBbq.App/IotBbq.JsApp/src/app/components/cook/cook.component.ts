@@ -35,6 +35,10 @@ export class CookComponent implements OnInit {
   ngOnInit() {
   }
 
+  public async addItemClicked() {
+    await this.itemEditor.editItem();
+  }
+
   public async editItemClicked() {
     const selected = BbqItemComponent.getSelected();
     if (selected) {

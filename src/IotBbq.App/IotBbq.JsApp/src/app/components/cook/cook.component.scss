@@ -24,13 +24,16 @@
   display: grid;
   grid-template-columns: 12% 17% auto;
   button {
-    font-size: x-large;
+    font-size: large;
     font-weight: bold;
+    padding: 0px;
+    margin: 0px;
   }
 
   #btnAdd {
     font-size: 300%;
     grid-column: 1;
+    margin-top:-10px;
   }
 
   #btnExp {

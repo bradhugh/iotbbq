@@ -1,12 +1,14 @@
 import { IDataStorage } from './IDataStorage';
 import { IBbqEvent } from './BbqEvent';
 import { IBbqItem } from './BbqItem';
+import { IBbqItemLog } from './BbqItemLog';
 
 export class IndexedDbDataStorage implements IDataStorage {
 
   private static dbName = 'IotBbqDb';
   private static eventsTableName = 'bbqEvents';
   private static itemsTableName = 'bbqItems';
+  private static itemLogTableName = 'bbqItemLogs';
 
   public db: IDBDatabase = null;
   private opening = false;
@@ -89,8 +91,32 @@ export class IndexedDbDataStorage implements IDataStorage {
     await this.ensureDb();
 
     const transaction = this.db.transaction([ IndexedDbDataStorage.itemsTableName ], 'readwrite');
-    const eventStore = transaction.objectStore(IndexedDbDataStorage.itemsTableName);
-    const putRequest = eventStore.put(item);
+    const itemStore = transaction.objectStore(IndexedDbDataStorage.itemsTableName);
+    const putRequest = itemStore.put(item);
+    return new Promise<void>((resolve, reject) => {
+      putRequest.onerror = () => reject(putRequest.error);
+      putRequest.onsuccess = () => resolve();
+    });
+  }
+
+  public async updateItem(item: IBbqItem): Promise<void> {
+    await this.ensureDb();
+
+    const transaction = this.db.transaction([ IndexedDbDataStorage.itemsTableName ], 'readwrite');
+    const itemStore = transaction.objectStore(IndexedDbDataStorage.itemsTableName);
+    const putRequest = itemStore.put(item);
+    return new Promise<void>((resolve, reject) => {
+      putRequest.onerror = () => reject(putRequest.error);
+      putRequest.onsuccess = () => resolve();
+    });
+  }
+
+  public async insertItemLog(itemLog: IBbqItemLog): Promise<void> {
+    await this.ensureDb();
+
+    const transaction = this.db.transaction([ IndexedDbDataStorage.itemLogTableName ], 'readwrite');
+    const itemLogStore = transaction.objectStore(IndexedDbDataStorage.itemLogTableName);
+    const putRequest = itemLogStore.put(itemLog);
     return new Promise<void>((resolve, reject) => {
       putRequest.onerror = () => reject(putRequest.error);
       putRequest.onsuccess = () => resolve();
@@ -105,7 +131,7 @@ export class IndexedDbDataStorage implements IDataStorage {
   }
 
   private openDb(): Promise<IDBDatabase> {
-    const req = window.indexedDB.open(IndexedDbDataStorage.dbName);
+    const req = window.indexedDB.open(IndexedDbDataStorage.dbName, 1.0);
 
     return new Promise((resolve, reject) => {
       req.onsuccess = () => {
@@ -124,21 +150,26 @@ export class IndexedDbDataStorage implements IDataStorage {
 
         // define events table
         const eventsStore = db.createObjectStore(IndexedDbDataStorage.eventsTableName, { keyPath: 'id' });
-        eventsStore.createIndex('name', 'name', { unique: false });
-        eventsStore.createIndex('eventDate', 'eventDate', { unique: false });
-        eventsStore.createIndex('turnInTime', 'turnInTime', { unique: false });
+        // eventsStore.createIndex('name', 'name', { unique: false });
+        // eventsStore.createIndex('eventDate', 'eventDate', { unique: false });
+        // eventsStore.createIndex('turnInTime', 'turnInTime', { unique: false });
 
         // define items table
         const itemStore = db.createObjectStore(IndexedDbDataStorage.itemsTableName, { keyPath: 'id' });
         itemStore.createIndex('eventId', 'eventId', { unique: false });
-        itemStore.createIndex('name', 'name', { unique: false });
-        itemStore.createIndex('eventDate', 'eventDate', { unique: false });
-        itemStore.createIndex('currentPhase', 'currentPhase', { unique: false });
-        itemStore.createIndex('weight', 'weight', { unique: false });
-        itemStore.createIndex('targetTemperature', 'targetTemperature', { unique: false });
-        itemStore.createIndex('temperature', 'temperature', { unique: false });
-        itemStore.createIndex('cookStartTime', 'cookStartTime', { unique: false });
-        itemStore.createIndex('thermometerIndex', 'thermometerIndex', { unique: false });
+        // itemStore.createIndex('name', 'name', { unique: false });
+        // itemStore.createIndex('eventDate', 'eventDate', { unique: false });
+        // itemStore.createIndex('currentPhase', 'currentPhase', { unique: false });
+        // itemStore.createIndex('weight', 'weight', { unique: false });
+        // itemStore.createIndex('targetTemperature', 'targetTemperature', { unique: false });
+        // itemStore.createIndex('temperature', 'temperature', { unique: false });
+        // itemStore.createIndex('cookStartTime', 'cookStartTime', { unique: false });
+        // itemStore.createIndex('thermometerIndex', 'thermometerIndex', { unique: false });
+
+        // define itemlog table
+        const itemLogStore = db.createObjectStore(IndexedDbDataStorage.itemLogTableName, {keyPath: 'id'});
+        itemStore.createIndex('eventId', 'eventId', { unique: false });
+        itemStore.createIndex('bbqItemId', 'bbqItemId', { unique: false });
       };
     });
   }

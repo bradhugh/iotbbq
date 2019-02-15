@@ -1,21 +1,34 @@
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Inject } from '@angular/core';
 import { ItemEditorComponent } from '../components/item-editor/item-editor.component';
-import { IBbqItem } from './BbqItem';
+import { IBbqItem, BbqItem } from './BbqItem';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Utility } from './Utility';
+import { DATA_STORAGE_TOKEN, IDataStorage } from './IDataStorage';
 
 export class ItemEditorService {
 
   private dialogRef: MatDialogRef<ItemEditorComponent>;
 
   constructor(
-    @Inject(MatDialog) private modalService: MatDialog) {
+    @Inject(MatDialog) private modalService: MatDialog,
+    @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage) {
   }
 
-  public async editItem(item: IBbqItem): Promise<void> {
+  public async editItem(eventId: string, item: IBbqItem = null): Promise<IBbqItem> {
+
+    const isNew = item === null;
+    if (isNew) {
+      item = new BbqItem();
+      item.id = Utility.createGuid();
+      item.eventId = eventId;
+    }
+
+    const tempItem = new BbqItem();
+    tempItem.load(item);
 
     const initialState = {
-      item: item,
+      item: tempItem,
       title: 'Edit Item',
       itemTypeChoices: [
         'Butt',
@@ -29,5 +42,18 @@ export class ItemEditorService {
     this.dialogRef = this.modalService.open(ItemEditorComponent, {
       data: initialState
     });
+
+    const result: boolean = await this.dialogRef.afterClosed().toPromise();
+    if (result) {
+      tempItem.writeTo(item);
+
+      if (isNew) {
+        await this.dataStorage.insertItem(item);
+      } else {
+        await this.dataStorage.updateItem(item);
+      }
+    }
+
+    return item;
   }
 }

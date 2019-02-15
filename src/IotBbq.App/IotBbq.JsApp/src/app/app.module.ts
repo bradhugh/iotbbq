@@ -43,6 +43,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 
 import { MatKeyboardModule } from 'ngx7-material-keyboard';
+import { ItemLoggerService } from './services/ItemLoggerService';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -90,6 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     ElectronService,
     ItemEditorService,
+    ItemLoggerService,
     { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },

@@ -1,11 +1,13 @@
 import { IDataStorage } from '../IDataStorage';
 import { IBbqEvent } from '../BbqEvent';
-import { IBbqItem } from '../BbqItem';
+import { IBbqItem, BbqItem } from '../BbqItem';
+import { IBbqItemLog } from '../BbqItemLog';
 
 export class InMemoryStorage implements IDataStorage {
 
   private events: IBbqEvent[] = [];
   private items: IBbqItem[] = [];
+  private itemLogs: IBbqItemLog[] = [];
 
   public async getEventById(eventId: string): Promise<IBbqEvent> {
     const found = this.events.find(e => e.id === eventId);
@@ -54,5 +56,32 @@ export class InMemoryStorage implements IDataStorage {
 
     const clone = JSON.parse(JSON.stringify(item));
     this.items.push(clone);
+  }
+
+  public async updateItem(item: IBbqItem): Promise<void> {
+    const itemToUpdate = this.items.find(i => i.id === item.id);
+    if (!itemToUpdate) {
+      throw new Error(`Item to update with id ${item.id} was not found`);
+    }
+
+    const tempItem = new BbqItem();
+    tempItem.load(item);
+    tempItem.writeTo(itemToUpdate);
+  }
+
+  public async insertItemLog(itemLog: IBbqItemLog): Promise<void> {
+    if (this.itemLogs.find(e => e.id === itemLog.id)) {
+      throw new Error(`Key ${itemLog.id} already exists`);
+    }
+
+    const clone = JSON.parse(JSON.stringify(event), (k, v) => {
+      if (k === 'timestamp') {
+        return new Date(v);
+      }
+
+      return v;
+    });
+
+    this.itemLogs.push(clone);
   }
 }

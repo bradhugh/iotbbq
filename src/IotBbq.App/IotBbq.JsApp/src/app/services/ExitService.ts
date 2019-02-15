@@ -1,5 +1,5 @@
 import { HostListener, Component } from '@angular/core';
-import { ElectronService } from '../providers/electron.service';
+import { ElectronService } from './electron.service';
 
 @Component({
   selector: 'app-exit-service',

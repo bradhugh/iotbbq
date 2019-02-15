@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ElectronService } from '../../providers/electron.service';
+import { ElectronService } from '../../services/electron.service';
 import { DATA_STORAGE_TOKEN, IDataStorage } from '../../services/IDataStorage';
 
 @Component({

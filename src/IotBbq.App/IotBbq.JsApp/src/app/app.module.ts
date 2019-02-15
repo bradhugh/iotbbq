@@ -15,7 +15,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // NGX-Bootstrap
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 
-import { ElectronService } from './providers/electron.service';
+import { ElectronService } from './services/electron.service';
 
 import { WebviewDirective } from './directives/webview.directive';
 

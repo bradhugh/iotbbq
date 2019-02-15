@@ -40,7 +40,8 @@ export class ItemEditorService {
     };
 
     this.dialogRef = this.modalService.open(ItemEditorComponent, {
-      data: initialState
+      data: initialState,
+      minWidth: '75%',
     });
 
     const result: boolean = await this.dialogRef.afterClosed().toPromise();

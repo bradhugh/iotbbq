@@ -43,7 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 
-import { MatKeyboardModule } from 'ngx7-material-keyboard';
+import { MatKeyboardModule } from '@ngx-material-keyboard/core';
 import { ItemLoggerService } from './services/ItemLoggerService';
 import { EventEditorService } from './services/EventEditorService';
 import { EventEditorComponent } from './components/event-editor/event-editor.component';

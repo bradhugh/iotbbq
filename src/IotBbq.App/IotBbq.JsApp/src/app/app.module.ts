@@ -15,6 +15,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // NGX-Bootstrap
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 import { ElectronService } from './services/electron.service';
 
@@ -41,7 +42,7 @@ import { ItemEditorComponent } from './components/item-editor/item-editor.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatKeyboardModule } from '@ngx-material-keyboard/core';
 import { ItemLoggerService } from './services/ItemLoggerService';
@@ -76,6 +77,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // ngx-bootstrap
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
 
     // translate module
     TranslateModule.forRoot({

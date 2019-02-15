@@ -5,8 +5,15 @@
     <input type="text" [matKeyboard] class="form-control" id="name" [(ngModel)]="data.event.name" placeholder="Event name">
   </div>
   <div class="form-group">
-    <label for="name">Event Name</label>
+    <label for="eventDate">Event Date</label>
     <input type="text" class="form-control" id="eventDate" [(ngModel)]="data.event.eventDate" placeholder="Event date" bsDatepicker placement="right">
+  </div>
+  <div class="form-group">
+    <label for="turnInTime">Turn-in Time</label>
+    <div class="turnin-row">
+      <input type="text" class="form-control" id="turnInDate" [(ngModel)]="data.event.turnInTime" placeholder="Event date" bsDatepicker placement="right">
+      <timepicker [(ngModel)]="data.event.turnInTime"></timepicker>
+    </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>

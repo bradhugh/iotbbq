@@ -10,7 +10,6 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ItemEditorComponent implements OnInit {
   @Input() public title: string;
-  @Input() public closeBtnName: string;
 
   @Input() public item: IBbqItem = null;
 

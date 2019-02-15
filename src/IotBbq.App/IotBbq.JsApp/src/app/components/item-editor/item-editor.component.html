@@ -22,7 +22,7 @@
     <label for="probeno">Probe Number</label>
     <select class="form-control" id="probeno" [(ngModel)]="data.item.thermometerIndex">
         <option *ngFor="let c of data.probeNumberChoices" [ngValue]="c">{{c}}</option>
-      </select>
+    </select>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>

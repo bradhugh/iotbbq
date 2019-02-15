@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content class="dialog-content">
+  <div class="form-group">
+    <label for="name">Event Name</label>
+    <input type="text" [matKeyboard] class="form-control" id="name" [(ngModel)]="data.event.name" placeholder="Event name">
+  </div>
+  <div class="form-group">
+    <label for="name">Event Name</label>
+    <input type="text" class="form-control" id="eventDate" [(ngModel)]="data.event.eventDate" placeholder="Event date" bsDatepicker placement="right">
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button type="button" class="btn btn-primary" [mat-dialog-close]="true">Save</button>
+  <button type="button" class="btn btn-default" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

@@ -14,6 +14,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 // NGX-Bootstrap
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { ElectronService } from './services/electron.service';
 
@@ -44,6 +45,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 
 import { MatKeyboardModule } from 'ngx7-material-keyboard';
 import { ItemLoggerService } from './services/ItemLoggerService';
+import { EventEditorService } from './services/EventEditorService';
+import { EventEditorComponent } from './components/event-editor/event-editor.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -61,7 +64,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CountdownComponent,
     EventInfoComponent,
     ExitService,
-    ItemEditorComponent
+    ItemEditorComponent,
+    EventEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +75,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     // ngx-bootstrap
     ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
 
     // translate module
     TranslateModule.forRoot({
@@ -87,9 +92,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatKeyboardModule,
     MatDialogModule,
   ],
-  entryComponents: [ItemEditorComponent],
+  entryComponents: [ItemEditorComponent, EventEditorComponent],
   providers: [
     ElectronService,
+    EventEditorService,
     ItemEditorService,
     ItemLoggerService,
     { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },

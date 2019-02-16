@@ -6,11 +6,11 @@ export class NullGpio implements IGpio {
     console.log(`Opened GPIO pin ${pin} for mode ${InOrOut[inOrOut]}`);
   }
 
-  write(value: PinValue): void {
+  public async write(value: PinValue): Promise<void> {
     console.log(`GPIO write pin ${this.pin} with value '${PinValue[value]}'`);
   }
 
-  close() {
+  public async close(): Promise<void> {
     console.log(`closing pin ${this.pin} with mode ${InOrOut[this.inOrOut]}`);
   }
 }

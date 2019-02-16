@@ -9,11 +9,11 @@ export class NodeGpio implements IGpio {
     this.pin = new Gpio(pin, inOrOut === InOrOut.In ? 'in' : 'out');
   }
 
-  public write(value: PinValue) {
+  public async write(value: PinValue): Promise<void> {
     this.pin.writeSync(value);
   }
 
-  public close() {
+  public async close(): Promise<void> {
     this.pin.writeSync(PinValue.Low);
     this.pin.unexport();
   }

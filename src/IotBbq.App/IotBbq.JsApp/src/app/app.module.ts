@@ -53,6 +53,9 @@ import { MatIconModule } from '@angular/material';
 import { AlarmService } from './services/AlarmService';
 import { GPIO_FACTORY_TOKEN } from './services/IGpio';
 import { NullGpioFactory } from './services/design/NullGpio';
+import { UwpGpioFactory } from './services/uwp/UwpGpio';
+import { NodeGpioFactory } from './services/node/NodeGpio';
+import { SimpleGpioFactory } from './services/node/SimpleGpio';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {

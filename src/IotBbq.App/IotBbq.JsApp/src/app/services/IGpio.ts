@@ -15,8 +15,8 @@ export interface IGpioFactory {
 }
 
 export interface IGpio {
-  write(value: PinValue): void;
-  close();
+  write(value: PinValue): Promise<void>;
+  close(): Promise<void>;
 }
 
 export const GPIO_FACTORY_TOKEN = new InjectionToken('GPIO_FACTORY_TOKEN');

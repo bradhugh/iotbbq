@@ -16,12 +16,12 @@ export class UwpGpio implements IGpio {
     this.pin.write(Windows.Devices.Gpio.GpioPinValue.low);
   }
 
-  write(value: PinValue): void {
+  public async write(value: PinValue): Promise<void> {
     const pinValue = value === PinValue.Low ? Windows.Devices.Gpio.GpioPinValue.low : Windows.Devices.Gpio.GpioPinValue.high;
     this.pin.write(pinValue);
   }
 
-  close() {
+  public async close(): Promise<void> {
     this.pin.close();
   }
 }

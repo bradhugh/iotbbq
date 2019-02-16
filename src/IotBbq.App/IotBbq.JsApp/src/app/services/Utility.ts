@@ -8,4 +8,8 @@ export class Utility {
 
      return _p8() + _p8(true) + _p8(true) + _p8();
   }
+
+  public static sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 }

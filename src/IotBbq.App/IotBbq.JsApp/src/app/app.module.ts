@@ -48,6 +48,8 @@ import { MatKeyboardModule } from '@ngx-material-keyboard/core';
 import { ItemLoggerService } from './services/ItemLoggerService';
 import { EventEditorService } from './services/EventEditorService';
 import { EventEditorComponent } from './components/event-editor/event-editor.component';
+import { ALARM_SVC_TOKEN } from './services/IAlarmService';
+import { UwpAlarmService } from './services/uwp/UwpAlarmService';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -103,6 +105,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
+    { provide: ALARM_SVC_TOKEN, useClass: UwpAlarmService },
   ],
   bootstrap: [AppComponent]
 })

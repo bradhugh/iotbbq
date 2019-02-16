@@ -3,6 +3,7 @@ import { Inject } from '@angular/core';
 import { SPICLIENT_TOKEN, ISpiClient } from './ISpiClient';
 import { Mcp3008, Channels, Channel } from './Mcp3008';
 import { TempUtils } from './TempUtils';
+import { Utility } from './Utility';
 
 interface CoefficientSet {
   A: number;
@@ -52,7 +53,7 @@ export class ThermometerService implements IThermometerService {
     for (let i = 0; i < numSamples; i++) {
       const reading = await this.mcp.read(this.channels[index]);
       sum += reading.getNormalizedValue();
-      await this.sleep(100);
+      await Utility.sleep(100);
     }
 
     const averageValue = sum / numSamples;
@@ -75,9 +76,5 @@ export class ThermometerService implements IThermometerService {
     temps.farenheight = TempUtils.celciusToFarenheight(temps.celcius);
 
     return temps;
-  }
-
-  sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }

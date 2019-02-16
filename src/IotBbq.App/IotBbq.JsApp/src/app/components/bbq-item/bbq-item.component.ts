@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { IBbqItem } from '../../services/BbqItem';
 import { THERM_SVC_TOKEN, IThermometerService } from '../../services/IThermometerService';
 import { Observable, timer } from 'rxjs';
+import { ALARM_SVC_TOKEN, IAlarmService, AlarmPriority } from '../../services/IAlarmService';
 
 @Component({
   selector: 'app-bbq-item',
@@ -21,23 +22,12 @@ export class BbqItemComponent implements OnInit {
   public isSelected = false;
 
   constructor(
-    @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService
+    @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService,
+    @Inject(ALARM_SVC_TOKEN) private alarmService: IAlarmService,
   ) {
 
     this.timer = timer(0, 10000);
-    this.timer.subscribe(async () => {
-      try {
-        const temps = await this.thermometerService.readThermometer(0);
-
-        if (this.item) {
-          this.item.temperature = temps.farenheight;
-          this.isAlarming = this.item.temperature >= this.item.targetTemperature;
-        }
-
-      } catch (err) {
-        console.log(`Error ${err}`);
-      }
-    });
+    this.timer.subscribe(async () => await this.onTempRefreshTimer());
   }
 
   public static getSelected() {
@@ -60,5 +50,30 @@ export class BbqItemComponent implements OnInit {
 
     BbqItemComponent.selectedItem = this;
     this.isSelected = true;
+  }
+
+  private async onTempRefreshTimer(): Promise<void> {
+
+    if (this.item && this.item.thermometerIndex > 0) {
+      const temps = await this.thermometerService.readThermometer(this.item.thermometerIndex);
+      this.item.temperature = temps.farenheight;
+
+      if (this.item.temperature >= this.item.targetTemperature) {
+        this.setAlarmState();
+      } else {
+        this.clearAlarmState();
+      }
+    }
+  }
+
+  private clearAlarmState() {
+    this.isAlarming = false;
+  }
+
+  private setAlarmState() {
+    if (!this.isAlarming) {
+      this.isAlarming = true;
+      this.alarmService.triggerAlarm(AlarmPriority.Normal);
+    }
   }
 }

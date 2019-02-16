@@ -3,4 +3,9 @@
   <PropertyGroup>
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <MachineName>192.168.0.84</MachineName>
+    <DebuggerFlavor>AppHostRemoteDebugger</DebuggerFlavor>
+    <RequireAuthentication>Universal</RequireAuthentication>
+  </PropertyGroup>
 </Project>

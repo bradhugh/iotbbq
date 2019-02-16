@@ -63,6 +63,8 @@ export class UwpAlarmService implements IAlarmService {
       this.currentPriority = priority;
       this._isAlarming = true;
       this.alarmTimer = timer(0, priority === AlarmPriority.High ? this.highPriorityInterval : this.normalPriorityInterval);
+      this.alarmTimer.subscribe(async () => await this.onAlarmTimerTick());
+
       const cb = this.alarmStateChanged;
       if (cb) {
         cb(true);

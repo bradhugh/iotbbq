@@ -2,8 +2,10 @@
 import { IAlarmService, AlarmPriority } from './IAlarmService';
 import { Utility } from './Utility';
 import { Observable, Subscription, timer } from 'rxjs';
+import { Inject } from '@angular/core';
+import { GPIO_FACTORY_TOKEN, IGpio, IGpioFactory, InOrOut, PinValue } from './IGpio';
 
-export class AlarmServiceBase implements IAlarmService {
+export class AlarmService implements IAlarmService {
 
   public alarmStateChanged: (state: boolean) => void = null;
 
@@ -21,7 +23,14 @@ export class AlarmServiceBase implements IAlarmService {
 
   private alarmSubscription: Subscription;
 
-  constructor() {
+  private gpioPin: IGpio;
+
+  private pinNumber = 16;
+
+  constructor(
+    @Inject(GPIO_FACTORY_TOKEN) gpioFactory: IGpioFactory,
+  ) {
+    this.gpioPin = gpioFactory.open(this.pinNumber, InOrOut.Out);
   }
 
   public isAlarming(): boolean {
@@ -64,7 +73,9 @@ export class AlarmServiceBase implements IAlarmService {
   }
 
   protected async doOneBeep(durationInMs: number): Promise<void> {
+    this.gpioPin.write(PinValue.High);
     await Utility.sleep(durationInMs);
+    this.gpioPin.write(PinValue.Low);
   }
 
   private async onAlarmTimerTick() {

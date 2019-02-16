@@ -49,9 +49,10 @@ import { ItemLoggerService } from './services/ItemLoggerService';
 import { EventEditorService } from './services/EventEditorService';
 import { EventEditorComponent } from './components/event-editor/event-editor.component';
 import { ALARM_SVC_TOKEN } from './services/IAlarmService';
-import { UwpAlarmService } from './services/uwp/UwpAlarmService';
-import { DesignAlarmService } from './services/design/DesignAlarmService';
 import { MatIconModule } from '@angular/material';
+import { AlarmService } from './services/AlarmService';
+import { GPIO_FACTORY_TOKEN } from './services/IGpio';
+import { NullGpioFactory } from './services/design/NullGpio';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -108,7 +109,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
-    { provide: ALARM_SVC_TOKEN, useClass: DesignAlarmService },
+    { provide: GPIO_FACTORY_TOKEN, useClass: NullGpioFactory },
+    { provide: ALARM_SVC_TOKEN, useClass: AlarmService },
   ],
   bootstrap: [AppComponent]
 })

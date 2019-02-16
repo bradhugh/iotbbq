@@ -23,6 +23,7 @@
   grid-row: 1;
   display: grid;
   grid-template-columns: 12% 17% auto;
+  
   button {
     font-size: large;
     font-weight: bold;
@@ -30,14 +31,24 @@
     margin: 0px;
   }
 
+  .alarming {
+    color: white;
+    background-color: red;
+    border-color: red;
+  }
+
   #btnAdd {
-    font-size: 300%;
     grid-column: 1;
-    margin-top:-10px;
+    mat-icon {
+      transform: scale(1.6) translateY(10%);
+    }
   }
 
   #btnExp {
     grid-column: 2;
+    mat-icon {
+      transform: scale(1.6) translateY(10%);
+    }
   }
   
   #btnSilence {

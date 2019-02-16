@@ -7,6 +7,7 @@ import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';
 import { ItemEditorService } from '../../services/ItemEditorService';
 import { Utility } from '../../services/Utility';
 import { ItemLoggerService } from '../../services/ItemLoggerService';
+import { IAlarmService, ALARM_SVC_TOKEN } from '../../services/IAlarmService';
 
 @Component({
   selector: 'app-cook',
@@ -19,6 +20,8 @@ export class CookComponent implements OnInit, OnDestroy {
 
   public event: IBbqEvent;
 
+  public isAlarming = false;
+
   private eventId: string = null;
 
   constructor(
@@ -26,7 +29,10 @@ export class CookComponent implements OnInit, OnDestroy {
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     private itemEditor: ItemEditorService,
     private itemLogger: ItemLoggerService,
+    @Inject(ALARM_SVC_TOKEN) private alarmService: IAlarmService,
   ) {
+
+    this.alarmService.alarmStateChanged = (s) => this.onAlarmStateChanged(s);
   }
 
   ngOnInit() {
@@ -57,6 +63,19 @@ export class CookComponent implements OnInit, OnDestroy {
       await this.itemEditor.editItem(this.eventId, selected.item);
     } else {
       console.log('No item selected');
+    }
+  }
+
+  public silenceButtonClicked() {
+    this.alarmService.silence();
+  }
+
+  private onAlarmStateChanged(state: boolean): void {
+    // REVIEW: Can't we just use the state here?
+    if (this.alarmService.isAlarming()) {
+      this.isAlarming = true;
+    } else {
+      this.isAlarming = false;
     }
   }
 }

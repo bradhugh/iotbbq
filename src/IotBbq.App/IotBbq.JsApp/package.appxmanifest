@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" IgnorableNamespaces="uap mp iot">
   <Identity Name="8bed081e-fa04-4b2c-8fa9-cc405c47abe3" Version="1.0.0.0" Publisher="CN=bradhugh" />
   <mp:PhoneIdentity PhoneProductId="8bed081e-fa04-4b2c-8fa9-cc405c47abe3" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -20,9 +20,23 @@
         </uap:DefaultTile>
         <uap:SplashScreen Image="images\splashscreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="iotbbqfile">
+            <uap:DisplayName>IotBbq File</uap:DisplayName>
+            <uap:EditFlags OpenIsSafe="true" AlwaysUnsafe="true" />
+            <uap:SupportedFileTypes>
+              <uap:FileType>.csv</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
+    <uap:Capability Name="removableStorage" />
+    <iot:Capability Name="lowLevelDevices" />
+    <DeviceCapability Name="lowLevel" />
   </Capabilities>
 </Package>

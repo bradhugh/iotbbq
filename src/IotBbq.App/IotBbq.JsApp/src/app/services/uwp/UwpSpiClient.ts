@@ -6,7 +6,7 @@ export class UwpSpiClient implements ISpiClient {
 
   private device: Windows.Devices.Spi.SpiDevice = null;
 
-  async initialize(chipSelectLine: number): Promise<void> {
+  public async initialize(chipSelectLine: number): Promise<void> {
     const settings = new Windows.Devices.Spi.SpiConnectionSettings(chipSelectLine);
     settings.clockFrequency = 1000000;
     settings.mode = Windows.Devices.Spi.SpiMode.mode0;
@@ -17,13 +17,13 @@ export class UwpSpiClient implements ISpiClient {
     this.device = await Windows.Devices.Spi.SpiDevice.fromIdAsync(deviceInfo[0].id, settings);
   }
 
-  async transfer(buffer: Uint8Array): Promise<Uint8Array> {
+  public async transfer(buffer: Uint8Array): Promise<Uint8Array> {
     const writeBuffer: number[] = Array.from(buffer);
     const readBuffer = this.device.transferFullDuplex(writeBuffer);
     return new Uint8Array(readBuffer);
   }
 
-  close(): void {
+  public close(): void {
     this.device.close();
   }
 }

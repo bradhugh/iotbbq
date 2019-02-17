@@ -54,8 +54,8 @@ import { AlarmService } from './services/AlarmService';
 import { GPIO_FACTORY_TOKEN } from './services/IGpio';
 import { NullGpioFactory } from './services/design/NullGpio';
 import { UwpGpioFactory } from './services/uwp/UwpGpio';
-import { NodeGpioFactory } from './services/node/NodeGpio';
 import { SimpleGpioFactory } from './services/node/SimpleGpio';
+import { NodeSpiClient } from './services/node/NodeSpiClient';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -109,10 +109,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventEditorService,
     ItemEditorService,
     ItemLoggerService,
-    { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
+    { provide: SPICLIENT_TOKEN, useClass: NodeSpiClient },
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
-    { provide: GPIO_FACTORY_TOKEN, useClass: NullGpioFactory },
+    { provide: GPIO_FACTORY_TOKEN, useClass: SimpleGpioFactory },
     { provide: ALARM_SVC_TOKEN, useClass: AlarmService },
   ],
   bootstrap: [AppComponent]

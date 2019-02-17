@@ -1,26 +1,29 @@
-// import { Gpio } from 'onoff';
-// import { InOrOut, IGpioFactory, IGpio, PinValue } from '../IGpio';
 
-// export class NodeGpio implements IGpio {
+const electron = require('electron').remote;
+const onoff = electron.require('onoff');
 
-//   private pin: Gpio;
+import { InOrOut, IGpioFactory, IGpio, PinValue } from '../IGpio';
 
-//   constructor(pin: number, inOrOut: InOrOut) {
-//     this.pin = new Gpio(pin, inOrOut === InOrOut.In ? 'in' : 'out');
-//   }
+export class NodeGpio implements IGpio {
 
-//   public async write(value: PinValue): Promise<void> {
-//     this.pin.writeSync(value);
-//   }
+  private pin: any;
 
-//   public async close(): Promise<void> {
-//     this.pin.writeSync(PinValue.Low);
-//     this.pin.unexport();
-//   }
-// }
+  constructor(pin: number, inOrOut: InOrOut) {
+    this.pin = new onoff.Gpio(pin, inOrOut === InOrOut.In ? 'in' : 'out');
+  }
 
-// export class NodeGpioFactory implements IGpioFactory {
-//   open(pin: number, inOrOut: InOrOut): NodeGpio {
-//     return new NodeGpio(pin, inOrOut);
-//   }
-// }
+  public async write(value: PinValue): Promise<void> {
+    this.pin.writeSync(value);
+  }
+
+  public async close(): Promise<void> {
+    this.pin.writeSync(PinValue.Low);
+    this.pin.unexport();
+  }
+}
+
+export class NodeGpioFactory implements IGpioFactory {
+  open(pin: number, inOrOut: InOrOut): NodeGpio {
+    return new NodeGpio(pin, inOrOut);
+  }
+}

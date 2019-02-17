@@ -43,7 +43,8 @@
   },
   "optionalDependencies": {},
   "dependencies": {
-    "pi-spi": "git://github.com/bradhugh/pi-spi.git#bindings"
+    "pi-spi": "git://github.com/bradhugh/pi-spi.git#bindings",
+    "onoff": "^3.2.7"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.11.4",

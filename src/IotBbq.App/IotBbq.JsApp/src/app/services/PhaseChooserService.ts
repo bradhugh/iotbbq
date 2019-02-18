@@ -24,7 +24,6 @@ export class PhaseChooserService {
 
     // special case for first phase
     if (!item.currentPhase) {
-      item.currentPhase = definition.phases.name;
       return definition.phases;
     }
 
@@ -40,7 +39,6 @@ export class PhaseChooserService {
     }
 
     if (currentPhase.nextPhases.length === 1) {
-      item.currentPhase = currentPhase.nextPhases[0].name;
       return currentPhase.nextPhases[0];
     }
 
@@ -57,7 +55,6 @@ export class PhaseChooserService {
     const pickedPhaseName: string = await this.dialogRef.afterClosed().toPromise();
     if (pickedPhaseName) {
       const pickedPhase = currentPhase.nextPhases.find(p => p.name === pickedPhaseName);
-      item.currentPhase = pickedPhase.name;
       return pickedPhase;
     }
 

@@ -4,6 +4,7 @@ import { THERM_SVC_TOKEN, IThermometerService } from '../../services/IThermomete
 import { Observable, timer } from 'rxjs';
 import { ALARM_SVC_TOKEN, IAlarmService, AlarmPriority } from '../../services/IAlarmService';
 import { PhaseChooserService } from '../../services/PhaseChooserService';
+import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';
 
 @Component({
   selector: 'app-bbq-item',
@@ -26,6 +27,7 @@ export class BbqItemComponent implements OnInit {
     @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService,
     @Inject(ALARM_SVC_TOKEN) private alarmService: IAlarmService,
     private phaseChooserService: PhaseChooserService,
+    @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
   ) {
 
     this.timer = timer(0, 10000);
@@ -44,6 +46,20 @@ export class BbqItemComponent implements OnInit {
 
     // Not sure I need to acually do much here
     const nextPhase = await this.phaseChooserService.chooseNextPhase(this.item);
+
+    // Phase has changes
+    if (nextPhase && nextPhase.name !== this.item.currentPhase) {
+
+      this.item.currentPhase = nextPhase.name;
+
+      // If we've hit the first cooking phase, set a start time on the item
+      if (!this.item.cookStartTime && nextPhase.isCooking) {
+        this.item.cookStartTime = new Date();
+      }
+
+      // Save changes to the item with the new phase
+      this.dataStorage.updateItem(this.item);
+    }
   }
 
   public itemClicked() {

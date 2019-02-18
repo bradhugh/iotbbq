@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { IBbqItem } from '../../services/BbqItem';
+import { IBbqItem } from '../../model/BbqItem';
 import { THERM_SVC_TOKEN, IThermometerService } from '../../services/IThermometerService';
 import { Observable, timer } from 'rxjs';
 import { ALARM_SVC_TOKEN, IAlarmService, AlarmPriority } from '../../services/IAlarmService';

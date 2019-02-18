@@ -110,10 +110,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventEditorService,
     ItemEditorService,
     ItemLoggerService,
-    { provide: SPICLIENT_TOKEN, useClass: NodeSpiClient },
+    { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
-    { provide: GPIO_FACTORY_TOKEN, useClass: NodeGpioFactory },
+    { provide: GPIO_FACTORY_TOKEN, useClass: NullGpioFactory },
     { provide: ALARM_SVC_TOKEN, useClass: AlarmService },
   ],
   bootstrap: [AppComponent]

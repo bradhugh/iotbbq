@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { IBbqItem } from '../../services/BbqItem';
-import { IBbqEvent } from '../../services/BbqEvent';
+import { IBbqItem } from '../../model/BbqItem';
+import { IBbqEvent } from '../../model/BbqEvent';
 import { BbqItemComponent } from '../bbq-item/bbq-item.component';
 import { ActivatedRoute } from '@angular/router';
 import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';

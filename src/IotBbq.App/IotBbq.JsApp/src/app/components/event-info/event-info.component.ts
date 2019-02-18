@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IBbqEvent } from '../../services/BbqEvent';
+import { IBbqEvent } from '../../model/BbqEvent';
 import { Observable, timer } from 'rxjs';
 
 @Component({

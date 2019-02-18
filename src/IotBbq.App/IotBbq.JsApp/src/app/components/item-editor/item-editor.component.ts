@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { MatDialogRef } from '@angular/material/dialog';
-import { IBbqItem } from '../../services/BbqItem';
+import { IBbqItem } from '../../model/BbqItem';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({

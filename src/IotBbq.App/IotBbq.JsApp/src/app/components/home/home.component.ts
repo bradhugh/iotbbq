@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ElectronService } from '../../services/electron.service';
 import { DATA_STORAGE_TOKEN, IDataStorage } from '../../services/IDataStorage';
-import { IBbqEvent } from '../../services/BbqEvent';
+import { IBbqEvent } from '../../model/BbqEvent';
 import { Router } from '@angular/router';
 import { EventEditorService } from '../../services/EventEditorService';
 

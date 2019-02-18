@@ -1,7 +1,7 @@
 import { IDataStorage } from './IDataStorage';
-import { IBbqEvent } from './BbqEvent';
-import { IBbqItem } from './BbqItem';
-import { IBbqItemLog } from './BbqItemLog';
+import { IBbqEvent } from '../model/BbqEvent';
+import { IBbqItem } from '../model/BbqItem';
+import { IBbqItemLog } from '../model/BbqItemLog';
 
 export class IndexedDbDataStorage implements IDataStorage {
 

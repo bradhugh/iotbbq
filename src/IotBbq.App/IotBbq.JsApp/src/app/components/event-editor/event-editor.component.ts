@@ -1,6 +1,6 @@
 import { Component, Input, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { IBbqEvent } from '../../services/BbqEvent';
+import { IBbqEvent } from '../../model/BbqEvent';
 
 @Component({
   selector: 'app-event-editor',

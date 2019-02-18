@@ -1,0 +1,61 @@
+.smoker-component {
+  display: grid;
+    width: 100%;
+    height: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+
+    text-align: center;
+
+    .high-gate {
+      grid-column: 1;
+      grid-row: 1;
+
+      transform-style: preserve-3d;
+      .centering {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    .low-gate {
+      grid-column: 1;
+      grid-row: 2;
+
+      transform-style: preserve-3d;
+      .centering {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    .temperature {
+      grid-column: 2;
+      grid-row-start: 1;
+      grid-row-end: 3;
+      transform-style: preserve-3d;
+
+      .temp-text {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: bolder;
+        font-size: large;
+      }
+    }
+
+    .alarming {
+      .temp-text {
+        background-color: red;
+        color: white;
+        border-radius: 15px;
+      }
+    }
+}

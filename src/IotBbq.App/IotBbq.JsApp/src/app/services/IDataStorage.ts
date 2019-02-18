@@ -1,7 +1,7 @@
-import { IBbqEvent } from './BbqEvent';
-import { IBbqItem } from './BbqItem';
+import { IBbqEvent } from '../model/BbqEvent';
+import { IBbqItem } from '../model/BbqItem';
 import { InjectionToken } from '@angular/core';
-import { IBbqItemLog } from './BbqItemLog';
+import { IBbqItemLog } from '../model/BbqItemLog';
 
 export interface IDataStorage {
   getEventById(eventId: string): Promise<IBbqEvent>;

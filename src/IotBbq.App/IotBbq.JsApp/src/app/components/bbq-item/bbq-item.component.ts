@@ -5,6 +5,7 @@ import { Observable, timer } from 'rxjs';
 import { ALARM_SVC_TOKEN, IAlarmService, AlarmPriority } from '../../services/IAlarmService';
 import { PhaseChooserService } from '../../services/PhaseChooserService';
 import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';
+import { TimeSpan } from '../../services/TimeSpan';
 
 @Component({
   selector: 'app-bbq-item',
@@ -23,6 +24,8 @@ export class BbqItemComponent implements OnInit {
 
   public isSelected = false;
 
+  public cookElapsed = new TimeSpan(0);
+
   constructor(
     @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService,
     @Inject(ALARM_SVC_TOKEN) private alarmService: IAlarmService,
@@ -30,7 +33,7 @@ export class BbqItemComponent implements OnInit {
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
   ) {
 
-    this.timer = timer(0, 10000);
+    this.timer = timer(0, 1000);
     this.timer.subscribe(async () => await this.onTempRefreshTimer());
   }
 
@@ -83,6 +86,12 @@ export class BbqItemComponent implements OnInit {
       } else {
         this.clearAlarmState();
       }
+    }
+
+    // Go ahead and update the elapsed cook time if it is started
+    if (this.item.cookStartTime) {
+      const now = new Date();
+      this.cookElapsed = TimeSpan.Subtract(now, this.item.cookStartTime);
     }
   }
 

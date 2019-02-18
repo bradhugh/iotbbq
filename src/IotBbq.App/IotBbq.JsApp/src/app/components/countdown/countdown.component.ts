@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable, timer } from 'rxjs';
+import { TimeSpan } from '../../services/TimeSpan';
 
 @Component({
   selector: 'app-countdown',
@@ -8,13 +9,7 @@ import { Observable, timer } from 'rxjs';
 })
 export class CountdownComponent implements OnInit {
 
-  private static msPerSecond = 1000;
-
-  private static msPerMinute = CountdownComponent.msPerSecond * 60;
-
-  private static msPerHour = CountdownComponent.msPerMinute * 60;
-
-  public timeTillTurnIn: string = null;
+  public timeTillTurnIn: TimeSpan = new TimeSpan(0);
 
   private timer: Observable<number> = null;
 
@@ -27,24 +22,7 @@ export class CountdownComponent implements OnInit {
     this.timer.subscribe(() => {
       if (this.dueTime) {
         const now = new Date();
-        let delta = this.dueTime.getTime() - now.getTime();
-
-        const isnegative = delta < 0;
-        delta = Math.abs(delta);
-
-        let hours = Math.floor(delta / CountdownComponent.msPerHour);
-        delta -= hours * CountdownComponent.msPerHour;
-
-        if (isnegative) {
-          hours *= -1;
-        }
-
-        const minutes = Math.floor(delta / CountdownComponent.msPerMinute);
-        delta -= minutes * CountdownComponent.msPerMinute;
-
-        const seconds = Math.floor(delta / CountdownComponent.msPerSecond);
-
-        this.timeTillTurnIn = `${hours}:${minutes}:${seconds}`;
+        this.timeTillTurnIn = TimeSpan.Subtract(this.dueTime, now);
       }
     });
   }

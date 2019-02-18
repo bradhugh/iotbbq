@@ -57,6 +57,8 @@ import { UwpGpioFactory } from './services/uwp/UwpGpio';
 import { SimpleGpioFactory } from './services/node/SimpleGpio';
 import { NodeSpiClient } from './services/node/NodeSpiClient';
 import { NodeGpioFactory } from './services/node/NodeGpio';
+import { SmokerEditorComponent } from './components/smoker-editor/smoker-editor.component';
+import { SmokerEditorService } from './services/SmokerEditorService';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -75,7 +77,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventInfoComponent,
     ExitService,
     ItemEditorComponent,
-    EventEditorComponent
+    EventEditorComponent,
+    SmokerEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,12 +107,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatIconModule,
   ],
-  entryComponents: [ItemEditorComponent, EventEditorComponent],
+  entryComponents: [ItemEditorComponent, EventEditorComponent, SmokerEditorComponent],
   providers: [
     ElectronService,
     EventEditorService,
     ItemEditorService,
     ItemLoggerService,
+    SmokerEditorService,
     { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },

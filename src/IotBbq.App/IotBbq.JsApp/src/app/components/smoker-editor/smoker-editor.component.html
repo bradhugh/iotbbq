@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+  <div class="form-group">
+    <label for="highGate">High Gate</label>
+    <input type="text" [matKeyboard] class="form-control" id="highGate" [(ngModel)]="data.settings.highGate" placeholder="High gate">
+  </div>
+  <div class="form-group">
+    <label for="lowGate">Low Gate</label>
+    <input type="text" [matKeyboard] class="form-control" id="lowGate" [(ngModel)]="data.settings.lowGate" placeholder="Low gate">
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button type="button" class="btn btn-primary" [mat-dialog-close]="true">Save</button>
+  <button type="button" class="btn btn-default" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

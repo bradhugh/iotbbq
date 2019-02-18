@@ -50,12 +50,12 @@
         font-size: large;
       }
     }
+}
 
-    .alarming {
-      .temp-text {
-        background-color: red;
-        color: white;
-        border-radius: 15px;
-      }
-    }
+.alarming {
+  .temp-text {
+    background-color: red;
+    color: white;
+    border-radius: 15px;
+  }
 }

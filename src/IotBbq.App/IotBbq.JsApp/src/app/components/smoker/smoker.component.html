@@ -1,8 +1,8 @@
-<div class="smoker-component" (click)="onSmokerComponentClicked()">
+<div class="smoker-component" (click)="onSmokerComponentClicked()" [class.alarming]="isAlarming">
   <div class="high-gate">
     <div class="centering">
       <label>High Gate</label>
-      <div>{{model.highGate}} F</div>
+      <div>{{model.highGate }} F</div>
     </div>
   </div>
   <div class="low-gate">
@@ -12,6 +12,6 @@
     </div>
   </div>
   <div class="temperature">
-    <div class="temp-text">{{model.temperature}} F</div>
+    <div class="temp-text">{{model.temperature | number:'1.2-2'}} F</div>
   </div>
 </div>

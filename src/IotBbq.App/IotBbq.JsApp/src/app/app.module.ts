@@ -59,6 +59,8 @@ import { NodeSpiClient } from './services/node/NodeSpiClient';
 import { NodeGpioFactory } from './services/node/NodeGpio';
 import { SmokerEditorComponent } from './components/smoker-editor/smoker-editor.component';
 import { SmokerEditorService } from './services/SmokerEditorService';
+import { PhaseChooserService } from './services/PhaseChooserService';
+import { PhasePickerComponent } from './components/phase-picker/phase-picker.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -79,6 +81,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ItemEditorComponent,
     EventEditorComponent,
     SmokerEditorComponent,
+    PhasePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,13 +110,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatIconModule,
   ],
-  entryComponents: [ItemEditorComponent, EventEditorComponent, SmokerEditorComponent],
+  entryComponents: [ItemEditorComponent, EventEditorComponent, 
+    SmokerEditorComponent, PhasePickerComponent],
   providers: [
     ElectronService,
     EventEditorService,
     ItemEditorService,
     ItemLoggerService,
     SmokerEditorService,
+    PhaseChooserService,
     { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },

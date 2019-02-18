@@ -18,7 +18,7 @@
     <div class="text">{{item.temperature | number:'1.2-2'}} F</div>
   </div>
   <div class="bbq-item-phase">
-    <button class="btn btn-info" (click)="nextPhaseClicked($event)">Next Phase</button>
+    <button class="btn btn-info" (click)="nextPhaseClicked($event)">{{ item?.currentPhase ? item?.currentPhase : "Next Phase" }}</button>
   </div>
   <div class="bbq-item-nameweight">
     <div class="nested-container">

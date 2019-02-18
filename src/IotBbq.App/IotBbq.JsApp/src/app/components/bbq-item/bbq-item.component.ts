@@ -3,6 +3,7 @@ import { IBbqItem } from '../../model/BbqItem';
 import { THERM_SVC_TOKEN, IThermometerService } from '../../services/IThermometerService';
 import { Observable, timer } from 'rxjs';
 import { ALARM_SVC_TOKEN, IAlarmService, AlarmPriority } from '../../services/IAlarmService';
+import { PhaseChooserService } from '../../services/PhaseChooserService';
 
 @Component({
   selector: 'app-bbq-item',
@@ -24,6 +25,7 @@ export class BbqItemComponent implements OnInit {
   constructor(
     @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService,
     @Inject(ALARM_SVC_TOKEN) private alarmService: IAlarmService,
+    private phaseChooserService: PhaseChooserService,
   ) {
 
     this.timer = timer(0, 10000);
@@ -37,9 +39,11 @@ export class BbqItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  public nextPhaseClicked(event: Event) {
+  public async nextPhaseClicked(event: Event) {
     event.stopPropagation();
-    alert('Next Phase');
+
+    // Not sure I need to acually do much here
+    const nextPhase = await this.phaseChooserService.chooseNextPhase(this.item);
   }
 
   public itemClicked() {

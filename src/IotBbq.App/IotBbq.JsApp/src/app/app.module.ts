@@ -1,26 +1,39 @@
+/// <reference types="@types/winrt-uwp" />
+
 import 'reflect-metadata';
 import '../polyfills';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
+// Directives
+import { WebviewDirective } from './directives/webview.directive';
+
+// Modules
 import { FormsModule } from '@angular/forms';
-
+import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatKeyboardModule } from '@ngx-material-keyboard/core';
+import { MatIconModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
+
+// NGX-Bootstrap
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-// NGX-Bootstrap
-import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+// Tokens
+import { GPIO_FACTORY_TOKEN } from './services/IGpio';
+import { SPICLIENT_TOKEN } from './services/ISpiClient';
+import { THERM_SVC_TOKEN } from './services/IThermometerService';
+import { ALARM_SVC_TOKEN } from './services/IAlarmService';
+import { DATA_STORAGE_TOKEN } from './services/IDataStorage';
 
-import { ElectronService } from './services/electron.service';
-
-import { WebviewDirective } from './directives/webview.directive';
-
+// Components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { CookComponent } from './components/cook/cook.component';
@@ -28,39 +41,70 @@ import { BbqItemComponent } from './components/bbq-item/bbq-item.component';
 import { SmokerComponent } from './components/smoker/smoker.component';
 import { CountdownComponent } from './components/countdown/countdown.component';
 import { EventInfoComponent } from './components/event-info/event-info.component';
-import { SPICLIENT_TOKEN } from './services/ISpiClient';
-import { UwpSpiClient } from './services/uwp/UwpSpiClient';
-import { THERM_SVC_TOKEN } from './services/IThermometerService';
-import { ThermometerService } from './services/ThermometerService';
-import { DesignSpiClient } from './services/design/DesignSpiClient';
-import { ExitService } from './services/ExitService';
-import { DATA_STORAGE_TOKEN } from './services/IDataStorage';
-import { InMemoryStorage } from './services/design/InMemoryStorage';
+import { ItemEditorComponent } from './components/item-editor/item-editor.component';
+import { EventEditorComponent } from './components/event-editor/event-editor.component';
+import { SmokerEditorComponent } from './components/smoker-editor/smoker-editor.component';
+import { PhasePickerComponent } from './components/phase-picker/phase-picker.component';
+
+// Services
+import { AlarmService } from './services/AlarmService';
 import { IndexedDbDataStorage } from './services/IndexedDbDataStorage';
 import { ItemEditorService } from './services/ItemEditorService';
-import { ItemEditorComponent } from './components/item-editor/item-editor.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-
-import { MatKeyboardModule } from '@ngx-material-keyboard/core';
 import { ItemLoggerService } from './services/ItemLoggerService';
 import { EventEditorService } from './services/EventEditorService';
-import { EventEditorComponent } from './components/event-editor/event-editor.component';
-import { ALARM_SVC_TOKEN } from './services/IAlarmService';
-import { MatIconModule } from '@angular/material';
-import { AlarmService } from './services/AlarmService';
-import { GPIO_FACTORY_TOKEN } from './services/IGpio';
-import { NullGpioFactory } from './services/design/NullGpio';
-import { UwpGpioFactory } from './services/uwp/UwpGpio';
-import { SimpleGpioFactory } from './services/node/SimpleGpio';
-import { NodeSpiClient } from './services/node/NodeSpiClient';
-import { NodeGpioFactory } from './services/node/NodeGpio';
-import { SmokerEditorComponent } from './components/smoker-editor/smoker-editor.component';
+import { ElectronService } from './services/electron.service';
 import { SmokerEditorService } from './services/SmokerEditorService';
 import { PhaseChooserService } from './services/PhaseChooserService';
-import { PhasePickerComponent } from './components/phase-picker/phase-picker.component';
+import { ThermometerService } from './services/ThermometerService';
+import { ExitService } from './services/ExitService';
+
+// UWP services
+import { UwpSpiClient } from './services/uwp/UwpSpiClient';
+import { UwpGpioFactory } from './services/uwp/UwpGpio';
+
+// Raspberry PI services
+import { NodeSpiClient } from './services/node/NodeSpiClient';
+import { NodeGpioFactory } from './services/node/NodeGpio';
+import { SimpleGpioFactory } from './services/node/SimpleGpio';
+
+// Design services
+import { DesignSpiClient } from './services/design/DesignSpiClient';
+import { NullGpioFactory } from './services/design/NullGpio';
+import { InMemoryStorage } from './services/design/InMemoryStorage';
+import { ExportService } from './services/ExportService';
+
+// const providers: Provider[] = [
+//   ElectronService,
+//   EventEditorService,
+//   ItemEditorService,
+//   ItemLoggerService,
+//   SmokerEditorService,
+//   PhaseChooserService,
+//   { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
+//   { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
+//   { provide: ALARM_SVC_TOKEN, useClass: AlarmService },
+// ];
+
+// const electronService = new ElectronService();
+// if (electronService.isElectron) {
+//   const os = require('os');
+//   if (os.arch() === 'arm') {
+//     providers.push({ provide: SPICLIENT_TOKEN, useClass: NodeSpiClient });
+
+//     // We have to comment this out during dev on windows
+//     // since epoll dependency tries to load and fails otherwise
+//     providers.push({ provide: GPIO_FACTORY_TOKEN, useClass: NodeGpioFactory });
+//   } else {
+//     providers.push({ provide: SPICLIENT_TOKEN, useClass: DesignSpiClient });
+//     providers.push({ provide: GPIO_FACTORY_TOKEN, useClass: NullGpioFactory });
+//   }
+// } else if (Windows && Windows.ApplicationModel && Windows.ApplicationModel.AppInfo) {
+//   providers.push({ provide: SPICLIENT_TOKEN, useClass: UwpSpiClient });
+//   providers.push({ provide: GPIO_FACTORY_TOKEN, useClass: UwpGpioFactory });
+// } else {
+//   providers.push({ provide: SPICLIENT_TOKEN, useClass: DesignSpiClient });
+//   providers.push({ provide: GPIO_FACTORY_TOKEN, useClass: NullGpioFactory });
+// }
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -90,7 +134,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
 
     // ngx-bootstrap
-    ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
 
@@ -110,7 +153,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatIconModule,
   ],
-  entryComponents: [ItemEditorComponent, EventEditorComponent, 
+  entryComponents: [ItemEditorComponent, EventEditorComponent,
     SmokerEditorComponent, PhasePickerComponent],
   providers: [
     ElectronService,
@@ -119,11 +162,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     ItemLoggerService,
     SmokerEditorService,
     PhaseChooserService,
-    { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
+    ExportService,
     { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
-    { provide: GPIO_FACTORY_TOKEN, useClass: NullGpioFactory },
     { provide: ALARM_SVC_TOKEN, useClass: AlarmService },
+    // { provide: SPICLIENT_TOKEN, useClass: NodeSpiClient },
+    // { provide: GPIO_FACTORY_TOKEN, useClass: NodeGpioFactory },
+    { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },
+    { provide: GPIO_FACTORY_TOKEN, useClass: NullGpioFactory },
   ],
   bootstrap: [AppComponent]
 })

@@ -13,6 +13,7 @@ export interface IDataStorage {
   updateItem(item: IBbqItem): Promise<void>;
 
   insertItemLog(itemLog: IBbqItemLog): Promise<void>;
+  getItemLogs(eventId: string): Promise<IBbqItemLog[]>;
 }
 
 export const DATA_STORAGE_TOKEN = new InjectionToken<IDataStorage>('DATA_STORAGE_TOKEN');

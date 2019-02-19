@@ -123,6 +123,31 @@ export class IndexedDbDataStorage implements IDataStorage {
     });
   }
 
+  public async getItemLogs(eventId: string): Promise<IBbqItemLog[]> {
+    const transaction = this.db.transaction([ IndexedDbDataStorage.itemLogTableName ], 'readonly');
+    const itemLogStore = transaction.objectStore(IndexedDbDataStorage.itemLogTableName);
+
+    const eventIdIndex = itemLogStore.index('eventId');
+    const keyRange = IDBKeyRange.only(eventId);
+
+    const cursorRequest = eventIdIndex.openCursor(keyRange);
+
+    return new Promise<IBbqItemLog[]>((resolve, reject) => {
+      cursorRequest.onerror = () => reject(cursorRequest.error);
+
+      const itemLogs: IBbqItemLog[] = [];
+      cursorRequest.onsuccess = () => {
+        const cursor = cursorRequest.result;
+        if (cursor) {
+          itemLogs.push(cursor.value as IBbqItemLog);
+          cursor.continue();
+        } else {
+          resolve(itemLogs);
+        }
+      };
+    });
+  }
+
   private async ensureDb(): Promise<void> {
     if (!this.db && !this.opening) {
       this.opening = true;
@@ -131,45 +156,48 @@ export class IndexedDbDataStorage implements IDataStorage {
   }
 
   private openDb(): Promise<IDBDatabase> {
-    const req = window.indexedDB.open(IndexedDbDataStorage.dbName, 1.0);
+    const req = window.indexedDB.open(IndexedDbDataStorage.dbName, 5);
 
     return new Promise((resolve, reject) => {
       req.onsuccess = () => {
-        resolve(req.result);
+        return resolve(req.result);
       };
 
       req.onerror = () => {
-        reject(req.error);
+        return reject(req.error);
       };
 
-      req.onupgradeneeded = function () {
+      req.onupgradeneeded = function (vargs) {
         const db = this.result;
         db.onerror = () => {
-          reject(req.error);
+          return reject(req.error);
         };
 
-        // define events table
-        const eventsStore = db.createObjectStore(IndexedDbDataStorage.eventsTableName, { keyPath: 'id' });
-        // eventsStore.createIndex('name', 'name', { unique: false });
-        // eventsStore.createIndex('eventDate', 'eventDate', { unique: false });
-        // eventsStore.createIndex('turnInTime', 'turnInTime', { unique: false });
+        let itemLogStore: IDBObjectStore = null;
 
-        // define items table
-        const itemStore = db.createObjectStore(IndexedDbDataStorage.itemsTableName, { keyPath: 'id' });
-        itemStore.createIndex('eventId', 'eventId', { unique: false });
-        // itemStore.createIndex('name', 'name', { unique: false });
-        // itemStore.createIndex('eventDate', 'eventDate', { unique: false });
-        // itemStore.createIndex('currentPhase', 'currentPhase', { unique: false });
-        // itemStore.createIndex('weight', 'weight', { unique: false });
-        // itemStore.createIndex('targetTemperature', 'targetTemperature', { unique: false });
-        // itemStore.createIndex('temperature', 'temperature', { unique: false });
-        // itemStore.createIndex('cookStartTime', 'cookStartTime', { unique: false });
-        // itemStore.createIndex('thermometerIndex', 'thermometerIndex', { unique: false });
+        // Initial creation
+        if (!vargs.oldVersion) {
+          // define events table
+          const eventsStore = db.createObjectStore(IndexedDbDataStorage.eventsTableName, { keyPath: 'id' });
 
-        // define itemlog table
-        const itemLogStore = db.createObjectStore(IndexedDbDataStorage.itemLogTableName, {keyPath: 'id'});
-        itemStore.createIndex('eventId', 'eventId', { unique: false });
-        itemStore.createIndex('bbqItemId', 'bbqItemId', { unique: false });
+          // define items table
+          const itemStore = db.createObjectStore(IndexedDbDataStorage.itemsTableName, { keyPath: 'id' });
+          itemStore.createIndex('eventId', 'eventId', { unique: false });
+
+          // define itemlog table
+          itemLogStore = db.createObjectStore(IndexedDbDataStorage.itemLogTableName, {keyPath: 'id'});
+          itemLogStore.createIndex('eventId', 'eventId', { unique: false });
+          itemLogStore.createIndex('bbqItemId', 'bbqItemId', { unique: false });
+
+          return;
+        }
+
+        // Versions prior to 5 had a bug where there was no index on itemLogStore
+        if (vargs.oldVersion < 5) {
+          itemLogStore = this.transaction.objectStore(IndexedDbDataStorage.itemLogTableName);
+          itemLogStore.createIndex('eventId', 'eventId', { unique: false });
+          itemLogStore.createIndex('bbqItemId', 'bbqItemId', { unique: false });
+        }
       };
     });
   }

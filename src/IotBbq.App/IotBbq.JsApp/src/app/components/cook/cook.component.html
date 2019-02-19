@@ -1,7 +1,7 @@
 <div class="bbq-container">
   <div class="btnBar btn-group">
     <button id="btnAdd" class="btn btn-primary" (click)="addItemClicked()"><mat-icon>add</mat-icon></button>
-    <button id="btnExp" class="btn btn-primary"><mat-icon>archive</mat-icon></button>
+    <button id="btnExp" class="btn btn-primary" (click)="exportClicked()"><mat-icon>archive</mat-icon></button>
     <button id="btnSilence" class="btn btn-primary" [class.alarming]="isAlarming" [disabled]="!isAlarming" (click)="silenceButtonClicked()">SILENCE!!</button>
   </div>
   <div class="turnInCountdown"><app-countdown [dueTime]="event?.turnInTime" ></app-countdown></div>

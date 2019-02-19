@@ -8,6 +8,7 @@ import { ItemEditorService } from '../../services/ItemEditorService';
 import { Utility } from '../../services/Utility';
 import { ItemLoggerService } from '../../services/ItemLoggerService';
 import { IAlarmService, ALARM_SVC_TOKEN } from '../../services/IAlarmService';
+import { ExportService } from '../../services/ExportService';
 
 @Component({
   selector: 'app-cook',
@@ -30,6 +31,7 @@ export class CookComponent implements OnInit, OnDestroy {
     private itemEditor: ItemEditorService,
     private itemLogger: ItemLoggerService,
     @Inject(ALARM_SVC_TOKEN) private alarmService: IAlarmService,
+    private exportService: ExportService,
   ) {
 
     this.alarmService.alarmStateChanged = (s) => this.onAlarmStateChanged(s);
@@ -64,6 +66,10 @@ export class CookComponent implements OnInit, OnDestroy {
     } else {
       console.log('No item selected');
     }
+  }
+
+  public async exportClicked() {
+    const drives = await this.exportService.exportData(this.eventId);
   }
 
   public silenceButtonClicked() {

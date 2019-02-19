@@ -1,12 +1,12 @@
 
-const electron = require('electron').remote;
-const onoff = electron.require('onoff');
+const remote = require('electron').remote;
+const onoff: typeof import('onoff') = remote.require('onoff');
 
 import { InOrOut, IGpioFactory, IGpio, PinValue } from '../IGpio';
 
 export class NodeGpio implements IGpio {
 
-  private pin: any;
+  private pin: import('onoff').Gpio;
 
   constructor(pin: number, inOrOut: InOrOut) {
     this.pin = new onoff.Gpio(pin, inOrOut === InOrOut.In ? 'in' : 'out');

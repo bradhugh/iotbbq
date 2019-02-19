@@ -1,11 +1,10 @@
 const electron = require('electron').remote;
-const SPI = electron.require('pi-spi');
+const pispi: typeof import('pi-spi') = electron.require('pi-spi');
 import { ISpiClient } from '../ISpiClient';
-import { SPIClient } from 'pi-spi';
 
 export class NodeSpiClient implements ISpiClient {
 
-  private spi: SPIClient;
+  private spi: import('pi-spi').SPIClient;
 
   /*
     Mode0 CPOL = 0, CPHA = 0.
@@ -15,10 +14,10 @@ export class NodeSpiClient implements ISpiClient {
   */
 
   async initialize(chipSelectLine: number): Promise<void> {
-    this.spi = SPI.initialize('/dev/spidev0.0');
+    this.spi = pispi.initialize('/dev/spidev0.0');
     this.spi.clockSpeed(1000000);
     this.spi.dataMode(0); // no flags
-    this.spi.bitOrder(SPI.order.MSB_FIRST);
+    this.spi.bitOrder(pispi.order.MSB_FIRST);
   }
 
   transfer(buffer: Uint8Array): Promise<Uint8Array> {

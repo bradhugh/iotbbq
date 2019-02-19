@@ -73,39 +73,6 @@ import { NullGpioFactory } from './services/design/NullGpio';
 import { InMemoryStorage } from './services/design/InMemoryStorage';
 import { ExportService } from './services/ExportService';
 
-// const providers: Provider[] = [
-//   ElectronService,
-//   EventEditorService,
-//   ItemEditorService,
-//   ItemLoggerService,
-//   SmokerEditorService,
-//   PhaseChooserService,
-//   { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
-//   { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
-//   { provide: ALARM_SVC_TOKEN, useClass: AlarmService },
-// ];
-
-// const electronService = new ElectronService();
-// if (electronService.isElectron) {
-//   const os = require('os');
-//   if (os.arch() === 'arm') {
-//     providers.push({ provide: SPICLIENT_TOKEN, useClass: NodeSpiClient });
-
-//     // We have to comment this out during dev on windows
-//     // since epoll dependency tries to load and fails otherwise
-//     providers.push({ provide: GPIO_FACTORY_TOKEN, useClass: NodeGpioFactory });
-//   } else {
-//     providers.push({ provide: SPICLIENT_TOKEN, useClass: DesignSpiClient });
-//     providers.push({ provide: GPIO_FACTORY_TOKEN, useClass: NullGpioFactory });
-//   }
-// } else if (Windows && Windows.ApplicationModel && Windows.ApplicationModel.AppInfo) {
-//   providers.push({ provide: SPICLIENT_TOKEN, useClass: UwpSpiClient });
-//   providers.push({ provide: GPIO_FACTORY_TOKEN, useClass: UwpGpioFactory });
-// } else {
-//   providers.push({ provide: SPICLIENT_TOKEN, useClass: DesignSpiClient });
-//   providers.push({ provide: GPIO_FACTORY_TOKEN, useClass: NullGpioFactory });
-// }
-
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

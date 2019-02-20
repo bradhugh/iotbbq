@@ -1,17 +1,32 @@
 .content {
   height: 100%;
+  width: 100%;
   display: grid;
   align-items: center;
   justify-content: center;
 
   .title {
-    color: white;
-    padding:50px 20px;
+    color: black;
+    padding:40px 20px;
     grid-row: 1;
   }
 
   .openevent {
+    width: 100%;
     grid-row:2;
   }
 
+  .new-button-area {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .open-event-area {
+    text-align: center;
+    button {
+      margin-top: 5px;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+  }
 }

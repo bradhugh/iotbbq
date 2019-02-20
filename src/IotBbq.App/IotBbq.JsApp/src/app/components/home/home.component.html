@@ -1,13 +1,18 @@
-<div class="content">
+<div class="content container">
   <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' | translate }}
+    IoT Barbeque
   </h1>
   <div class="openevent">
-    <select class="form-control" [(ngModel)]="selectedEventId">
-      <option *ngFor="let e of events" [ngValue]="e.id">{{e.eventDate.toLocaleDateString()}}: {{e.name}}</option>
-    </select>
-    <button (click)="openExistingEventClicked()" [disabled]="selectedEventId === null">Open Existing Event</button>
-    <button (click)="createNewEventClicked()">New Event</button>    
-    <button (click)="exitButtonClicked()">Exit App</button>
+    <div class="form-group" class="open-event-area">
+      <select class="form-control" [(ngModel)]="selectedEventId">
+        <option *ngFor="let e of events" [ngValue]="e.id">{{e.eventDate.toLocaleDateString()}}: {{e.name}}</option>
+      </select>
+      <button class="btn btn-primary" (click)="openExistingEventClicked()" [disabled]="!selectedEventId">Open Existing</button>
+      <button class="btn btn-primary" (click)="exportEventClicked()" [disabled]="!selectedEventId">Export Selected</button>     
+    </div>
+    <div class="form-group new-button-area">
+        <button class="btn btn-primary" (click)="createNewEventClicked()">Create a new Event</button>
+    </div>
   </div>
+  <button class="btn btn-primary" (click)="exitButtonClicked()">Exit App</button>
 </div>

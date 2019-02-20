@@ -4,6 +4,7 @@ import { DATA_STORAGE_TOKEN, IDataStorage } from '../../services/IDataStorage';
 import { IBbqEvent } from '../../model/BbqEvent';
 import { Router } from '@angular/router';
 import { EventEditorService } from '../../services/EventEditorService';
+import { ExportService } from '../../services/ExportService';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     private router: Router,
     private eventEditor: EventEditorService,
+    private exportService: ExportService,
   ) { }
 
   async ngOnInit() {
@@ -44,5 +46,9 @@ export class HomeComponent implements OnInit {
     if (this.electronService.isElectron()) {
       this.electronService.remote.app.exit();
     }
+  }
+
+  public exportEventClicked() {
+    this.exportService.exportData(this.selectedEventId);
   }
 }

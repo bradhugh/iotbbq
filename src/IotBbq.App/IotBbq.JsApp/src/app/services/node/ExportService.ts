@@ -6,8 +6,6 @@ import { ExportStatusComponent } from '../../components/export-status/export-sta
 import { IExportService } from '../IExportService';
 import { ElectronService } from '../electron.service';
 
-let drivelist: typeof import('drivelist') = null;
-
 export class ExportService implements IExportService {
 
   private dialogRef: MatDialogRef<ExportStatusComponent> = null;
@@ -16,11 +14,7 @@ export class ExportService implements IExportService {
     private electron: ElectronService,
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     @Inject(MatDialog) private modalService: MatDialog,
-  ) {
-    if (electron.isElectron()) {
-      drivelist = electron.remote.require('drivelist');
-    }
-  }
+  ) {}
 
   public async exportData(eventId: string): Promise<void> {
     const now = moment();
@@ -63,7 +57,7 @@ export class ExportService implements IExportService {
 
   private async getRemovableDrives(): Promise<string[]> {
     return new Promise<string[]>((resolve, reject) => {
-      drivelist.list((error, drives) => {
+      this.electron.drivelist.list((error, drives) => {
         if (error) {
           return reject(error);
         }

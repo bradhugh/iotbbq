@@ -9,17 +9,23 @@ import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
+import * as onoff from 'onoff';
+import * as pispi from 'pi-spi';
+import * as drivelist from 'drivelist';
 
 @Injectable()
 export class ElectronService {
 
-  ipcRenderer: typeof ipcRenderer;
-  webFrame: typeof webFrame;
-  remote: typeof remote;
-  childProcess: typeof childProcess;
-  fs: typeof fs;
-  os: typeof os;
-  path: typeof path;
+  public ipcRenderer: typeof ipcRenderer;
+  public webFrame: typeof webFrame;
+  public remote: typeof remote;
+  public childProcess: typeof childProcess;
+  public fs: typeof fs;
+  public os: typeof os;
+  public path: typeof path;
+  public onoff: typeof onoff;
+  public pispi: typeof pispi;
+  public drivelist: typeof drivelist;
 
   constructor() {
     // Conditional imports
@@ -32,6 +38,15 @@ export class ElectronService {
       this.fs = window.require('fs');
       this.os = window.require('os');
       this.path = window.require('path');
+
+      // Remote native modules
+      this.drivelist = this.remote.require('drivelist');
+
+      // These native modules are only used on the PI
+      if (this.isArm()) {
+        this.onoff = this.remote.require('onoff');
+        this.pispi = this.remote.require('pi-spi');
+      }
     }
   }
 
@@ -40,7 +55,9 @@ export class ElectronService {
   }
 
   isUwp = () => {
-    return typeof Windows !== 'undefined';
+    return typeof Windows !== 'undefined'
+      && typeof Windows.ApplicationModel !== 'undefined'
+      && typeof Windows.ApplicationModel.Package !== 'undefined';
   }
 
   isArm = () => {

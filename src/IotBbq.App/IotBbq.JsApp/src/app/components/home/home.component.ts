@@ -4,7 +4,7 @@ import { DATA_STORAGE_TOKEN, IDataStorage } from '../../services/IDataStorage';
 import { IBbqEvent } from '../../model/BbqEvent';
 import { Router } from '@angular/router';
 import { EventEditorService } from '../../services/EventEditorService';
-import { ExportService } from '../../services/ExportService';
+import { EXPORT_SERVICE_TOKEN, IExportService } from '../../services/IExportService';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     private router: Router,
     private eventEditor: EventEditorService,
-    private exportService: ExportService,
+    @Inject(EXPORT_SERVICE_TOKEN) private exportService: IExportService,
   ) { }
 
   async ngOnInit() {

@@ -1,12 +1,12 @@
-
-const remote = require('electron').remote;
-const onoff: typeof import('onoff') = remote.require('onoff');
-
 import { InOrOut, IGpioFactory, IGpio, PinValue } from '../IGpio';
+import { ElectronService } from '../electron.service';
+import { Gpio } from 'onoff';
+
+let onoff: typeof import('onoff') = null;
 
 export class NodeGpio implements IGpio {
 
-  private pin: import('onoff').Gpio;
+  private pin: Gpio;
 
   constructor(pin: number, inOrOut: InOrOut) {
     this.pin = new onoff.Gpio(pin, inOrOut === InOrOut.In ? 'in' : 'out');
@@ -23,6 +23,13 @@ export class NodeGpio implements IGpio {
 }
 
 export class NodeGpioFactory implements IGpioFactory {
+
+  constructor(electronService: ElectronService) {
+    if (electronService.isElectron() && electronService.isArm()) {
+      onoff = electronService.remote.require('onoff');
+    }
+  }
+
   open(pin: number, inOrOut: InOrOut): NodeGpio {
     return new NodeGpio(pin, inOrOut);
   }

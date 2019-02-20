@@ -1,19 +1,28 @@
-const electron = require('electron').remote;
-const pispi: typeof import('pi-spi') = electron.require('pi-spi');
 import { ISpiClient } from '../ISpiClient';
+import { SPIClient } from 'pi-spi';
+import { ElectronService } from '../electron.service';
+
+let pispi: typeof import('pi-spi') = null;
+
+/*
+  Mode0 CPOL = 0, CPHA = 0.
+  Mode1 CPOL = 0, CPHA = 1.
+  Mode2 CPOL = 1, CPHA = 0.
+  Mode3 CPOL = 1, CPHA = 1.
+*/
 
 export class NodeSpiClient implements ISpiClient {
 
-  private spi: import('pi-spi').SPIClient;
+  private spi: SPIClient;
 
-  /*
-    Mode0 CPOL = 0, CPHA = 0.
-    Mode1 CPOL = 0, CPHA = 1.
-    Mode2 CPOL = 1, CPHA = 0.
-    Mode3 CPOL = 1, CPHA = 1.
-  */
+  constructor(private electronService: ElectronService) {
+    if (this.electronService.isElectron() && this.electronService.isArm()) {
+      pispi = window.require('pi-spi');
+    }
+  }
 
   async initialize(chipSelectLine: number): Promise<void> {
+
     this.spi = pispi.initialize('/dev/spidev0.0');
     this.spi.clockSpeed(1000000);
     this.spi.dataMode(0); // no flags

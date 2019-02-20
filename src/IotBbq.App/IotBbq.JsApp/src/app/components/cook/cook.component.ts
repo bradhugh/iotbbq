@@ -5,10 +5,9 @@ import { BbqItemComponent } from '../bbq-item/bbq-item.component';
 import { ActivatedRoute } from '@angular/router';
 import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';
 import { ItemEditorService } from '../../services/ItemEditorService';
-import { Utility } from '../../services/Utility';
 import { ItemLoggerService } from '../../services/ItemLoggerService';
-import { ExportService } from '../../services/ExportService';
 import { AlarmService } from '../../services/AlarmService';
+import { EXPORT_SERVICE_TOKEN, IExportService } from '../../services/IExportService';
 
 @Component({
   selector: 'app-cook',
@@ -31,7 +30,7 @@ export class CookComponent implements OnInit, OnDestroy {
     private itemEditor: ItemEditorService,
     private itemLogger: ItemLoggerService,
     private alarmService: AlarmService,
-    private exportService: ExportService,
+    @Inject(EXPORT_SERVICE_TOKEN) private exportService: IExportService,
   ) {
 
     this.alarmService.alarmStateChanged = (s) => this.onAlarmStateChanged(s);

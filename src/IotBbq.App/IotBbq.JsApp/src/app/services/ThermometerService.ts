@@ -1,9 +1,14 @@
-import { IThermometerService, ITemps } from './IThermometerService';
 import { Inject } from '@angular/core';
 import { SPICLIENT_TOKEN, ISpiClient } from './ISpiClient';
 import { Mcp3008, Channels, Channel } from './Mcp3008';
 import { TempUtils } from './TempUtils';
 import { Utility } from './Utility';
+
+export interface ITemps {
+  kelvin: number;
+  celcius: number;
+  farenheight: number;
+}
 
 interface CoefficientSet {
   A: number;
@@ -11,7 +16,7 @@ interface CoefficientSet {
   C: number;
 }
 
-export class ThermometerService implements IThermometerService {
+export class ThermometerService {
 
   private static inputVoltage = 3.3;
 

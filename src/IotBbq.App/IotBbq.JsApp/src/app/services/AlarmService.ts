@@ -1,11 +1,15 @@
 
-import { IAlarmService, AlarmPriority } from './IAlarmService';
 import { Utility } from './Utility';
 import { Observable, Subscription, timer } from 'rxjs';
 import { Inject } from '@angular/core';
 import { GPIO_FACTORY_TOKEN, IGpio, IGpioFactory, InOrOut, PinValue } from './IGpio';
 
-export class AlarmService implements IAlarmService {
+export enum AlarmPriority {
+  Normal,
+  High
+}
+
+export class AlarmService {
 
   public alarmStateChanged: (state: boolean) => void = null;
 

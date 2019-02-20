@@ -2,8 +2,8 @@ import { Inject } from '@angular/core';
 import { IDataStorage, DATA_STORAGE_TOKEN } from './IDataStorage';
 import { timer, Observable } from 'rxjs';
 import { IBbqItemLog } from '../model/BbqItemLog';
-import { THERM_SVC_TOKEN, IThermometerService } from './IThermometerService';
 import { Utility } from './Utility';
+import { ThermometerService } from './ThermometerService';
 
 export class ItemLoggerService {
 
@@ -15,7 +15,7 @@ export class ItemLoggerService {
 
   constructor(
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
-    @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService) {
+    private thermometerService: ThermometerService) {
 
   }
 

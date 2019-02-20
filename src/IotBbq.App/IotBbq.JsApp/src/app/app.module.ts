@@ -29,8 +29,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // Tokens
 import { GPIO_FACTORY_TOKEN } from './services/IGpio';
 import { SPICLIENT_TOKEN } from './services/ISpiClient';
-import { THERM_SVC_TOKEN } from './services/IThermometerService';
-import { ALARM_SVC_TOKEN } from './services/IAlarmService';
 import { DATA_STORAGE_TOKEN } from './services/IDataStorage';
 
 // Components
@@ -132,9 +130,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     SmokerEditorService,
     PhaseChooserService,
     ExportService,
-    { provide: THERM_SVC_TOKEN, useClass: ThermometerService },
+    ThermometerService,
+    AlarmService,
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
-    { provide: ALARM_SVC_TOKEN, useClass: AlarmService },
     // { provide: SPICLIENT_TOKEN, useClass: NodeSpiClient },
     // { provide: GPIO_FACTORY_TOKEN, useClass: NodeGpioFactory },
     { provide: SPICLIENT_TOKEN, useClass: DesignSpiClient },

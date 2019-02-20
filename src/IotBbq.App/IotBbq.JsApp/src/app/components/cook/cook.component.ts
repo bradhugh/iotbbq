@@ -7,8 +7,8 @@ import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';
 import { ItemEditorService } from '../../services/ItemEditorService';
 import { Utility } from '../../services/Utility';
 import { ItemLoggerService } from '../../services/ItemLoggerService';
-import { IAlarmService, ALARM_SVC_TOKEN } from '../../services/IAlarmService';
 import { ExportService } from '../../services/ExportService';
+import { AlarmService } from '../../services/AlarmService';
 
 @Component({
   selector: 'app-cook',
@@ -30,7 +30,7 @@ export class CookComponent implements OnInit, OnDestroy {
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     private itemEditor: ItemEditorService,
     private itemLogger: ItemLoggerService,
-    @Inject(ALARM_SVC_TOKEN) private alarmService: IAlarmService,
+    private alarmService: AlarmService,
     private exportService: ExportService,
   ) {
 

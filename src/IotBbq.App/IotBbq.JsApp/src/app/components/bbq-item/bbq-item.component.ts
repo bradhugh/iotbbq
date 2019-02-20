@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { IBbqItem } from '../../model/BbqItem';
-import { THERM_SVC_TOKEN, IThermometerService } from '../../services/IThermometerService';
 import { Observable, timer } from 'rxjs';
-import { ALARM_SVC_TOKEN, IAlarmService, AlarmPriority } from '../../services/IAlarmService';
 import { PhaseChooserService } from '../../services/PhaseChooserService';
 import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';
 import { TimeSpan } from '../../services/TimeSpan';
+import { AlarmService, AlarmPriority } from '../../services/AlarmService';
+import { ThermometerService } from '../../services/ThermometerService';
 
 @Component({
   selector: 'app-bbq-item',
@@ -27,8 +27,8 @@ export class BbqItemComponent implements OnInit {
   public cookElapsed = new TimeSpan(0);
 
   constructor(
-    @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService,
-    @Inject(ALARM_SVC_TOKEN) private alarmService: IAlarmService,
+    private thermometerService: ThermometerService,
+    private alarmService: AlarmService,
     private phaseChooserService: PhaseChooserService,
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
   ) {

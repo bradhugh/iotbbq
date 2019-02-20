@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ISmokerModel } from '../../model/SmokerSettings';
 import { SmokerEditorService } from '../../services/SmokerEditorService';
-import { IThermometerService, THERM_SVC_TOKEN } from '../../services/IThermometerService';
-import { ALARM_SVC_TOKEN, IAlarmService, AlarmPriority } from '../../services/IAlarmService';
 import { Observable, timer } from 'rxjs';
+import { ThermometerService } from '../../services/ThermometerService';
+import { AlarmService, AlarmPriority } from '../../services/AlarmService';
 
 @Component({
   selector: 'app-smoker',
@@ -30,8 +30,8 @@ export class SmokerComponent implements OnInit {
 
   constructor(
     private smokerEditor: SmokerEditorService,
-    @Inject(THERM_SVC_TOKEN) private thermometer: IThermometerService,
-    @Inject(ALARM_SVC_TOKEN) private alarmService: IAlarmService,
+    private thermometer: ThermometerService,
+    private alarmService: AlarmService,
     ) { }
 
   ngOnInit() {

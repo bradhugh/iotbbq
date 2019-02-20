@@ -3,11 +3,11 @@ import { IBbqItem } from '../../model/BbqItem';
 import { IBbqEvent } from '../../model/BbqEvent';
 import { BbqItemComponent } from '../bbq-item/bbq-item.component';
 import { ActivatedRoute } from '@angular/router';
-import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';
+import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/contracts/IDataStorage';
 import { ItemEditorService } from '../../services/ItemEditorService';
 import { ItemLoggerService } from '../../services/ItemLoggerService';
 import { AlarmService } from '../../services/AlarmService';
-import { EXPORT_SERVICE_TOKEN, IExportService } from '../../services/IExportService';
+import { EXPORT_SERVICE_TOKEN, IExportService } from '../../services/contracts/IExportService';
 
 @Component({
   selector: 'app-cook',

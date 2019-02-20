@@ -1,7 +1,7 @@
 import { Inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Utility } from './Utility';
-import { DATA_STORAGE_TOKEN, IDataStorage } from './IDataStorage';
+import { DATA_STORAGE_TOKEN, IDataStorage } from './contracts/IDataStorage';
 import { IBbqEvent, BbqEvent } from '../model/BbqEvent';
 import { EventEditorComponent } from '../components/event-editor/event-editor.component';
 

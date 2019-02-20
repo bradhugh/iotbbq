@@ -1,4 +1,4 @@
-import { ISpiClient } from '../ISpiClient';
+import { ISpiClient } from '../contracts/ISpiClient';
 import { SPIClient } from 'pi-spi';
 import { ElectronService } from '../electron.service';
 

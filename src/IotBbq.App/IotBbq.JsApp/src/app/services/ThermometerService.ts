@@ -1,5 +1,5 @@
 import { Inject } from '@angular/core';
-import { SPICLIENT_TOKEN, ISpiClient } from './ISpiClient';
+import { SPICLIENT_TOKEN, ISpiClient } from './contracts/ISpiClient';
 import { Mcp3008, Channels, Channel } from './Mcp3008';
 import { TempUtils } from './TempUtils';
 import { Utility } from './Utility';

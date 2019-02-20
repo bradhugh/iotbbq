@@ -4,7 +4,7 @@ import { ItemEditorComponent } from '../components/item-editor/item-editor.compo
 import { IBbqItem, BbqItem } from '../model/BbqItem';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Utility } from './Utility';
-import { DATA_STORAGE_TOKEN, IDataStorage } from './IDataStorage';
+import { DATA_STORAGE_TOKEN, IDataStorage } from './contracts/IDataStorage';
 
 export class ItemEditorService {
 

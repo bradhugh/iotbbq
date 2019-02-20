@@ -2,7 +2,7 @@
 import { Utility } from './Utility';
 import { Observable, Subscription, timer } from 'rxjs';
 import { Inject } from '@angular/core';
-import { GPIO_FACTORY_TOKEN, IGpio, IGpioFactory, InOrOut, PinValue } from './IGpio';
+import { GPIO_FACTORY_TOKEN, IGpio, IGpioFactory, InOrOut, PinValue } from './contracts/IGpio';
 
 export enum AlarmPriority {
   Normal,

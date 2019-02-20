@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { IBbqItem } from '../../model/BbqItem';
 import { Observable, timer } from 'rxjs';
 import { PhaseChooserService } from '../../services/PhaseChooserService';
-import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/IDataStorage';
+import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/contracts/IDataStorage';
 import { TimeSpan } from '../../services/TimeSpan';
 import { AlarmService, AlarmPriority } from '../../services/AlarmService';
 import { ThermometerService } from '../../services/ThermometerService';

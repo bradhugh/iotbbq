@@ -1,6 +1,6 @@
 /// <reference types="@types/winrt-uwp" />
 
-import { IGpio, PinValue, InOrOut, IGpioFactory } from '../IGpio';
+import { IGpio, PinValue, InOrOut, IGpioFactory } from '../contracts/IGpio';
 
 export class UwpGpio implements IGpio {
 

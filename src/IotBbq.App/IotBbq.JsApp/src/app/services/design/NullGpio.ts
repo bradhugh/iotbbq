@@ -1,4 +1,4 @@
-import { IGpio, PinValue, InOrOut, IGpioFactory } from '../IGpio';
+import { IGpio, PinValue, InOrOut, IGpioFactory } from '../contracts/IGpio';
 
 export class NullGpio implements IGpio {
 

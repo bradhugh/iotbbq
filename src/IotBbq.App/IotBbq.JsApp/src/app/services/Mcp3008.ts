@@ -1,6 +1,6 @@
 // tslint:disable: no-bitwise
 
-import { ISpiClient } from './ISpiClient';
+import { ISpiClient } from './contracts/ISpiClient';
 
 export enum InputConfiguration {
   SingleEnded = 1,

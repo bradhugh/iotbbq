@@ -27,10 +27,10 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 // Tokens and interfaces
-import { GPIO_FACTORY_TOKEN, IGpioFactory } from './services/IGpio';
-import { SPICLIENT_TOKEN, ISpiClient } from './services/ISpiClient';
-import { DATA_STORAGE_TOKEN, IDataStorage } from './services/IDataStorage';
-import { IExportService, EXPORT_SERVICE_TOKEN } from './services/IExportService';
+import { GPIO_FACTORY_TOKEN, IGpioFactory } from './services/contracts/IGpio';
+import { SPICLIENT_TOKEN, ISpiClient } from './services/contracts/ISpiClient';
+import { DATA_STORAGE_TOKEN, IDataStorage } from './services/contracts/IDataStorage';
+import { IExportService, EXPORT_SERVICE_TOKEN } from './services/contracts/IExportService';
 
 // Components
 import { AppComponent } from './app.component';

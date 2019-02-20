@@ -1,4 +1,4 @@
-import { InOrOut, IGpioFactory, IGpio, PinValue } from '../IGpio';
+import { InOrOut, IGpioFactory, IGpio, PinValue } from '../contracts/IGpio';
 import { ElectronService } from '../electron.service';
 import { Gpio } from 'onoff';
 

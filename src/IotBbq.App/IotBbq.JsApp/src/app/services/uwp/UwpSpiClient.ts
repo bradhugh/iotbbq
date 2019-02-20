@@ -1,6 +1,6 @@
 /// <reference types="@types/winrt-uwp" />
 
-import { ISpiClient } from '../ISpiClient';
+import { ISpiClient } from '../contracts/ISpiClient';
 
 export class UwpSpiClient implements ISpiClient {
 

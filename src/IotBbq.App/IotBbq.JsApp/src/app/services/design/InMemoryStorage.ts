@@ -1,4 +1,4 @@
-import { IDataStorage } from '../IDataStorage';
+import { IDataStorage } from '../contracts/IDataStorage';
 import { IBbqEvent } from '../../model/BbqEvent';
 import { IBbqItem, BbqItem } from '../../model/BbqItem';
 import { IBbqItemLog } from '../../model/BbqItemLog';

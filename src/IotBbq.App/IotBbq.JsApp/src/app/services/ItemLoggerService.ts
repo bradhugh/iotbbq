@@ -1,5 +1,5 @@
 import { Inject } from '@angular/core';
-import { IDataStorage, DATA_STORAGE_TOKEN } from './IDataStorage';
+import { IDataStorage, DATA_STORAGE_TOKEN } from './contracts/IDataStorage';
 import { timer, Observable } from 'rxjs';
 import { IBbqItemLog } from '../model/BbqItemLog';
 import { Utility } from './Utility';

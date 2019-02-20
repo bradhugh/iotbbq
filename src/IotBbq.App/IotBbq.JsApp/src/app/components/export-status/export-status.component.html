@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+  <div>
+    <div class="progress">
+      <div class="progress-bar bg-success" [class.progress-bar-striped]="inProgress" [class.progress-bar-animated]="inProgress" role="progressbar" style="width: 100%"></div>
+    </div>
+    <div class="status-text">
+      {{data.statusText}}
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="button-container">
+    <button type="button" class="btn btn-primary float-right" [disabled]="inProgress" [mat-dialog-close]="true">OK</button>
+  </div>
+</mat-dialog-actions>

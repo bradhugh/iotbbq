@@ -6,11 +6,16 @@ import * as moment from 'moment';
 import { Inject } from '@angular/core';
 import { DATA_STORAGE_TOKEN, IDataStorage } from './IDataStorage';
 import { BbqEvent } from '../model/BbqEvent';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { ExportStatusComponent } from '../components/export-status/export-status.component';
 
 export class ExportService {
 
+  private dialogRef: MatDialogRef<ExportStatusComponent> = null;
+
   constructor(
-    @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage
+    @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
+    @Inject(MatDialog) private modalService: MatDialog,
   ) {}
 
   public async getRemovableDrives(): Promise<string[]> {
@@ -22,9 +27,9 @@ export class ExportService {
 
         const paths: string[] = [];
         for (const drive of drives) {
-          // if (!drive.isSystem && drive.isUSB && drive.mountpoints.length !== 0) {
+          if (!drive.isSystem && drive.isUSB && drive.mountpoints.length !== 0) {
             paths.push(drive.mountpoints[0].path);
-          // }
+          }
         }
 
         resolve(paths);
@@ -39,10 +44,36 @@ export class ExportService {
       throw new Error(`Event with id ${eventId} does not exist in the database`);
     }
 
-    const folder: string = await this.pickExportFolder(event.name, now);
-    await this.exportEvent(event.id, folder, now);
-    await this.exportItems(event.id, event.name, folder, now);
-    await this.exportItemLogs(event.id, event.name, folder, now);
+    const dialogData = {
+      statusText: '',
+      title: 'Export Event',
+    };
+
+    this.dialogRef = this.modalService.open(ExportStatusComponent, {
+      minWidth: '50%',
+      disableClose: true,
+      data: dialogData,
+    });
+
+    try {
+      const folder: string = await this.pickExportFolder(event.name, now);
+
+      dialogData.statusText = 'Exporting Events...';
+      await this.exportEvent(event.id, folder, now);
+
+      dialogData.statusText = 'Exporting Items...';
+      await this.exportItems(event.id, event.name, folder, now);
+
+      dialogData.statusText = 'Exporting Item Logs...';
+      await this.exportItemLogs(event.id, event.name, folder, now, (status) => dialogData.statusText = status);
+
+      dialogData.statusText = 'Export Complete';
+    } catch (err) {
+      dialogData.statusText = `${err}`;
+    }
+    finally {
+      this.dialogRef.componentInstance.inProgress = false;
+    }
   }
 
   private async exportEvent(eventId: string, folder: string, timestamp: moment.Moment) {
@@ -67,17 +98,17 @@ export class ExportService {
     }
   }
 
-  private async exportItemLogs(eventId: string, eventName: string, folder: string, timestamp: moment.Moment) {
-
-    // TODO: We may need to figure out how to do this one at a time - memory contraints
-    const itemLogs = await this.dataStorage.getItemLogs(eventId);
+  private async exportItemLogs(eventId: string, eventName: string, folder: string, timestamp: moment.Moment, reportStatus: (status: string) => void) {
 
     const logName = this.cleanFileOrFolderName(`ItemLog_${eventName}_${timestamp.format('YYYY-MM-DD_HHmmss')}.csv`);
     const logPath = path.join(folder, logName);
     await this.appendFile(logPath, 'ItemLogId,Timestamp,BbqItemId,ItemName,Temperature,CurrentPhase,Thermometer\r\n');
-    for (const itemLog of itemLogs) {
-      await this.appendFile(logPath, `${itemLog.id},${itemLog.timestamp.toJSON()},${itemLog.bbqItemId},${itemLog.itemName},${itemLog.temperature},${itemLog.currentPhase ? itemLog.currentPhase : ''},${itemLog.thermometer}\r\n`);
-    }
+
+    await this.dataStorage.forEachItemLog(eventId, (itemLog, current, _total) => {
+      // TODO: Total is wrong for some reason, so don't use it.
+      reportStatus(`Exporting ItemLog ${current}`);
+      fs.appendFileSync(logPath, `${itemLog.id},${itemLog.timestamp.toJSON()},${itemLog.bbqItemId},${itemLog.itemName},${itemLog.temperature},${itemLog.currentPhase ? itemLog.currentPhase : ''},${itemLog.thermometer}\r\n`);
+    });
   }
 
   private async pickExportFolder(eventName: string, timestamp: moment.Moment): Promise<string> {

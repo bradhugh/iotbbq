@@ -123,27 +123,41 @@ export class IndexedDbDataStorage implements IDataStorage {
     });
   }
 
-  public async getItemLogs(eventId: string): Promise<IBbqItemLog[]> {
+  public async forEachItemLog(eventId: string, forEach: (log: IBbqItemLog, current: number, total: number) => void): Promise<void> {
     const transaction = this.db.transaction([ IndexedDbDataStorage.itemLogTableName ], 'readonly');
     const itemLogStore = transaction.objectStore(IndexedDbDataStorage.itemLogTableName);
 
     const eventIdIndex = itemLogStore.index('eventId');
     const keyRange = IDBKeyRange.only(eventId);
 
+    const countRequest = itemLogStore.count(keyRange);
+    const totalCount = await this.getResult(countRequest);
+
+    // TODO: figure out why this doesn't work when it seems like it should
+    let currentCount = 0;
     const cursorRequest = eventIdIndex.openCursor(keyRange);
 
-    return new Promise<IBbqItemLog[]>((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       cursorRequest.onerror = () => reject(cursorRequest.error);
 
-      const itemLogs: IBbqItemLog[] = [];
       cursorRequest.onsuccess = () => {
         const cursor = cursorRequest.result;
         if (cursor) {
-          itemLogs.push(cursor.value as IBbqItemLog);
+          currentCount++;
+          forEach(cursor.value as IBbqItemLog, currentCount, totalCount);
           cursor.continue();
         } else {
-          resolve(itemLogs);
+          resolve();
         }
+      };
+    });
+  }
+
+  private async getResult<T>(request: IDBRequest<T>): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      request.onerror = () => reject(request.error);
+      request.onsuccess = () => {
+        resolve(request.result);
       };
     });
   }

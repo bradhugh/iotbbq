@@ -85,7 +85,11 @@ export class InMemoryStorage implements IDataStorage {
     this.itemLogs.push(clone);
   }
 
-  public async getItemLogs(eventId: string): Promise<IBbqItemLog[]> {
-    return this.itemLogs.filter(l => l.eventId === eventId);
+  public async forEachItemLog(eventId: string, forEach: (log: IBbqItemLog, current: number, total: number) => void): Promise<void> {
+    for (let i = 0; i < this.itemLogs.length; i++) {
+      if (this.itemLogs[i].eventId === eventId) {
+        forEach(this.itemLogs[i], i + 1, this.itemLogs.length);
+      }
+    }
   }
 }

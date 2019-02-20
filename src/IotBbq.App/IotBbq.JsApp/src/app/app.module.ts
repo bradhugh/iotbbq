@@ -45,6 +45,7 @@ import { ItemEditorComponent } from './components/item-editor/item-editor.compon
 import { EventEditorComponent } from './components/event-editor/event-editor.component';
 import { SmokerEditorComponent } from './components/smoker-editor/smoker-editor.component';
 import { PhasePickerComponent } from './components/phase-picker/phase-picker.component';
+import { ExportStatusComponent } from './components/export-status/export-status.component';
 
 // Services
 import { AlarmService } from './services/AlarmService';
@@ -93,6 +94,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventEditorComponent,
     SmokerEditorComponent,
     PhasePickerComponent,
+    ExportStatusComponent,
   ],
   imports: [
     BrowserModule,
@@ -121,7 +123,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatIconModule,
   ],
   entryComponents: [ItemEditorComponent, EventEditorComponent,
-    SmokerEditorComponent, PhasePickerComponent],
+    SmokerEditorComponent, PhasePickerComponent, ExportStatusComponent],
   providers: [
     ElectronService,
     EventEditorService,

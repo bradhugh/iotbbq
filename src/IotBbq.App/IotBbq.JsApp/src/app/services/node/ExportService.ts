@@ -46,6 +46,9 @@ export class ExportService implements IExportService {
       dialogData.statusText = 'Exporting Item Logs...';
       await this.exportItemLogs(event.id, event.name, folder, now, (status) => dialogData.statusText = status);
 
+      dialogData.statusText = 'Exporting Smoker Logs...';
+      await this.exportSmokerLogs(event.id, event.name, folder, now, (status) => dialogData.statusText = status);
+
       dialogData.statusText = 'Export Complete';
     } catch (err) {
       dialogData.statusText = `${err}`;
@@ -106,6 +109,18 @@ export class ExportService implements IExportService {
       // TODO: Total is wrong for some reason, so don't use it.
       reportStatus(`Exporting ItemLog ${current}`);
       this.xplat.fs.appendFileSync(logPath, `${itemLog.id},${itemLog.timestamp.toJSON()},${itemLog.bbqItemId},${itemLog.itemName},${itemLog.temperature},${itemLog.currentPhase ? itemLog.currentPhase : ''},${itemLog.thermometer}\r\n`);
+    });
+  }
+
+  private async exportSmokerLogs(eventId: string, eventName: string, folder: string, timestamp: moment.Moment, reportStatus: (status: any) => any): Promise<void> {
+    const logName = this.cleanFileOrFolderName(`SmokerLog_${eventName}_${timestamp.format('YYYY-MM-DD_HHmmss')}.csv`);
+    const logPath = this.xplat.path.join(folder, logName);
+    await this.appendFile(logPath, 'Id,Timestamp,EventId,SetTo,Temperature\r\n');
+
+    await this.dataStorage.forEachSmokerLog(eventId, (log, current, _total) => {
+      // TODO: Total is wrong for some reason, so don't use it.
+      reportStatus(`Exporting Smoker Log ${current}`);
+      this.xplat.fs.appendFileSync(logPath, `${log.id},${log.timestamp.toJSON()},${log.eventId},${log.setTo},${log.temperature}\r\n`);
     });
   }
 

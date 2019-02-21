@@ -2,6 +2,8 @@ import { IDataStorage } from '../contracts/IDataStorage';
 import { IBbqEvent } from '../../model/BbqEvent';
 import { IBbqItem, BbqItem } from '../../model/BbqItem';
 import { IBbqItemLog } from '../../model/BbqItemLog';
+import { ISmokerLog } from '../../model/SmokerLog';
+import { ISmokerSettings } from '../../model/SmokerSettings';
 
 export class InMemoryStorage implements IDataStorage {
 
@@ -91,5 +93,21 @@ export class InMemoryStorage implements IDataStorage {
         forEach(this.itemLogs[i], i + 1, this.itemLogs.length);
       }
     }
+  }
+
+  public async insertSmokerLog(smokerLog: ISmokerLog): Promise<void> {
+    throw new Error('Not implemented');
+  }
+
+  public async forEachSmokerLog(eventId: string, forEach: (log: ISmokerLog, current: number, total: number) => void): Promise<void> {
+    throw new Error('Not implemented');
+  }
+
+  public async getSmokerSettings(): Promise<ISmokerSettings> {
+    throw new Error('Method not implemented.');
+  }
+
+  public async setSmokerSettings(settings: ISmokerSettings): Promise<void> {
+    throw new Error('Method not implemented.');
   }
 }

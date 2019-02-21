@@ -4,6 +4,7 @@ import { SmokerEditorService } from '../../services/SmokerEditorService';
 import { Observable, timer } from 'rxjs';
 import { ThermometerService } from '../../services/ThermometerService';
 import { AlarmService, AlarmPriority } from '../../services/AlarmService';
+import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/contracts/IDataStorage';
 
 @Component({
   selector: 'app-smoker',
@@ -15,6 +16,7 @@ export class SmokerComponent implements OnInit {
   public model: ISmokerModel = {
     highGate: 0,
     lowGate: 0,
+    setTo: 0,
     temperature: 0
   };
 
@@ -32,13 +34,15 @@ export class SmokerComponent implements OnInit {
     private smokerEditor: SmokerEditorService,
     private thermometer: ThermometerService,
     private alarmService: AlarmService,
+    @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     ) { }
 
-  ngOnInit() {
-    const settings = window.localStorage.getItem('smokerSettings');
+  async ngOnInit() {
+    const settings = await this.dataStorage.getSmokerSettings();
     if (settings) {
-      this.model = JSON.parse(settings);
-      this.model.temperature = 0;
+      this.model.setTo = settings.setTo;
+      this.model.highGate = settings.highGate;
+      this.model.lowGate = settings.lowGate;
     }
 
     this.refreshTimer = timer(0, 1000);

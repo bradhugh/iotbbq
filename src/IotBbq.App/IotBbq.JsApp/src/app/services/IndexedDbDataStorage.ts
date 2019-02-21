@@ -2,6 +2,8 @@ import { IDataStorage } from './contracts/IDataStorage';
 import { IBbqEvent } from '../model/BbqEvent';
 import { IBbqItem } from '../model/BbqItem';
 import { IBbqItemLog } from '../model/BbqItemLog';
+import { ISmokerLog } from '../model/SmokerLog';
+import { ISmokerSettings } from '../model/SmokerSettings';
 
 export class IndexedDbDataStorage implements IDataStorage {
 
@@ -9,6 +11,7 @@ export class IndexedDbDataStorage implements IDataStorage {
   private static eventsTableName = 'bbqEvents';
   private static itemsTableName = 'bbqItems';
   private static itemLogTableName = 'bbqItemLogs';
+  private static smokerLogTableName = 'smokerLog';
 
   public db: IDBDatabase = null;
   private opening = false;
@@ -153,6 +156,59 @@ export class IndexedDbDataStorage implements IDataStorage {
     });
   }
 
+  public async insertSmokerLog(smokerLog: ISmokerLog): Promise<void> {
+    await this.ensureDb();
+
+    const transaction = this.db.transaction([ IndexedDbDataStorage.smokerLogTableName ], 'readwrite');
+    const smokerLogStore = transaction.objectStore(IndexedDbDataStorage.smokerLogTableName);
+    await this.getResult(smokerLogStore.put(smokerLog));
+  }
+
+  public async forEachSmokerLog(eventId: string, forEach: (log: ISmokerLog, current: number, total: number) => void): Promise<void> {
+    const transaction = this.db.transaction([ IndexedDbDataStorage.smokerLogTableName ], 'readonly');
+    const smokerLogStore = transaction.objectStore(IndexedDbDataStorage.smokerLogTableName);
+
+    const eventIdIndex = smokerLogStore.index('eventId');
+    const keyRange = IDBKeyRange.only(eventId);
+
+    const countRequest = smokerLogStore.count(keyRange);
+    const totalCount = await this.getResult(countRequest);
+
+    // TODO: figure out why this doesn't work when it seems like it should
+    let currentCount = 0;
+    const cursorRequest = eventIdIndex.openCursor(keyRange);
+
+    return new Promise<void>((resolve, reject) => {
+      cursorRequest.onerror = () => reject(cursorRequest.error);
+
+      cursorRequest.onsuccess = () => {
+        const cursor = cursorRequest.result;
+        if (cursor) {
+          currentCount++;
+          forEach(cursor.value as ISmokerLog, currentCount, totalCount);
+          cursor.continue();
+        } else {
+          resolve();
+        }
+      };
+    });
+  }
+
+  public async getSmokerSettings(): Promise<ISmokerSettings> {
+    const settingsJson = window.localStorage.getItem('smokerSettings');
+    const settings: ISmokerSettings = JSON.parse(settingsJson);
+
+    if (!settings.highGate) { settings.highGate = 0; }
+    if (!settings.lowGate) { settings.lowGate = 0; }
+    if (!settings.setTo) { settings.setTo = 0; }
+
+    return settings;
+  }
+
+  public async setSmokerSettings(settings: ISmokerSettings): Promise<void> {
+    window.localStorage.setItem('smokerSettings', JSON.stringify(settings));
+  }
+
   private async getResult<T>(request: IDBRequest<T>): Promise<T> {
     return new Promise<T>((resolve, reject) => {
       request.onerror = () => reject(request.error);
@@ -170,7 +226,7 @@ export class IndexedDbDataStorage implements IDataStorage {
   }
 
   private openDb(): Promise<IDBDatabase> {
-    const req = window.indexedDB.open(IndexedDbDataStorage.dbName, 5);
+    const req = window.indexedDB.open(IndexedDbDataStorage.dbName, 6);
 
     return new Promise((resolve, reject) => {
       req.onsuccess = () => {
@@ -187,30 +243,40 @@ export class IndexedDbDataStorage implements IDataStorage {
           return reject(req.error);
         };
 
-        let itemLogStore: IDBObjectStore = null;
+        let store: IDBObjectStore = null;
 
         // Initial creation
         if (!vargs.oldVersion) {
           // define events table
-          const eventsStore = db.createObjectStore(IndexedDbDataStorage.eventsTableName, { keyPath: 'id' });
+          store = db.createObjectStore(IndexedDbDataStorage.eventsTableName, { keyPath: 'id' });
 
           // define items table
-          const itemStore = db.createObjectStore(IndexedDbDataStorage.itemsTableName, { keyPath: 'id' });
-          itemStore.createIndex('eventId', 'eventId', { unique: false });
+          store = db.createObjectStore(IndexedDbDataStorage.itemsTableName, { keyPath: 'id' });
+          store.createIndex('eventId', 'eventId', { unique: false });
 
           // define itemlog table
-          itemLogStore = db.createObjectStore(IndexedDbDataStorage.itemLogTableName, {keyPath: 'id'});
-          itemLogStore.createIndex('eventId', 'eventId', { unique: false });
-          itemLogStore.createIndex('bbqItemId', 'bbqItemId', { unique: false });
+          store = db.createObjectStore(IndexedDbDataStorage.itemLogTableName, {keyPath: 'id' });
+          store.createIndex('eventId', 'eventId', { unique: false });
+          store.createIndex('bbqItemId', 'bbqItemId', { unique: false });
+
+          // define smokerLog table
+          store = db.createObjectStore(IndexedDbDataStorage.smokerLogTableName, { keyPath: 'id' });
+          store.createIndex('eventId', 'eventId', { unique: false });
 
           return;
         }
 
         // Versions prior to 5 had a bug where there was no index on itemLogStore
         if (vargs.oldVersion < 5) {
-          itemLogStore = this.transaction.objectStore(IndexedDbDataStorage.itemLogTableName);
-          itemLogStore.createIndex('eventId', 'eventId', { unique: false });
-          itemLogStore.createIndex('bbqItemId', 'bbqItemId', { unique: false });
+          store = this.transaction.objectStore(IndexedDbDataStorage.itemLogTableName);
+          store.createIndex('eventId', 'eventId', { unique: false });
+          store.createIndex('bbqItemId', 'bbqItemId', { unique: false });
+        }
+
+        // Version 6 introduces the smoker log
+        if (vargs.oldVersion < 6) {
+          store = db.createObjectStore(IndexedDbDataStorage.smokerLogTableName, { keyPath: 'id' });
+          store.createIndex('eventId', 'eventId', { unique: false });
         }
       };
     });

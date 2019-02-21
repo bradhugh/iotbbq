@@ -1,25 +1,30 @@
 export interface ISmokerSettings {
   highGate: number;
   lowGate: number;
+  setTo: number;
 }
 
 export interface ISmokerModel {
   highGate: number;
   lowGate: number;
+  setTo: number;
   temperature: number;
 }
 
 export class SmokerSettings implements ISmokerSettings {
-  highGate: number;
-  lowGate: number;
+  public highGate: number;
+  public lowGate: number;
+  public setTo: number;
 
-  load(other: ISmokerSettings) {
+  public load(other: ISmokerSettings) {
     this.highGate = other.highGate;
     this.lowGate = other.lowGate;
+    this.setTo = other.setTo;
   }
 
-  writeTo(other: ISmokerSettings) {
+  public writeTo(other: ISmokerSettings) {
     other.highGate = this.highGate;
     other.lowGate = this.lowGate;
+    other.setTo = this.setTo;
   }
 }

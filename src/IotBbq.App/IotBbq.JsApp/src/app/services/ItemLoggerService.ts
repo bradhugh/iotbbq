@@ -4,6 +4,7 @@ import { timer, Observable } from 'rxjs';
 import { IBbqItemLog } from '../model/BbqItemLog';
 import { Utility } from './Utility';
 import { ThermometerService } from './ThermometerService';
+import { ISmokerLog } from '../model/SmokerLog';
 
 export class ItemLoggerService {
 
@@ -12,6 +13,8 @@ export class ItemLoggerService {
   private itemLogTimer: Observable<number> = null;
 
   private eventId: string = null;
+
+  private smokerProbeNumber = 7;
 
   constructor(
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
@@ -59,5 +62,20 @@ export class ItemLoggerService {
 
       await this.dataStorage.insertItemLog(log);
     }
+
+    const smokerTemp = await this.thermometerService.readThermometer(this.smokerProbeNumber);
+
+    const smokerSettings = await this.dataStorage.getSmokerSettings();
+
+    // Smoker log
+    const smokerLog: ISmokerLog = {
+      id: Utility.createGuid(),
+      timestamp: timeStamp,
+      eventId: currentEventId,
+      temperature: smokerTemp.farenheight,
+      setTo: smokerSettings.setTo,
+    };
+
+    await this.dataStorage.insertSmokerLog(smokerLog);
   }
 }

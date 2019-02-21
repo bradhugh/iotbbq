@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ElectronService } from './services/electron.service';
+import { XPlatService } from './services/XPlatService';
 import { TranslateService } from '@ngx-translate/core';
 import { AppConfig } from '../environments/environment';
 
@@ -9,16 +9,16 @@ import { AppConfig } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public electronService: ElectronService,
+  constructor(public xplat: XPlatService,
     private translate: TranslateService) {
 
     translate.setDefaultLang('en');
     console.log('AppConfig', AppConfig);
 
-    if (electronService.isElectron()) {
+    if (xplat.isElectron()) {
       console.log('Mode electron');
-      console.log('Electron ipcRenderer', electronService.ipcRenderer);
-      console.log('NodeJS childProcess', electronService.childProcess);
+      console.log('Electron ipcRenderer', xplat.ipcRenderer);
+      console.log('NodeJS childProcess', xplat.childProcess);
     } else {
       console.log('Mode web');
     }

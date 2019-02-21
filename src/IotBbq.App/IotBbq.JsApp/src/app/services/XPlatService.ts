@@ -14,7 +14,7 @@ import * as pispi from 'pi-spi';
 import * as drivelist from 'drivelist';
 
 @Injectable()
-export class ElectronService {
+export class XPlatService {
 
   public ipcRenderer: typeof ipcRenderer;
   public webFrame: typeof webFrame;

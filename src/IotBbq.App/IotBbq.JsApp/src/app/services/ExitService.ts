@@ -1,5 +1,5 @@
 import { HostListener, Component } from '@angular/core';
-import { ElectronService } from './electron.service';
+import { XPlatService } from './XPlatService';
 
 @Component({
   selector: 'app-exit-service',
@@ -9,7 +9,7 @@ export class ExitService {
   private exitPattern = '';
 
   constructor(
-    private electronService: ElectronService
+    private xplat: XPlatService
   ) {}
 
   @HostListener('window:keydown', ['$event'])
@@ -29,8 +29,8 @@ export class ExitService {
   }
 
   performExit(): void {
-    if (this.electronService.isElectron) {
-      this.electronService.remote.app.exit();
+    if (this.xplat.isElectron) {
+      this.xplat.remote.app.exit();
     }
   }
 }

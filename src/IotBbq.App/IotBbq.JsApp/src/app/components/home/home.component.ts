@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ElectronService } from '../../services/electron.service';
+import { XPlatService } from '../../services/XPlatService';
 import { DATA_STORAGE_TOKEN, IDataStorage } from '../../services/contracts/IDataStorage';
 import { IBbqEvent } from '../../model/BbqEvent';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   public selectedEventId: string = null;
 
   constructor(
-    private electronService: ElectronService,
+    private xplat: XPlatService,
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     private router: Router,
     private eventEditor: EventEditorService,
@@ -43,8 +43,8 @@ export class HomeComponent implements OnInit {
   }
 
   public exitButtonClicked() {
-    if (this.electronService.isElectron()) {
-      this.electronService.remote.app.exit();
+    if (this.xplat.isElectron()) {
+      this.xplat.remote.app.exit();
     }
   }
 

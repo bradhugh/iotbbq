@@ -52,7 +52,7 @@ import { IndexedDbDataStorage } from './services/IndexedDbDataStorage';
 import { ItemEditorService } from './services/ItemEditorService';
 import { ItemLoggerService } from './services/ItemLoggerService';
 import { EventEditorService } from './services/EventEditorService';
-import { ElectronService } from './services/electron.service';
+import { XPlatService } from './services/XPlatService';
 import { SmokerEditorService } from './services/SmokerEditorService';
 import { PhaseChooserService } from './services/PhaseChooserService';
 import { ThermometerService } from './services/ThermometerService';
@@ -80,11 +80,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-export function GpioFactoryFactory(electron: ElectronService): IGpioFactory {
-  if (electron.isElectron() && electron.isArm()) {
+export function GpioFactoryFactory(xplat: XPlatService): IGpioFactory {
+  if (xplat.isElectron() && xplat.isArm()) {
     console.log('Using Raspberry GPIO');
-    return new NodeGpioFactory(electron);
-  } else if (electron.isUwp() && electron.isArm()) {
+    return new NodeGpioFactory(xplat);
+  } else if (xplat.isUwp() && xplat.isArm()) {
     console.log('Using UWP GPIO');
     return new UwpGpioFactory();
   } else {
@@ -93,11 +93,11 @@ export function GpioFactoryFactory(electron: ElectronService): IGpioFactory {
   }
 }
 
-export function SpiClientFactory(electron: ElectronService): ISpiClient {
-  if (electron.isElectron() && electron.isArm()) {
+export function SpiClientFactory(xplat: XPlatService): ISpiClient {
+  if (xplat.isElectron() && xplat.isArm()) {
     console.log('Using Raspberry SPI');
-    return new NodeSpiClient(electron);
-  } else if (electron.isUwp() && electron.isArm()) {
+    return new NodeSpiClient(xplat);
+  } else if (xplat.isUwp() && xplat.isArm()) {
     console.log('Using UWP SPI');
     return new UwpSpiClient();
   } else {
@@ -107,12 +107,12 @@ export function SpiClientFactory(electron: ElectronService): ISpiClient {
 }
 
 function ExportServiceFactory(
-  electron: ElectronService,
+  xplat: XPlatService,
   dataStorage: IDataStorage,
   dialog: MatDialog): IExportService {
-  if (electron.isElectron()) {
+  if (xplat.isElectron()) {
     console.log('Using Node ExportService');
-    return new ExportService(electron, dataStorage, dialog);
+    return new ExportService(xplat, dataStorage, dialog);
   } else {
     return new NullExportService();
   }
@@ -164,7 +164,7 @@ function ExportServiceFactory(
   entryComponents: [ItemEditorComponent, EventEditorComponent,
     SmokerEditorComponent, PhasePickerComponent, ExportStatusComponent],
   providers: [
-    ElectronService,
+    XPlatService,
     EventEditorService,
     ItemEditorService,
     ItemLoggerService,
@@ -172,10 +172,10 @@ function ExportServiceFactory(
     PhaseChooserService,
     ThermometerService,
     AlarmService,
-    { provide: EXPORT_SERVICE_TOKEN, useFactory: ExportServiceFactory, deps: [ ElectronService, DATA_STORAGE_TOKEN, MatDialog ] },
+    { provide: EXPORT_SERVICE_TOKEN, useFactory: ExportServiceFactory, deps: [ XPlatService, DATA_STORAGE_TOKEN, MatDialog ] },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
-    { provide: SPICLIENT_TOKEN, useFactory: SpiClientFactory, deps: [ ElectronService ] },
-    { provide: GPIO_FACTORY_TOKEN, useFactory: GpioFactoryFactory, deps: [ ElectronService ] },
+    { provide: SPICLIENT_TOKEN, useFactory: SpiClientFactory, deps: [ XPlatService ] },
+    { provide: GPIO_FACTORY_TOKEN, useFactory: GpioFactoryFactory, deps: [ XPlatService ] },
   ],
   bootstrap: [AppComponent]
 })

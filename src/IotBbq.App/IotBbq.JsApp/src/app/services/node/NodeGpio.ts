@@ -1,13 +1,13 @@
 import { InOrOut, IGpioFactory, IGpio, PinValue } from '../contracts/IGpio';
-import { ElectronService } from '../electron.service';
+import { XPlatService } from '../XPlatService';
 import { Gpio } from 'onoff';
 
 export class NodeGpio implements IGpio {
 
   private pin: Gpio;
 
-  constructor(electron: ElectronService, pin: number, inOrOut: InOrOut) {
-    this.pin = new electron.onoff.Gpio(pin, inOrOut === InOrOut.In ? 'in' : 'out');
+  constructor(xplat: XPlatService, pin: number, inOrOut: InOrOut) {
+    this.pin = new xplat.onoff.Gpio(pin, inOrOut === InOrOut.In ? 'in' : 'out');
   }
 
   public async write(value: PinValue): Promise<void> {
@@ -22,13 +22,13 @@ export class NodeGpio implements IGpio {
 
 export class NodeGpioFactory implements IGpioFactory {
 
-  constructor(private electronService: ElectronService) {
-    if (electronService.isElectron() && electronService.isArm()) {
-      electronService.onoff = electronService.remote.require('onoff');
+  constructor(private xplat: XPlatService) {
+    if (xplat.isElectron() && xplat.isArm()) {
+      xplat.onoff = xplat.remote.require('onoff');
     }
   }
 
   open(pin: number, inOrOut: InOrOut): NodeGpio {
-    return new NodeGpio(this.electronService, pin, inOrOut);
+    return new NodeGpio(this.xplat, pin, inOrOut);
   }
 }

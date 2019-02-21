@@ -1,6 +1,6 @@
 import { ISpiClient } from '../contracts/ISpiClient';
 import { SPIClient } from 'pi-spi';
-import { ElectronService } from '../electron.service';
+import { XPlatService } from '../XPlatService';
 
 /*
   Mode0 CPOL = 0, CPHA = 0.
@@ -13,14 +13,14 @@ export class NodeSpiClient implements ISpiClient {
 
   private spi: SPIClient;
 
-  constructor(private electronService: ElectronService) {}
+  constructor(private xplat: XPlatService) {}
 
   async initialize(chipSelectLine: number): Promise<void> {
 
-    this.spi = this.electronService.pispi.initialize('/dev/spidev0.0');
+    this.spi = this.xplat.pispi.initialize('/dev/spidev0.0');
     this.spi.clockSpeed(1000000);
     this.spi.dataMode(0); // no flags
-    this.spi.bitOrder(this.electronService.pispi.order.MSB_FIRST);
+    this.spi.bitOrder(this.xplat.pispi.order.MSB_FIRST);
   }
 
   transfer(buffer: Uint8Array): Promise<Uint8Array> {

@@ -4,14 +4,14 @@ import { DATA_STORAGE_TOKEN, IDataStorage } from '../contracts/IDataStorage';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { ExportStatusComponent } from '../../components/export-status/export-status.component';
 import { IExportService } from '../contracts/IExportService';
-import { ElectronService } from '../electron.service';
+import { XPlatService } from '../XPlatService';
 
 export class ExportService implements IExportService {
 
   private dialogRef: MatDialogRef<ExportStatusComponent> = null;
 
   constructor(
-    private electron: ElectronService,
+    private xplat: XPlatService,
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     @Inject(MatDialog) private modalService: MatDialog,
   ) {}
@@ -57,7 +57,7 @@ export class ExportService implements IExportService {
 
   private async getRemovableDrives(): Promise<string[]> {
     return new Promise<string[]>((resolve, reject) => {
-      this.electron.drivelist.list((error, drives) => {
+      this.xplat.drivelist.list((error, drives) => {
         if (error) {
           return reject(error);
         }
@@ -77,16 +77,16 @@ export class ExportService implements IExportService {
   private async exportEvent(eventId: string, folder: string, timestamp: moment.Moment) {
     const event = await this.dataStorage.getEventById(eventId);
     const logName = this.cleanFileOrFolderName(`Events_${event.name}_${timestamp.format('YYYY-MM-DD_HHmmss')}.csv`);
-    const logPath = this.electron.path.join(folder, logName);
-    this.electron.fs.appendFileSync(logPath, 'EventId,EventDate,EventName,TurnInTime\r\n');
-    this.electron.fs.appendFileSync(logPath, `${event.id},${event.eventDate.toJSON()},${event.name},${event.turnInTime.toJSON()}\r\n`);
+    const logPath = this.xplat.path.join(folder, logName);
+    this.xplat.fs.appendFileSync(logPath, 'EventId,EventDate,EventName,TurnInTime\r\n');
+    this.xplat.fs.appendFileSync(logPath, `${event.id},${event.eventDate.toJSON()},${event.name},${event.turnInTime.toJSON()}\r\n`);
   }
 
   private async exportItems(eventId: string, eventName: string, folder: string, timestamp: moment.Moment) {
     const items = await this.dataStorage.getItems(eventId);
 
     const logName = this.cleanFileOrFolderName(`Items_${eventName}_${timestamp.format('YYYY-MM-DD_HHmmss')}.csv`);
-    const logPath = this.electron.path.join(folder, logName);
+    const logPath = this.xplat.path.join(folder, logName);
 
     // tslint:disable: max-line-length
     await this.appendFile(logPath, 'ItemId,BbqEventId,Name,ItemType,CurrentPhase,Weight,TargetTemperature,CookStartTime,ThermometerIndex\r\n');
@@ -99,13 +99,13 @@ export class ExportService implements IExportService {
   private async exportItemLogs(eventId: string, eventName: string, folder: string, timestamp: moment.Moment, reportStatus: (status: string) => void) {
 
     const logName = this.cleanFileOrFolderName(`ItemLog_${eventName}_${timestamp.format('YYYY-MM-DD_HHmmss')}.csv`);
-    const logPath = this.electron.path.join(folder, logName);
+    const logPath = this.xplat.path.join(folder, logName);
     await this.appendFile(logPath, 'ItemLogId,Timestamp,BbqItemId,ItemName,Temperature,CurrentPhase,Thermometer\r\n');
 
     await this.dataStorage.forEachItemLog(eventId, (itemLog, current, _total) => {
       // TODO: Total is wrong for some reason, so don't use it.
       reportStatus(`Exporting ItemLog ${current}`);
-      this.electron.fs.appendFileSync(logPath, `${itemLog.id},${itemLog.timestamp.toJSON()},${itemLog.bbqItemId},${itemLog.itemName},${itemLog.temperature},${itemLog.currentPhase ? itemLog.currentPhase : ''},${itemLog.thermometer}\r\n`);
+      this.xplat.fs.appendFileSync(logPath, `${itemLog.id},${itemLog.timestamp.toJSON()},${itemLog.bbqItemId},${itemLog.itemName},${itemLog.temperature},${itemLog.currentPhase ? itemLog.currentPhase : ''},${itemLog.thermometer}\r\n`);
     });
   }
 
@@ -115,10 +115,10 @@ export class ExportService implements IExportService {
       throw new Error('No USB drive is connected.')
     }
 
-    const folderPath = this.electron.path.join(folders[0], `${this.cleanFileOrFolderName(eventName)}_${timestamp.format('YYYY-MM-DD_HHmmss')}`);
+    const folderPath = this.xplat.path.join(folders[0], `${this.cleanFileOrFolderName(eventName)}_${timestamp.format('YYYY-MM-DD_HHmmss')}`);
 
     return new Promise<string>((resolve, reject) => {
-      this.electron.fs.mkdir(folderPath, (err) => {
+      this.xplat.fs.mkdir(folderPath, (err) => {
         if (err) {
           return reject(err);
         }
@@ -134,7 +134,7 @@ export class ExportService implements IExportService {
 
   private appendFile(filename: string, data: any): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this.electron.fs.appendFile(filename, data, (err) => {
+      this.xplat.fs.appendFile(filename, data, (err) => {
         if (err) {
           return reject(err);
         }

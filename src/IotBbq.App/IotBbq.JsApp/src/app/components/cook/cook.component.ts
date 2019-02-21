@@ -8,6 +8,7 @@ import { ItemEditorService } from '../../services/ItemEditorService';
 import { ItemLoggerService } from '../../services/ItemLoggerService';
 import { AlarmService } from '../../services/AlarmService';
 import { EXPORT_SERVICE_TOKEN, IExportService } from '../../services/contracts/IExportService';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cook',
@@ -36,15 +37,14 @@ export class CookComponent implements OnInit, OnDestroy {
     this.alarmService.alarmStateChanged = (s) => this.onAlarmStateChanged(s);
   }
 
-  ngOnInit() {
-    this.activatedroute.params.subscribe(async (params) => {
-      this.eventId = params['id'];
+  async ngOnInit() {
+    const params = await this.activatedroute.params.pipe(first()).toPromise();
+    this.eventId = params['id'];
 
-      this.event = await this.dataStorage.getEventById(this.eventId);
-      this.items = await this.dataStorage.getItems(this.eventId);
+    this.event = await this.dataStorage.getEventById(this.eventId);
+    this.items = await this.dataStorage.getItems(this.eventId);
 
-      this.itemLogger.start(this.eventId);
-    });
+    this.itemLogger.start(this.eventId);
   }
 
   ngOnDestroy(): void {

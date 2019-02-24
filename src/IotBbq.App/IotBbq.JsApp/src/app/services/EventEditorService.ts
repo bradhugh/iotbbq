@@ -4,6 +4,7 @@ import { Utility } from './Utility';
 import { DATA_STORAGE_TOKEN, IDataStorage } from './contracts/IDataStorage';
 import { IBbqEvent, BbqEvent } from '../model/BbqEvent';
 import { EventEditorComponent } from '../components/event-editor/event-editor.component';
+import * as moment from 'moment';
 
 export class EventEditorService {
 
@@ -20,6 +21,11 @@ export class EventEditorService {
     if (isNew) {
       event = new BbqEvent();
       event.id = Utility.createGuid();
+
+      // New event defaults
+      const today = moment().startOf('day');
+      event.eventDate = today.toDate();
+      event.turnInTime = today.add(1, 'days').add(10, 'hours').toDate();
     }
 
     const tempEvent = new BbqEvent();

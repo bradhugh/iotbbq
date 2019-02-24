@@ -1,6 +1,7 @@
 import { Component, Input, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IBbqEvent } from '../../model/BbqEvent';
+import { Utility } from '../../services/Utility';
 
 @Component({
   selector: 'app-event-editor',
@@ -18,5 +19,14 @@ export class EventEditorComponent implements OnInit {
     }
 
   ngOnInit() {
+  }
+
+  public onTextBoxFocus(event: FocusEvent, offset: number = -30) {
+    const target = event.target as Element;
+    if (target) {
+      target.scrollIntoView();
+      const parent = Utility.getScrollParent(target);
+      parent.scrollTop += offset;
+    }
   }
 }

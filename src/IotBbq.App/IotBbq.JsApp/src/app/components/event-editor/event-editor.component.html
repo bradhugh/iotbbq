@@ -2,19 +2,23 @@
 <mat-dialog-content class="dialog-content">
   <div class="form-group">
     <label for="name">Event Name</label>
-    <input type="text" [matKeyboard] class="form-control" id="name" [(ngModel)]="data.event.name" placeholder="Event name">
+    <input type="text" class="form-control" id="name" [(ngModel)]="data.event.name" placeholder="Event name"
+      [matKeyboard] (focus)="onTextBoxFocus($event)">
   </div>
   <div class="form-group">
     <label for="eventDate">Event Date</label>
-    <input type="text" class="form-control" id="eventDate" [(ngModel)]="data.event.eventDate" placeholder="Event date" bsDatepicker placement="right">
+    <input type="text" class="form-control" id="eventDate" [(ngModel)]="data.event.eventDate" placeholder="Event date"
+      (focus)="onTextBoxFocus($event, -60)" placement="right" [bsConfig]="{ customTodayClass: 'date-today' }" bsDatepicker>
   </div>
   <div class="form-group">
     <label for="turnInTime">Turn-in Time</label>
     <div class="turnin-row">
-      <input type="text" class="form-control" id="turnInDate" [(ngModel)]="data.event.turnInTime" placeholder="Event date" bsDatepicker placement="right">
+      <input type="text" class="form-control" id="turnInDate" [(ngModel)]="data.event.turnInTime" placeholder="Event date"
+        (focus)="onTextBoxFocus($event, -60)" placement="right" [bsConfig]="{ customTodayClass: 'date-today' }" bsDatepicker>
       <timepicker [(ngModel)]="data.event.turnInTime"></timepicker>
     </div>
   </div>
+  <div class="keyboard-padding"></div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button type="button" class="btn btn-primary" [mat-dialog-close]="true">Save</button>

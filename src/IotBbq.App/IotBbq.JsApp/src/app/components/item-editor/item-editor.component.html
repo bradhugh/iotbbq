@@ -2,7 +2,8 @@
 <mat-dialog-content>
   <div class="form-group">
     <label for="name">Item Name</label>
-    <input type="text" [matKeyboard] class="form-control" id="name" [(ngModel)]="data.item.name" placeholder="Item name (eg. Butt 1)">
+    <input type="text" class="form-control" id="name" [(ngModel)]="data.item.name" placeholder="Item name (eg. Butt 1)"
+      [matKeyboard] (focus)="onTextBoxFocus($event)">
   </div>
   <div class="form-group">
     <label for="type">Item Type</label>
@@ -12,11 +13,13 @@
   </div>
   <div class="form-group">
     <label for="weight">Weight</label>
-    <input [matKeyboard] class="form-control" id="weight" [(ngModel)]="data.item.weight" placeholder="Item weight (in lbs)">
+    <input class="form-control" id="weight" [(ngModel)]="data.item.weight" placeholder="Item weight (in lbs)"
+      [matKeyboard] (focus)="onTextBoxFocus($event)">
   </div>
   <div class="form-group">
     <label for="targetTemp">Target Temperature</label>
-    <input [matKeyboard] class="form-control" id="targetTemp" [(ngModel)]="data.item.targetTemperature" placeholder="Target temp for the item">
+    <input class="form-control" id="targetTemp" [(ngModel)]="data.item.targetTemperature" placeholder="Target temp for the item"
+      [matKeyboard] (focus)="onTextBoxFocus($event)">
   </div>
   <div class="form-group">
     <label for="probeno">Probe Number</label>
@@ -24,6 +27,7 @@
         <option *ngFor="let c of data.probeNumberChoices" [ngValue]="c">{{c}}</option>
     </select>
   </div>
+  <div class="keyboard-padding"></div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button type="button" class="btn btn-primary" [mat-dialog-close]="true">Save</button>

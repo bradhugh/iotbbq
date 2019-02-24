@@ -4,6 +4,8 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 import { IBbqItem } from '../../model/BbqItem';
 import { ItemCatalog } from '../../model/ItemCatalog';
 import { NgModel } from '@angular/forms';
+import { MatKeyboardService, MatKeyboardRef, MatKeyboardComponent, MatKeyboardConfig } from '@ngx-material-keyboard/core';
+import { Utility } from '../../services/Utility';
 
 export interface IItemEditorComponentData {
   title: string;
@@ -33,6 +35,15 @@ export class ItemEditorComponent implements OnInit {
     }
 
   public ngOnInit() {
+  }
+
+  public onTextBoxFocus(event: FocusEvent) {
+    const target = event.target as Element;
+    if (target) {
+      target.scrollIntoView();
+      const parent = Utility.getScrollParent(target);
+      parent.scrollTop -= 30;
+    }
   }
 
   public onItemTypeChanged(model: NgModel) {

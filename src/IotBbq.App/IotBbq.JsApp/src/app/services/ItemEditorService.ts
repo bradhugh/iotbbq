@@ -27,16 +27,21 @@ export class ItemEditorService {
     const tempItem = new BbqItem();
     tempItem.load(item);
 
+    // Figure out which probe numbers are available
+    const items = await this.dataStorage.getItems(eventId);
+    const usedProbes = items.map(i => i.thermometerIndex);
+    const allProbes = [ 1, 2, 3, 4, 5, 6 ];
+    const availableProbes = allProbes.filter((v) => usedProbes.indexOf(v) === -1);
+
     const initialState = {
+      eventId: eventId,
       item: tempItem,
-      title: 'Edit Item',
+      title: isNew ? 'New Item' : 'Edit Item',
       itemTypeChoices: [
         'Butt',
         'Ribs'
       ],
-      probeNumberChoices: [
-        1, 2, 3, 4, 5, 6
-      ]
+      probeNumberChoices: availableProbes
     };
 
     this.dialogRef = this.modalService.open(ItemEditorComponent, {

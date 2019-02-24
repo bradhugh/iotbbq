@@ -1,14 +1,16 @@
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Inject } from '@angular/core';
-import { ItemEditorComponent } from '../components/item-editor/item-editor.component';
+import { ItemEditorComponent, IItemEditorComponentData } from '../components/item-editor/item-editor.component';
 import { IBbqItem, BbqItem } from '../model/BbqItem';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Utility } from './Utility';
 import { DATA_STORAGE_TOKEN, IDataStorage } from './contracts/IDataStorage';
+import { ItemCatalog } from '../model/ItemCatalog';
 
 export class ItemEditorService {
 
   private dialogRef: MatDialogRef<ItemEditorComponent>;
+  private itemCatalog = new ItemCatalog();
 
   constructor(
     @Inject(MatDialog) private modalService: MatDialog,
@@ -22,6 +24,10 @@ export class ItemEditorService {
       item = new BbqItem();
       item.id = Utility.createGuid();
       item.eventId = eventId;
+
+      // New items default to Butt
+      item.itemType = 'Butt';
+      item.targetTemperature = this.itemCatalog.findItemByType('Butt').defaultTargetTemp;
     }
 
     const tempItem = new BbqItem();
@@ -39,8 +45,7 @@ export class ItemEditorService {
       availableProbes.sort();
     }
 
-    const initialState = {
-      eventId: eventId,
+    const initialState: IItemEditorComponentData = {
       item: tempItem,
       title: isNew ? 'New Item' : 'Edit Item',
       itemTypeChoices: [

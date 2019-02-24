@@ -6,7 +6,7 @@
   </div>
   <div class="form-group">
     <label for="type">Item Type</label>
-    <select class="form-control" id="type" [(ngModel)]="data.item.itemType">
+    <select class="form-control" id="type" #modelDir="ngModel" [(ngModel)]="data.item.itemType" (ngModelChange)="onItemTypeChanged(modelDir)">
       <option *ngFor="let c of data.itemTypeChoices" [ngValue]="c">{{c}}</option>
     </select>
   </div>

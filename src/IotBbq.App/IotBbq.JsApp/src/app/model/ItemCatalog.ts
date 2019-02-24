@@ -28,7 +28,7 @@ export class ItemCatalog {
   private addButt() {
     this.items['Butt'] = {
       type: 'Butt',
-      defaultTargetTemp: 190,
+      defaultTargetTemp: 195,
       phases: {
         name: 'Inject',
         isCooking: false,
@@ -57,7 +57,7 @@ export class ItemCatalog {
   private addRibs() {
     this.items['Ribs'] = {
       type: 'Ribs',
-      defaultTargetTemp: 110,
+      defaultTargetTemp: 165,
       phases: {
         name: 'Marinade',
         isCooking: false,

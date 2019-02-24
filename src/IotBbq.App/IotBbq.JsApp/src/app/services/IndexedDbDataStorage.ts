@@ -201,12 +201,12 @@ export class IndexedDbDataStorage implements IDataStorage {
       settings = {
         lowGate: 0,
         highGate: 0,
-        setTo: 0,
+        setTo: 250,
       };
     } else {
       if (!settings.highGate) { settings.highGate = 0; }
       if (!settings.lowGate) { settings.lowGate = 0; }
-      if (!settings.setTo) { settings.setTo = 0; }
+      if (!settings.setTo) { settings.setTo = 250; }
     }
 
     return settings;

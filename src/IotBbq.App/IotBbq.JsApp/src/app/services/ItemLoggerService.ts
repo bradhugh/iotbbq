@@ -1,6 +1,6 @@
 import { Inject } from '@angular/core';
 import { IDataStorage, DATA_STORAGE_TOKEN } from './contracts/IDataStorage';
-import { timer, Observable } from 'rxjs';
+import { timer, Observable, Subscription } from 'rxjs';
 import { IBbqItemLog } from '../model/BbqItemLog';
 import { Utility } from './Utility';
 import { ThermometerService } from './ThermometerService';
@@ -16,6 +16,8 @@ export class ItemLoggerService {
 
   private smokerProbeNumber = 7;
 
+  private timerSubscription: Subscription = null;
+
   constructor(
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     private thermometerService: ThermometerService) {
@@ -26,10 +28,11 @@ export class ItemLoggerService {
     this.eventId = eventId;
 
     this.itemLogTimer = timer(0, this.logInterval);
-    this.itemLogTimer.subscribe(async () => await this.onTimerTick());
+    this.timerSubscription = this.itemLogTimer.subscribe(async () => await this.onTimerTick());
   }
 
   public stop() {
+    this.timerSubscription.unsubscribe();
     this.eventId = null;
     this.itemLogTimer = null;
   }

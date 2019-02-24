@@ -196,11 +196,18 @@ export class IndexedDbDataStorage implements IDataStorage {
 
   public async getSmokerSettings(): Promise<ISmokerSettings> {
     const settingsJson = window.localStorage.getItem('smokerSettings');
-    const settings: ISmokerSettings = JSON.parse(settingsJson);
-
-    if (!settings.highGate) { settings.highGate = 0; }
-    if (!settings.lowGate) { settings.lowGate = 0; }
-    if (!settings.setTo) { settings.setTo = 0; }
+    let settings: ISmokerSettings = JSON.parse(settingsJson);
+    if (!settings) {
+      settings = {
+        lowGate: 0,
+        highGate: 0,
+        setTo: 0,
+      };
+    } else {
+      if (!settings.highGate) { settings.highGate = 0; }
+      if (!settings.lowGate) { settings.lowGate = 0; }
+      if (!settings.setTo) { settings.setTo = 0; }
+    }
 
     return settings;
   }

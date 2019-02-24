@@ -106,7 +106,7 @@ export function SpiClientFactory(xplat: XPlatService): ISpiClient {
   }
 }
 
-function ExportServiceFactory(
+export function ExportServiceFactory(
   xplat: XPlatService,
   dataStorage: IDataStorage,
   dialog: MatDialog): IExportService {

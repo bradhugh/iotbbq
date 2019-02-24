@@ -78,7 +78,7 @@ export class BbqItemComponent implements OnInit {
   private async onTempRefreshTimer(): Promise<void> {
 
     if (this.item && this.item.thermometerIndex > 0) {
-      const temps = await this.thermometerService.readThermometer(this.item.thermometerIndex);
+      const temps = await this.thermometerService.readThermometer(this.item.thermometerIndex - 1);
       this.item.temperature = temps.farenheight;
 
       if (this.item.temperature >= this.item.targetTemperature) {

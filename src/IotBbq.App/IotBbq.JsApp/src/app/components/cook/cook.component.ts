@@ -42,7 +42,8 @@ export class CookComponent implements OnInit, OnDestroy {
     this.eventId = params['id'];
 
     this.event = await this.dataStorage.getEventById(this.eventId);
-    this.items = await this.dataStorage.getItems(this.eventId);
+    const items = await this.dataStorage.getItems(this.eventId);
+    this.items = items.sort((a, b) => a.thermometerIndex - b.thermometerIndex);
 
     this.itemLogger.start(this.eventId);
   }

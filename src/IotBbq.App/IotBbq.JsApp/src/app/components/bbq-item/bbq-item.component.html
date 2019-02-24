@@ -15,7 +15,8 @@
   </div>
   </div>
   <div class="bbq-item-temp">
-    <div class="text">{{item.temperature | number:'1.2-2'}} F</div>
+    <div class="disconnected-icon" [hidden]="!isDisconnected"><mat-icon>report</mat-icon></div>
+    <div class="text" [hidden]="isDisconnected">{{item.temperature | number:'1.2-2'}} F</div>
   </div>
   <div class="bbq-item-phase">
     <button class="btn btn-info" (click)="nextPhaseClicked($event)">{{ item?.currentPhase ? item?.currentPhase : "Next Phase" }}</button>

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ISmokerModel } from '../../model/SmokerSettings';
 import { SmokerEditorService } from '../../services/SmokerEditorService';
 import { Observable, timer } from 'rxjs';
-import { ThermometerService } from '../../services/ThermometerService';
+import { ThermometerService, ThermometerState } from '../../services/ThermometerService';
 import { AlarmService, AlarmPriority } from '../../services/AlarmService';
 import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/contracts/IDataStorage';
 
@@ -21,6 +21,8 @@ export class SmokerComponent implements OnInit {
   };
 
   public isAlarming = false;
+
+  public isDisconnected = false;
 
   private alarmDelay = 1000; // * 60 * 5;
 
@@ -57,7 +59,14 @@ export class SmokerComponent implements OnInit {
 
   private async onRefreshTimerTick(): Promise<void> {
     const temps = await this.thermometer.readThermometer(this.probeIndex - 1);
+    if (temps.state === ThermometerState.Disconnected) {
+      this.model.temperature = null;
+      this.isDisconnected = true;
+      return;
+    }
+
     this.model.temperature = temps.farenheight;
+    this.isDisconnected = false;
 
     if (this.model.temperature >= this.model.highGate
       || this.model.temperature < this.model.lowGate) {

@@ -4,7 +4,13 @@ import { Mcp3008, Channels, Channel } from './Mcp3008';
 import { TempUtils } from './TempUtils';
 import { Utility } from './Utility';
 
+export enum ThermometerState {
+  Disconnected,
+  Connected,
+}
+
 export interface ITemps {
+  state: ThermometerState;
   kelvin: number;
   celcius: number;
   farenheight: number;
@@ -57,28 +63,41 @@ export class ThermometerService {
     const numSamples = 3;
     for (let i = 0; i < numSamples; i++) {
       const reading = await this.mcp.read(this.channels[index]);
+
+      // If any of our reading are zero, we have to treat it as disconnected
+      if (reading.getRawValue() === 0) {
+        return {
+          state: ThermometerState.Disconnected,
+          celcius: 0,
+          farenheight: 0,
+          kelvin: 0,
+        };
+      }
+
       sum += reading.getNormalizedValue();
       await Utility.sleep(100);
     }
 
+    // We were able to read all X samples, compute the average
     const averageValue = sum / numSamples;
 
     const voltage = averageValue * ThermometerService.inputVoltage;
     const resistance = TempUtils.getThermistorResistenceFromVoltage(3.3, voltage, ThermometerService.balancingResistorOhms);
 
     const temps: ITemps = {
+      state: ThermometerState.Disconnected,
       celcius: 0,
       farenheight: 0,
       kelvin: 0,
     };
 
-    // TODO: Check this check
+    // TODO: Check this check, not sure how this would be possible
     if (resistance !== NaN) {
-      temps.kelvin = TempUtils.resistanceToTemp(this.coefficients.A, this.coefficients.B, this.coefficients.C, resistance);
+      temps.state = ThermometerState.Connected;
+      temps.kelvin = TempUtils.resistanceToTemp(this.coefficients.A, this.coefficients.B, this.coefficients.C, resistance);  
+      temps.celcius = TempUtils.kelvinToCelcius(temps.kelvin);
+      temps.farenheight = TempUtils.celciusToFarenheight(temps.celcius);
     }
-
-    temps.celcius = TempUtils.kelvinToCelcius(temps.kelvin);
-    temps.farenheight = TempUtils.celciusToFarenheight(temps.celcius);
 
     return temps;
   }

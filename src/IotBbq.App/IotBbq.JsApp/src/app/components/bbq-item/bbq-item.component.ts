@@ -5,7 +5,7 @@ import { PhaseChooserService } from '../../services/PhaseChooserService';
 import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/contracts/IDataStorage';
 import { TimeSpan } from '../../services/TimeSpan';
 import { AlarmService, AlarmPriority } from '../../services/AlarmService';
-import { ThermometerService } from '../../services/ThermometerService';
+import { ThermometerService, ThermometerState } from '../../services/ThermometerService';
 
 @Component({
   selector: 'app-bbq-item',
@@ -25,6 +25,8 @@ export class BbqItemComponent implements OnInit {
   public isSelected = false;
 
   public cookElapsed = new TimeSpan(0);
+
+  public isDisconnected = false;
 
   constructor(
     private thermometerService: ThermometerService,
@@ -77,15 +79,26 @@ export class BbqItemComponent implements OnInit {
 
   private async onTempRefreshTimer(): Promise<void> {
 
-    if (this.item && this.item.thermometerIndex > 0) {
-      const temps = await this.thermometerService.readThermometer(this.item.thermometerIndex - 1);
-      this.item.temperature = temps.farenheight;
+    if (!this.item || this.item.thermometerIndex <= 0) {
+      return;
+    }
 
-      if (this.item.temperature >= this.item.targetTemperature) {
-        this.setAlarmState();
-      } else {
-        this.clearAlarmState();
-      }
+    const temps = await this.thermometerService.readThermometer(this.item.thermometerIndex - 1);
+
+    // If the probe state is disconnected, set temperature to null
+    if (temps.state === ThermometerState.Disconnected) {
+      this.item.temperature = null;
+      this.isDisconnected = true;
+      return;
+    }
+
+    this.item.temperature = temps.farenheight;
+    this.isDisconnected = false;
+
+    if (this.item.temperature >= this.item.targetTemperature) {
+      this.setAlarmState();
+    } else {
+      this.clearAlarmState();
     }
 
     // Go ahead and update the elapsed cook time if it is started

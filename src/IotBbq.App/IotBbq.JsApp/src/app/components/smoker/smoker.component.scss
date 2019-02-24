@@ -49,6 +49,13 @@
         font-weight: bolder;
         font-size: large;
       }
+
+      .disconnected-icon {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        color: red;
+      }
     }
 }
 

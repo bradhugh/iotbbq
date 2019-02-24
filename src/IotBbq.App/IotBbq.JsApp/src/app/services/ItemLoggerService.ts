@@ -60,7 +60,7 @@ export class ItemLoggerService {
 
       const temps = await this.thermometerService.readThermometer(item.thermometerIndex);
 
-      // TODO: Handle invalid values
+      // TODO: Do we want to log thermometer state?
       log.temperature = temps.farenheight;
 
       await this.dataStorage.insertItemLog(log);

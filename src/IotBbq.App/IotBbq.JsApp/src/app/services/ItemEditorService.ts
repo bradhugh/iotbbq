@@ -33,6 +33,12 @@ export class ItemEditorService {
     const allProbes = [ 1, 2, 3, 4, 5, 6 ];
     const availableProbes = allProbes.filter((v) => usedProbes.indexOf(v) === -1);
 
+    // If we're editing, the current item probe number is also a valid choice
+    if (!isNew) {
+      availableProbes.push(item.thermometerIndex);
+      availableProbes.sort();
+    }
+
     const initialState = {
       eventId: eventId,
       item: tempItem,

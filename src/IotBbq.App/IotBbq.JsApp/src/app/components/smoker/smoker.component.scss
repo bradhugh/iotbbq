@@ -55,6 +55,9 @@
         top: 50%;
         transform: translateY(-50%);
         color: red;
+        mat-icon {
+          font-size: 300%;
+        }
       }
     }
 }

@@ -25,6 +25,9 @@
 
 .disconnected-icon {
   color: red;
+  mat-icon {
+    font-size: 300%;
+  }
 }
 
 .selected {

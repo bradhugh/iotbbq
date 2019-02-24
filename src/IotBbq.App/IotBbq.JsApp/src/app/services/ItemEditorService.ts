@@ -53,8 +53,10 @@ export class ItemEditorService {
       } else {
         await this.dataStorage.updateItem(item);
       }
+
+      return item;
     }
 
-    return item;
+    return null;
   }
 }

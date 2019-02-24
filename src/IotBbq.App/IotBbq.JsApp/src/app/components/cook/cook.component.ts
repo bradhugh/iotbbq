@@ -55,7 +55,9 @@ export class CookComponent implements OnInit, OnDestroy {
   public async addItemClicked() {
     // Create the new item
     const newItem = await this.itemEditor.editItem(this.eventId, null);
-    this.items.push(newItem);
+    if (newItem) {
+      this.items.push(newItem);
+    }
   }
 
   public async editItemClicked() {
@@ -69,7 +71,7 @@ export class CookComponent implements OnInit, OnDestroy {
   }
 
   public async exportClicked() {
-    const drives = await this.exportService.exportData(this.eventId);
+    await this.exportService.exportData(this.eventId);
   }
 
   public silenceButtonClicked() {

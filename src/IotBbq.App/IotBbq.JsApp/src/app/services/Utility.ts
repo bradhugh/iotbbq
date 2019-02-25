@@ -1,4 +1,9 @@
 export class Utility {
+  public static MinDate = new Date(-8640000000000000);
+  public static MaxDate = new Date(8640000000000000);
+
+  public static MinGuid = '00000000-0000-0000-0000-000000000000';
+  public static MaxGuid = 'ffffffff-ffff-ffff-ffff-ffffffffffff';
 
   public static createGuid() {
      function _p8(s?) {

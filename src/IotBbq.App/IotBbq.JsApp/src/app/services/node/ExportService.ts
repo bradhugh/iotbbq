@@ -5,6 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { ExportStatusComponent } from '../../components/export-status/export-status.component';
 import { IExportService } from '../contracts/IExportService';
 import { XPlatService } from '../XPlatService';
+import { Utility } from '../Utility';
 
 export class ExportService implements IExportService {
 
@@ -105,9 +106,8 @@ export class ExportService implements IExportService {
     const logPath = this.xplat.path.join(folder, logName);
     await this.appendFile(logPath, 'ItemLogId,Timestamp,BbqItemId,ItemName,Temperature,CurrentPhase,Thermometer\r\n');
 
-    await this.dataStorage.forEachItemLog(eventId, (itemLog, current, _total) => {
-      // TODO: Total is wrong for some reason, so don't use it.
-      reportStatus(`Exporting ItemLog ${current}`);
+    await this.dataStorage.forEachItemLog(eventId, (itemLog, current, total) => {
+      reportStatus(`Exporting ItemLog ${current} of ${total}`);
       this.xplat.fs.appendFileSync(logPath, `${itemLog.id},${itemLog.timestamp.toJSON()},${itemLog.bbqItemId},${itemLog.itemName},${itemLog.temperature},${itemLog.currentPhase ? itemLog.currentPhase : ''},${itemLog.thermometer}\r\n`);
     });
   }
@@ -117,9 +117,8 @@ export class ExportService implements IExportService {
     const logPath = this.xplat.path.join(folder, logName);
     await this.appendFile(logPath, 'Id,Timestamp,EventId,SetTo,Temperature\r\n');
 
-    await this.dataStorage.forEachSmokerLog(eventId, (log, current, _total) => {
-      // TODO: Total is wrong for some reason, so don't use it.
-      reportStatus(`Exporting Smoker Log ${current}`);
+    await this.dataStorage.forEachSmokerLog(eventId, (log, current, total) => {
+      reportStatus(`Exporting Smoker Log ${current} of ${total}`);
       this.xplat.fs.appendFileSync(logPath, `${log.id},${log.timestamp.toJSON()},${log.eventId},${log.setTo},${log.temperature}\r\n`);
     });
   }
@@ -127,7 +126,7 @@ export class ExportService implements IExportService {
   private async pickExportFolder(eventName: string, timestamp: moment.Moment): Promise<string> {
     const folders = await this.getRemovableDrives();
     if (!folders.length) {
-      throw new Error('No USB drive is connected.')
+      throw new Error('No USB drive is connected.');
     }
 
     const folderPath = this.xplat.path.join(folders[0], `${this.cleanFileOrFolderName(eventName)}_${timestamp.format('YYYY-MM-DD_HHmmss')}`);

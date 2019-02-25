@@ -15,10 +15,25 @@ export interface IDataStorage {
   updateItem(item: IBbqItem): Promise<void>;
 
   insertItemLog(itemLog: IBbqItemLog): Promise<void>;
-  forEachItemLog(eventId: string, forEach: (log: IBbqItemLog, current: number, total: number) => void): Promise<void>;
+
+  forEachItemLog(
+    eventId: string,
+    forEach: (log: IBbqItemLog, current: number, total: number) => void,
+    itemId?: string,
+    minTime?: Date,
+    maxTime?: Date,
+    lowerBoundExclusive?: boolean,
+    upperBoundExclusive?: boolean): Promise<void>;
 
   insertSmokerLog(smokerLog: ISmokerLog): Promise<void>;
-  forEachSmokerLog(eventId: string, forEach: (log: ISmokerLog, current: number, total: number) => void): Promise<void>;
+
+  forEachSmokerLog(
+    eventId: string,
+    forEach: (log: ISmokerLog, current: number, total: number) => void,
+    minTime?: Date,
+    maxTime?: Date,
+    lowerBoundExclusive?: boolean,
+    upperBoundExclusive?: boolean): Promise<void>;
 
   getSmokerSettings(): Promise<ISmokerSettings>;
   setSmokerSettings(settings: ISmokerSettings): Promise<void>;

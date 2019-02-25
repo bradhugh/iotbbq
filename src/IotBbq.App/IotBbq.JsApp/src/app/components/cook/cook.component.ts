@@ -9,6 +9,7 @@ import { ItemLoggerService } from '../../services/ItemLoggerService';
 import { AlarmService } from '../../services/AlarmService';
 import { EXPORT_SERVICE_TOKEN, IExportService } from '../../services/contracts/IExportService';
 import { first } from 'rxjs/operators';
+import { AzureUploadService } from '../../services/AzureUploadService';
 
 @Component({
   selector: 'app-cook',
@@ -30,6 +31,7 @@ export class CookComponent implements OnInit, OnDestroy {
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     private itemEditor: ItemEditorService,
     private itemLogger: ItemLoggerService,
+    private azureUpload: AzureUploadService,
     private alarmService: AlarmService,
     @Inject(EXPORT_SERVICE_TOKEN) private exportService: IExportService,
   ) {
@@ -46,10 +48,12 @@ export class CookComponent implements OnInit, OnDestroy {
     this.items = items.sort((a, b) => a.thermometerIndex - b.thermometerIndex);
 
     this.itemLogger.start(this.eventId);
+    // this.azureUpload.start(this.eventId);
   }
 
   ngOnDestroy(): void {
     this.itemLogger.stop();
+    // this.azureUpload.stop();
   }
 
   public async addItemClicked() {

@@ -74,6 +74,7 @@ import { DesignSpiClient } from './services/design/DesignSpiClient';
 import { NullGpioFactory } from './services/design/NullGpio';
 import { InMemoryStorage } from './services/design/InMemoryStorage';
 import { NullExportService } from './services/design/NullExportService';
+import { AzureUploadService } from './services/AzureUploadService';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -168,6 +169,7 @@ export function ExportServiceFactory(
     EventEditorService,
     ItemEditorService,
     ItemLoggerService,
+    AzureUploadService,
     SmokerEditorService,
     PhaseChooserService,
     ThermometerService,

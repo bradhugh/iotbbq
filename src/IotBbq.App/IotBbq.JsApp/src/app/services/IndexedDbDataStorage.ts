@@ -4,6 +4,7 @@ import { IBbqItem } from '../model/BbqItem';
 import { IBbqItemLog } from '../model/BbqItemLog';
 import { ISmokerLog } from '../model/SmokerLog';
 import { ISmokerSettings } from '../model/SmokerSettings';
+import { Utility } from './Utility';
 
 export class IndexedDbDataStorage implements IDataStorage {
 
@@ -126,20 +127,38 @@ export class IndexedDbDataStorage implements IDataStorage {
     });
   }
 
-  public async forEachItemLog(eventId: string, forEach: (log: IBbqItemLog, current: number, total: number) => void): Promise<void> {
+  public async forEachItemLog(
+    eventId: string,
+    forEach: (log: IBbqItemLog, current: number, total: number) => void,
+    itemId: string = null,
+    minTime: Date = Utility.MinDate,
+    maxTime: Date = Utility.MaxDate,
+    lowerBoundExclusive = false,
+    upperBoundExclusive = false): Promise<void> {
+
     const transaction = this.db.transaction([ IndexedDbDataStorage.itemLogTableName ], 'readonly');
     const itemLogStore = transaction.objectStore(IndexedDbDataStorage.itemLogTableName);
 
-    const eventIdIndex = itemLogStore.index('eventId');
-    const keyRange = IDBKeyRange.only(eventId);
+    let lowerItemId = Utility.MinGuid;
+    let upperItemId = Utility.MaxGuid;
+    if (itemId) {
+      lowerItemId = itemId;
+      upperItemId = itemId;
+    }
 
-    const countRequest = itemLogStore.count(keyRange);
+    const index = itemLogStore.index('eventIdItemIdTimestamp');
+
+    const keyRange = IDBKeyRange.bound(
+      [ eventId, lowerItemId, minTime ],
+      [ eventId, upperItemId, maxTime ],
+      lowerBoundExclusive,
+      upperBoundExclusive);
+
+    const countRequest = index.count(keyRange);
     const totalCount = await this.getResult(countRequest);
 
-    // TODO: figure out why this doesn't work when it seems like it should
     let currentCount = 0;
-    const cursorRequest = eventIdIndex.openCursor(keyRange);
-
+    const cursorRequest = index.openCursor(keyRange);
     return new Promise<void>((resolve, reject) => {
       cursorRequest.onerror = () => reject(cursorRequest.error);
 
@@ -164,17 +183,28 @@ export class IndexedDbDataStorage implements IDataStorage {
     await this.getResult(smokerLogStore.put(smokerLog));
   }
 
-  public async forEachSmokerLog(eventId: string, forEach: (log: ISmokerLog, current: number, total: number) => void): Promise<void> {
+  public async forEachSmokerLog(
+    eventId: string,
+    forEach: (log: ISmokerLog, current: number, total: number) => void,
+    minTime: Date = Utility.MinDate,
+    maxTime: Date = Utility.MaxDate,
+    lowerBoundExclusive = false,
+    upperBoundExclusive = false): Promise<void> {
+
     const transaction = this.db.transaction([ IndexedDbDataStorage.smokerLogTableName ], 'readonly');
     const smokerLogStore = transaction.objectStore(IndexedDbDataStorage.smokerLogTableName);
 
-    const eventIdIndex = smokerLogStore.index('eventId');
-    const keyRange = IDBKeyRange.only(eventId);
+    const eventIdIndex = smokerLogStore.index('eventIdTimestamp');
 
-    const countRequest = smokerLogStore.count(keyRange);
+    const keyRange = IDBKeyRange.bound(
+      [ eventId, minTime ],
+      [ eventId, maxTime ],
+      lowerBoundExclusive,
+      upperBoundExclusive);
+
+    const countRequest = eventIdIndex.count(keyRange);
     const totalCount = await this.getResult(countRequest);
 
-    // TODO: figure out why this doesn't work when it seems like it should
     let currentCount = 0;
     const cursorRequest = eventIdIndex.openCursor(keyRange);
 
@@ -233,7 +263,7 @@ export class IndexedDbDataStorage implements IDataStorage {
   }
 
   private openDb(): Promise<IDBDatabase> {
-    const req = window.indexedDB.open(IndexedDbDataStorage.dbName, 6);
+    const req = window.indexedDB.open(IndexedDbDataStorage.dbName, 12);
 
     return new Promise((resolve, reject) => {
       req.onsuccess = () => {
@@ -265,10 +295,12 @@ export class IndexedDbDataStorage implements IDataStorage {
           store = db.createObjectStore(IndexedDbDataStorage.itemLogTableName, {keyPath: 'id' });
           store.createIndex('eventId', 'eventId', { unique: false });
           store.createIndex('bbqItemId', 'bbqItemId', { unique: false });
+          store.createIndex('eventIdItemIdTimestamp', [ 'eventId', 'bbqItemId', 'timestamp' ]);
 
           // define smokerLog table
           store = db.createObjectStore(IndexedDbDataStorage.smokerLogTableName, { keyPath: 'id' });
           store.createIndex('eventId', 'eventId', { unique: false });
+          store.createIndex('eventIdTimestamp', [ 'eventId', 'timestamp' ]);
 
           return;
         }
@@ -284,6 +316,16 @@ export class IndexedDbDataStorage implements IDataStorage {
         if (vargs.oldVersion < 6) {
           store = db.createObjectStore(IndexedDbDataStorage.smokerLogTableName, { keyPath: 'id' });
           store.createIndex('eventId', 'eventId', { unique: false });
+        }
+
+        // Version 12 adds a composite index on eventid/timestamp on the smoker log
+        // and a eventid/itemid/timestamp index on the item logs
+        if (vargs.oldVersion < 12) {
+          store = this.transaction.objectStore(IndexedDbDataStorage.itemLogTableName);
+          store.createIndex('eventIdItemIdTimestamp', [ 'eventId', 'bbqItemId', 'timestamp' ]);
+
+          store = this.transaction.objectStore(IndexedDbDataStorage.smokerLogTableName);
+          store.createIndex('eventIdTimestamp', [ 'eventId', 'timestamp' ]);
         }
       };
     });

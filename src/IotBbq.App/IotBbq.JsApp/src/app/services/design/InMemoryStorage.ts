@@ -87,7 +87,14 @@ export class InMemoryStorage implements IDataStorage {
     this.itemLogs.push(clone);
   }
 
-  public async forEachItemLog(eventId: string, forEach: (log: IBbqItemLog, current: number, total: number) => void): Promise<void> {
+  public async forEachItemLog(
+    eventId: string,
+    forEach: (log: IBbqItemLog, current: number, total: number) => void,
+    itemId?: string,
+    minTime?: Date,
+    maxTime?: Date,
+    lowerBoundExclusive?: boolean,
+    upperBoundExclusive?: boolean): Promise<void> {
     for (let i = 0; i < this.itemLogs.length; i++) {
       if (this.itemLogs[i].eventId === eventId) {
         forEach(this.itemLogs[i], i + 1, this.itemLogs.length);
@@ -99,7 +106,15 @@ export class InMemoryStorage implements IDataStorage {
     throw new Error('Not implemented');
   }
 
-  public async forEachSmokerLog(eventId: string, forEach: (log: ISmokerLog, current: number, total: number) => void): Promise<void> {
+// tslint:disable-next-line: max-line-length
+  public async forEachSmokerLog(
+    eventId: string,
+    forEach: (log: ISmokerLog, current: number, total: number) => void,
+    minTime?: Date,
+    maxTime?: Date,
+    lowerBoundExclusive?: boolean,
+    upperBoundExclusive?: boolean): Promise<void> {
+
     throw new Error('Not implemented');
   }
 
@@ -108,6 +123,11 @@ export class InMemoryStorage implements IDataStorage {
   }
 
   public async setSmokerSettings(settings: ISmokerSettings): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
+// tslint:disable-next-line: max-line-length
+  public forEachItemLogForItem(eventId: string, itemId: string, lowerBound: Date, forEach: (log: IBbqItemLog, current: number, total: number) => void): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

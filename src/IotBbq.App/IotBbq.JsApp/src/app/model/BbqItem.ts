@@ -12,7 +12,8 @@ export interface IBbqItem {
 }
 
 export class BbqItem implements IBbqItem {
-  public id: string;  eventId: string;
+  public id: string;
+  public eventId: string;
   public name: string;
   public itemType: string;
   public currentPhase: string;

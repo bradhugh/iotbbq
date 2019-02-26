@@ -144,7 +144,6 @@ export class AzureUploadService {
         // Udate the last update time
         item.lastLogUploadTime = maxTimestamp;
         await this.dataStorage.updateItem(item);
-        console.log(`Item logs uploaded last timestamp ${maxTimestamp}`);
       } catch (error) {
         console.log(`Failed to upload item logs. We will retry.`);
       }

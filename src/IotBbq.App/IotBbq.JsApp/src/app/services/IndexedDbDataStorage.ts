@@ -64,6 +64,18 @@ export class IndexedDbDataStorage implements IDataStorage {
     });
   }
 
+  public async updateEvent(event: IBbqEvent): Promise<void> {
+    await this.ensureDb();
+
+    const transaction = this.db.transaction([ IndexedDbDataStorage.eventsTableName ], 'readwrite');
+    const eventStore = transaction.objectStore(IndexedDbDataStorage.eventsTableName);
+    const putRequest = eventStore.put(event);
+    return new Promise<void>((resolve, reject) => {
+      putRequest.onerror = () => reject(putRequest.error);
+      putRequest.onsuccess = () => resolve();
+    });
+  }
+
   public async getItems(eventId: string): Promise<IBbqItem[]> {
     await this.ensureDb();
 

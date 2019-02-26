@@ -46,6 +46,10 @@ export class InMemoryStorage implements IDataStorage {
     this.events.push(clone);
   }
 
+  public async updateEvent(event: IBbqEvent): Promise<void> {
+    throw new Error('Not implemented');
+  }
+
   public async getItems(eventId: string): Promise<IBbqItem[]> {
     const matches = this.items.filter(e => e.eventId === eventId);
     return JSON.parse(JSON.stringify(matches));

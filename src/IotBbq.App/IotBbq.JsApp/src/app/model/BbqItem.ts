@@ -9,6 +9,7 @@ export interface IBbqItem {
   temperature: number;
   cookStartTime: Date;
   thermometerIndex: number;
+  lastLogUploadTime: Date;
 }
 
 export class BbqItem implements IBbqItem {
@@ -22,6 +23,7 @@ export class BbqItem implements IBbqItem {
   public temperature: number;
   public cookStartTime: Date;
   public thermometerIndex: number;
+  public lastLogUploadTime: Date;
 
   public load(other: IBbqItem) {
     this.id = other.id;
@@ -33,6 +35,7 @@ export class BbqItem implements IBbqItem {
     this.temperature = other.temperature;
     this.cookStartTime = other.cookStartTime;
     this.thermometerIndex = other.thermometerIndex;
+    this.lastLogUploadTime = other.lastLogUploadTime;
   }
 
   public writeTo(other: IBbqItem) {
@@ -45,5 +48,6 @@ export class BbqItem implements IBbqItem {
     other.temperature = this.temperature;
     other.cookStartTime = this.cookStartTime;
     other.thermometerIndex = this.thermometerIndex;
+    other.lastLogUploadTime = this.lastLogUploadTime;
   }
 }

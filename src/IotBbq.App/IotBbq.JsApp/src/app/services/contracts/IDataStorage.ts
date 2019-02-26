@@ -9,6 +9,7 @@ export interface IDataStorage {
   getEventById(eventId: string): Promise<IBbqEvent>;
   getEvents(): Promise<IBbqEvent[]>;
   insertEvent(event: IBbqEvent): Promise<void>;
+  updateEvent(event: IBbqEvent): Promise<void>;
 
   getItems(eventId: string): Promise<IBbqItem[]>;
   insertItem(item: IBbqItem): Promise<void>;

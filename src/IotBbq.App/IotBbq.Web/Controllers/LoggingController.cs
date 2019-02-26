@@ -37,7 +37,11 @@ namespace IotBbq.Web.Controllers
 
             foreach (BbqItemLog log in request.ItemLogs)
             {
-                this.context.ItemLogs.Add(log);
+                var existing = this.context.ItemLogs.Find(log.Id);
+                if (existing == null)
+                {
+                    this.context.ItemLogs.Add(log);
+                }
             }
 
             await this.context.SaveChangesAsync();
@@ -55,7 +59,11 @@ namespace IotBbq.Web.Controllers
 
             foreach (SmokerLog log in request.SmokerLogs)
             {
-                this.context.SmokerLogs.Add(log);
+                var existing = this.context.SmokerLog.Find(log.Id);
+                if (existing == null)
+                {
+                    this.context.SmokerLog.Add(log);
+                }
             }
 
             await this.context.SaveChangesAsync();

@@ -15,7 +15,7 @@ namespace IotBbq.Web.Model
 
         public DbSet<BbqItemLog> ItemLogs { get; set; }
 
-        public DbSet<SmokerLog> SmokerLogs { get; set; }
+        public DbSet<SmokerLog> SmokerLog { get; set; }
 
         public LoggingContext(DbContextOptions<LoggingContext> options)
             : base(options)

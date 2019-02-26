@@ -17,6 +17,9 @@ function createWindow() {
     y: 0,
     width: 800,
     height: 480,
+    webPreferences: {
+      webSecurity: serve ? false : true,
+    }
   });
 
   // Set Full Screen

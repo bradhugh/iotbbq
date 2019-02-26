@@ -48,12 +48,12 @@ export class CookComponent implements OnInit, OnDestroy {
     this.items = items.sort((a, b) => a.thermometerIndex - b.thermometerIndex);
 
     this.itemLogger.start(this.eventId);
-    // this.azureUpload.start(this.eventId);
+    this.azureUpload.start(this.eventId);
   }
 
   ngOnDestroy(): void {
     this.itemLogger.stop();
-    // this.azureUpload.stop();
+    this.azureUpload.stop();
   }
 
   public async addItemClicked() {

@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <div>
     <div class="progress">
-      <div class="progress-bar bg-success" [class.progress-bar-striped]="inProgress" [class.progress-bar-animated]="inProgress" role="progressbar" style="width: 100%"></div>
+      <div class="progress-bar bg-success" [class.progress-bar-animated]="inProgress" role="progressbar" [style.width]="data.percentComplete"></div>
     </div>
     <div class="status-text">
       {{data.statusText}}

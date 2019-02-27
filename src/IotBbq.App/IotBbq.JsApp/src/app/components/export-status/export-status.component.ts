@@ -13,6 +13,8 @@ export class ExportStatusComponent implements OnInit {
 
   public inProgress = true;
 
+  public percentComplete = 0;
+
   constructor(
     public dialogRef: MatDialogRef<ExportStatusComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {

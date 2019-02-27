@@ -27,6 +27,7 @@ export class ExportService implements IExportService {
     const dialogData = {
       statusText: '',
       title: 'Export Event',
+      percentComplete: '0%',
     };
 
     this.dialogRef = this.modalService.open(ExportStatusComponent, {
@@ -38,17 +39,50 @@ export class ExportService implements IExportService {
     try {
       const folder: string = await this.pickExportFolder(event.name, now);
 
+      const estimatedItemLogs = 8 * 60 * 6;
+      const estimatedSmokerLogs = 8 * 60;
+      let estimatedTotalItems = estimatedItemLogs + estimatedSmokerLogs + 7;
+      let itemsProcessed = 0;
+
       dialogData.statusText = 'Exporting Events...';
       await this.exportEvent(event.id, folder, now);
+      itemsProcessed += 1;
+      dialogData.percentComplete = Math.round((itemsProcessed / estimatedTotalItems) * 100) + '%';
 
       dialogData.statusText = 'Exporting Items...';
       await this.exportItems(event.id, event.name, folder, now);
+      itemsProcessed += 6;
+      dialogData.percentComplete = Math.round((itemsProcessed / estimatedTotalItems) * 100) + '%';
 
       dialogData.statusText = 'Exporting Item Logs...';
-      await this.exportItemLogs(event.id, event.name, folder, now, (status) => dialogData.statusText = status);
+      let actualItemLogCount = 0;
+      await this.exportItemLogs(event.id, event.name, folder, now, (status, current, total) => {
+
+        if (!actualItemLogCount) {
+          actualItemLogCount = total;
+          estimatedTotalItems = actualItemLogCount + estimatedSmokerLogs + 7;
+        }
+
+        itemsProcessed++;
+
+        dialogData.statusText = status;
+        dialogData.percentComplete = Math.round((itemsProcessed / estimatedTotalItems) * 100) + '%';
+      });
 
       dialogData.statusText = 'Exporting Smoker Logs...';
-      await this.exportSmokerLogs(event.id, event.name, folder, now, (status) => dialogData.statusText = status);
+      let actualSmokerLogCount = 0;
+      await this.exportSmokerLogs(event.id, event.name, folder, now, (status, current, total) => {
+
+        if (!actualSmokerLogCount) {
+          actualSmokerLogCount = total;
+          estimatedTotalItems = actualItemLogCount + actualSmokerLogCount + 7;
+        }
+
+        itemsProcessed++;
+
+        dialogData.statusText = status;
+        dialogData.percentComplete = Math.round((itemsProcessed / estimatedTotalItems) * 100) + '%';
+      });
 
       dialogData.statusText = 'Export Complete';
     } catch (err) {
@@ -100,25 +134,25 @@ export class ExportService implements IExportService {
     }
   }
 
-  private async exportItemLogs(eventId: string, eventName: string, folder: string, timestamp: moment.Moment, reportStatus: (status: string) => void) {
+  private async exportItemLogs(eventId: string, eventName: string, folder: string, timestamp: moment.Moment, reportStatus: (status: string, current: number, total: number) => void) {
 
     const logName = this.cleanFileOrFolderName(`ItemLog_${eventName}_${timestamp.format('YYYY-MM-DD_HHmmss')}.csv`);
     const logPath = this.xplat.path.join(folder, logName);
     await this.appendFile(logPath, 'ItemLogId,Timestamp,BbqItemId,ItemName,Temperature,CurrentPhase,Thermometer\r\n');
 
     await this.dataStorage.forEachItemLog(eventId, (itemLog, current, total) => {
-      reportStatus(`Exporting ItemLog ${current} of ${total}`);
+      reportStatus(`Exporting ItemLog ${current} of ${total}`, current, total);
       this.xplat.fs.appendFileSync(logPath, `${itemLog.id},${itemLog.timestamp.toJSON()},${itemLog.bbqItemId},${itemLog.itemName},${itemLog.temperature},${itemLog.currentPhase ? itemLog.currentPhase : ''},${itemLog.thermometer}\r\n`);
     });
   }
 
-  private async exportSmokerLogs(eventId: string, eventName: string, folder: string, timestamp: moment.Moment, reportStatus: (status: any) => any): Promise<void> {
+  private async exportSmokerLogs(eventId: string, eventName: string, folder: string, timestamp: moment.Moment, reportStatus: (status: string, current: number, total: number) => void): Promise<void> {
     const logName = this.cleanFileOrFolderName(`SmokerLog_${eventName}_${timestamp.format('YYYY-MM-DD_HHmmss')}.csv`);
     const logPath = this.xplat.path.join(folder, logName);
     await this.appendFile(logPath, 'Id,Timestamp,EventId,SetTo,Temperature\r\n');
 
     await this.dataStorage.forEachSmokerLog(eventId, (log, current, total) => {
-      reportStatus(`Exporting Smoker Log ${current} of ${total}`);
+      reportStatus(`Exporting Smoker Log ${current} of ${total}`, current, total);
       this.xplat.fs.appendFileSync(logPath, `${log.id},${log.timestamp.toJSON()},${log.eventId},${log.setTo},${log.temperature}\r\n`);
     });
   }

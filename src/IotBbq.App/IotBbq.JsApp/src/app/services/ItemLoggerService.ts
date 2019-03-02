@@ -47,12 +47,16 @@ export class ItemLoggerService {
     const timeStamp = new Date();
 
     for (const item of items) {
+      const elapsed = item.cookStartTime ?
+        (timeStamp.getTime() - item.cookStartTime.getTime()) / 1000 : 0;
+
       const log: IBbqItemLog = {
         id: Utility.createGuid(),
         eventId: currentEventId,
         bbqItemId: item.id,
         currentPhase: item.currentPhase,
         itemName: item.name,
+        elapsedCookTime: elapsed,
         temperature: 0,
         thermometer: item.thermometerIndex,
         timestamp: timeStamp

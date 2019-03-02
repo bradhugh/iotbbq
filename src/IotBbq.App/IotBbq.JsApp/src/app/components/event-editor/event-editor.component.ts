@@ -20,13 +20,4 @@ export class EventEditorComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  public onTextBoxFocus(event: FocusEvent, offset: number = -30) {
-    const target = event.target as Element;
-    if (target) {
-      target.scrollIntoView();
-      const parent = Utility.getScrollParent(target);
-      parent.scrollTop += offset;
-    }
-  }
 }

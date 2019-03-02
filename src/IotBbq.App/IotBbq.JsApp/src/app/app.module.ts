@@ -6,6 +6,7 @@ import { NgModule, Inject } from '@angular/core';
 
 // Directives
 import { WebviewDirective } from './directives/webview.directive';
+import { ScrollIntoViewDirective } from './directives/scrollintoview.directive';
 
 // Modules
 import { FormsModule } from '@angular/forms';
@@ -135,6 +136,7 @@ export function ExportServiceFactory(
     SmokerEditorComponent,
     PhasePickerComponent,
     ExportStatusComponent,
+    ScrollIntoViewDirective,
   ],
   imports: [
     BrowserModule,

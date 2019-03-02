@@ -37,15 +37,6 @@ export class ItemEditorComponent implements OnInit {
   public ngOnInit() {
   }
 
-  public onTextBoxFocus(event: FocusEvent) {
-    const target = event.target as Element;
-    if (target) {
-      target.scrollIntoView();
-      const parent = Utility.getScrollParent(target);
-      parent.scrollTop -= 30;
-    }
-  }
-
   public onItemTypeChanged(model: NgModel) {
     const oldType = model.model;
     const newType = this.data.item.itemType;

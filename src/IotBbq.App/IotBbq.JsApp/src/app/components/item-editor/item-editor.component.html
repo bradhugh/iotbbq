@@ -3,7 +3,7 @@
   <div class="form-group">
     <label for="name">Item Name</label>
     <input type="text" class="form-control" id="name" [(ngModel)]="data.item.name" placeholder="Item name (eg. Butt 1)"
-      [matKeyboard] (focus)="onTextBoxFocus($event)">
+      [matKeyboard] [scrollIntoView]="-30">
   </div>
   <div class="form-group">
     <label for="type">Item Type</label>
@@ -14,12 +14,12 @@
   <div class="form-group">
     <label for="weight">Weight</label>
     <input class="form-control" id="weight" [(ngModel)]="data.item.weight" placeholder="Item weight (in lbs)"
-      [matKeyboard] (focus)="onTextBoxFocus($event)">
+      [matKeyboard] [scrollIntoView]="-30">
   </div>
   <div class="form-group">
     <label for="targetTemp">Target Temperature</label>
     <input class="form-control" id="targetTemp" [(ngModel)]="data.item.targetTemperature" placeholder="Target temp for the item"
-      [matKeyboard] (focus)="onTextBoxFocus($event)">
+      [matKeyboard] [scrollIntoView]="-30">
   </div>
   <div class="form-group">
     <label for="probeno">Probe Number</label>

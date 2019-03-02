@@ -17,13 +17,4 @@ export class SmokerEditorComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  public onTextBoxFocus(event: FocusEvent) {
-    const target = event.target as Element;
-    if (target) {
-      target.scrollIntoView();
-      const parent = Utility.getScrollParent(target);
-      parent.scrollTop -= 30;
-    }
-  }
 }

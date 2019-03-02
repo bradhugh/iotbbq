@@ -15,4 +15,7 @@
     <div class="disconnected-icon" [hidden]="!isDisconnected"><mat-icon>report</mat-icon></div>
     <div class="temp-text" [hidden]="isDisconnected">{{model.temperature | number:'1.2-2'}} F</div>
   </div>
+  <div class="setTo">
+    <div class="centering">Setting: {{model.setTo}} F</div>
+  </div>
 </div>

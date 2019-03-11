@@ -40,10 +40,10 @@ export class XPlatService {
       this.fs = window.require('fs');
       this.os = window.require('os');
       this.path = window.require('path');
-      this.dateTimeControl = new (window.require('set-system-clock').DateTimeControl)();
 
       // Remote native modules
       this.drivelist = this.remote.require('drivelist');
+      this.dateTimeControl = new (this.remote.require('set-system-clock').DateTimeControl)();
 
       // These native modules are only used on the PI
       if (this.isArm()) {

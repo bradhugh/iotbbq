@@ -45,7 +45,8 @@
   "dependencies": {
     "drivelist": "^7.0.3",
     "onoff": "^3.2.9",
-    "pi-spi": "git://github.com/bradhugh/pi-spi.git#bindings"
+    "pi-spi": "git://github.com/bradhugh/pi-spi.git#bindings",
+    "set-system-clock": "git://github.com/bradhugh/set-system-clock-pkg.git"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.5",
@@ -98,7 +99,6 @@
     "protractor": "5.4.1",
     "rxjs": "6.4.0",
     "rxjs-compat": "^6.4.0",
-    "set-system-clock": "git://github.com/bradhugh/set-system-clock-pkg.git",
     "ts-node": "7.0.1",
     "tslint": "5.11.0",
     "typescript": "3.2.4",

@@ -1,4 +1,4 @@
-<div class="event-info-component">
+<div class="event-info-component" (click)="eventInfoClicked()">
   <div class="text-content">
     <div class="datetime">{{ currentTime | date:'short' }}</div>
     <div class="name">{{ event?.name }}</div>

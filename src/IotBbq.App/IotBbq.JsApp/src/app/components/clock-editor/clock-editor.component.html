@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content class="dialog-content">
+  <div class="form-group">
+    <label for="currentDate">Current Date</label>
+    <div class="date-row">
+      <input type="text" class="form-control" id="currentDate" [(ngModel)]="data.currentDate" placeholder="Current Date"
+        placement="right" [bsConfig]="{ customTodayClass: 'date-today' }" bsDatepicker>
+      <timepicker [(ngModel)]="data.currentDate" [hourStep]="1" [minuteStep]="1"></timepicker>
+    </div>
+  </div>
+  <div class="keyboard-padding"></div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button type="button" class="btn btn-primary" [mat-dialog-close]="true">Save</button>
+  <button type="button" class="btn btn-default" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

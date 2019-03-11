@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IBbqEvent } from '../../model/BbqEvent';
 import { Observable, timer } from 'rxjs';
+import { ClockEditorService } from '../../services/ClockEditorService';
 
 @Component({
   selector: 'app-event-info',
@@ -15,10 +16,17 @@ export class EventInfoComponent implements OnInit {
 
   public timer: Observable<number>;
 
+  constructor(
+    private clockEditor: ClockEditorService) {}
+
   ngOnInit() {
     this.timer = timer(0, 1000);
     this.timer.subscribe(() => {
       this.currentTime = new Date();
     });
+  }
+
+  public async eventInfoClicked() {
+    await this.clockEditor.EditClock();
   }
 }

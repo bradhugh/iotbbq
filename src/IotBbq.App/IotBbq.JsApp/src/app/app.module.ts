@@ -46,6 +46,7 @@ import { EventEditorComponent } from './components/event-editor/event-editor.com
 import { SmokerEditorComponent } from './components/smoker-editor/smoker-editor.component';
 import { PhasePickerComponent } from './components/phase-picker/phase-picker.component';
 import { ExportStatusComponent } from './components/export-status/export-status.component';
+import { ClockEditorComponent } from './components/clock-editor/clock-editor.component';
 
 // Services
 import { AlarmService } from './services/AlarmService';
@@ -59,6 +60,8 @@ import { PhaseChooserService } from './services/PhaseChooserService';
 import { ThermometerService } from './services/ThermometerService';
 import { ExitService } from './services/ExitService';
 import { ExportService } from './services/node/ExportService';
+import { AzureUploadService } from './services/AzureUploadService';
+import { ClockEditorService } from './services/ClockEditorService';
 
 // UWP services
 import { UwpSpiClient } from './services/uwp/UwpSpiClient';
@@ -75,7 +78,6 @@ import { DesignSpiClient } from './services/design/DesignSpiClient';
 import { NullGpioFactory } from './services/design/NullGpio';
 import { InMemoryStorage } from './services/design/InMemoryStorage';
 import { NullExportService } from './services/design/NullExportService';
-import { AzureUploadService } from './services/AzureUploadService';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -137,6 +139,7 @@ export function ExportServiceFactory(
     PhasePickerComponent,
     ExportStatusComponent,
     ScrollIntoViewDirective,
+    ClockEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -164,8 +167,9 @@ export function ExportServiceFactory(
     MatDialogModule,
     MatIconModule,
   ],
-  entryComponents: [ItemEditorComponent, EventEditorComponent,
-    SmokerEditorComponent, PhasePickerComponent, ExportStatusComponent],
+  entryComponents: [
+    ItemEditorComponent, EventEditorComponent, SmokerEditorComponent,
+    PhasePickerComponent, ExportStatusComponent, ClockEditorComponent],
   providers: [
     XPlatService,
     EventEditorService,
@@ -176,6 +180,7 @@ export function ExportServiceFactory(
     PhaseChooserService,
     ThermometerService,
     AlarmService,
+    ClockEditorService,
     { provide: EXPORT_SERVICE_TOKEN, useFactory: ExportServiceFactory, deps: [ XPlatService, DATA_STORAGE_TOKEN, MatDialog ] },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
     { provide: SPICLIENT_TOKEN, useFactory: SpiClientFactory, deps: [ XPlatService ] },

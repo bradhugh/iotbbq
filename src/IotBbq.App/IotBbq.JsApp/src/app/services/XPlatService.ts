@@ -12,6 +12,7 @@ import * as path from 'path';
 import * as onoff from 'onoff';
 import * as pispi from 'pi-spi';
 import * as drivelist from 'drivelist';
+import { DateTimeControl } from 'set-system-clock';
 
 @Injectable()
 export class XPlatService {
@@ -26,6 +27,7 @@ export class XPlatService {
   public onoff: typeof onoff;
   public pispi: typeof pispi;
   public drivelist: typeof drivelist;
+  public dateTimeControl: DateTimeControl;
 
   constructor() {
     // Conditional imports
@@ -38,6 +40,7 @@ export class XPlatService {
       this.fs = window.require('fs');
       this.os = window.require('os');
       this.path = window.require('path');
+      this.dateTimeControl = new DateTimeControl();
 
       // Remote native modules
       this.drivelist = this.remote.require('drivelist');
@@ -50,17 +53,17 @@ export class XPlatService {
     }
   }
 
-  isElectron = () => {
+  isElectron = (): boolean => {
     return window && window.process && window.process.type;
   }
 
-  isUwp = () => {
+  isUwp = (): boolean => {
     return typeof Windows !== 'undefined'
       && typeof Windows.ApplicationModel !== 'undefined'
       && typeof Windows.ApplicationModel.Package !== 'undefined';
   }
 
-  isArm = () => {
+  isArm = (): boolean => {
     if (this.isUwp()) {
       return Windows.ApplicationModel.Package.current.id.architecture === Windows.System.ProcessorArchitecture.arm;
     } else if (this.isElectron()) {

@@ -30,7 +30,7 @@ export class ClockEditorService {
     const result: boolean = await dialogRef.afterClosed().toPromise();
     if (result) {
       // change the date
-      this.xplat.dateTimeControl.setDateTime(initialState.currentDate);
+      this.xplat.dateTimeControl.setDateTime(initialState.currentDate, { useSudo: true });
     }
   }
 }

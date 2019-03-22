@@ -14,7 +14,7 @@ export class ItemLoggerService {
 
   private eventId: string = null;
 
-  private smokerProbeNumber = 7;
+  private smokerProbeIndex = 6;
 
   private timerSubscription: Subscription = null;
 
@@ -70,7 +70,7 @@ export class ItemLoggerService {
       await this.dataStorage.insertItemLog(log);
     }
 
-    const smokerTemp = await this.thermometerService.readThermometer(this.smokerProbeNumber);
+    const smokerTemp = await this.thermometerService.readThermometer(this.smokerProbeIndex);
 
     const smokerSettings = await this.dataStorage.getSmokerSettings();
 

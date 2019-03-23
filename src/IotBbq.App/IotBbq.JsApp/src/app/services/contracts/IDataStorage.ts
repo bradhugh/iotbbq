@@ -24,7 +24,8 @@ export interface IDataStorage {
     minTime?: Date,
     maxTime?: Date,
     lowerBoundExclusive?: boolean,
-    upperBoundExclusive?: boolean): Promise<void>;
+    upperBoundExclusive?: boolean,
+    maxCount?: number): Promise<void>;
 
   insertSmokerLog(smokerLog: ISmokerLog): Promise<void>;
 
@@ -34,7 +35,8 @@ export interface IDataStorage {
     minTime?: Date,
     maxTime?: Date,
     lowerBoundExclusive?: boolean,
-    upperBoundExclusive?: boolean): Promise<void>;
+    upperBoundExclusive?: boolean,
+    maxCount?: number): Promise<void>;
 
   getSmokerSettings(): Promise<ISmokerSettings>;
   setSmokerSettings(settings: ISmokerSettings): Promise<void>;

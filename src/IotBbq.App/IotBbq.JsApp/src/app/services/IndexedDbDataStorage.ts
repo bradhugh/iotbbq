@@ -141,12 +141,13 @@ export class IndexedDbDataStorage implements IDataStorage {
 
   public async forEachItemLog(
     eventId: string,
-    forEach: (log: IBbqItemLog, current: number, total: number) => void,
+    forEachCallback: (log: IBbqItemLog, current: number, total: number) => void,
     itemId: string = null,
     minTime: Date = Utility.MinDate,
     maxTime: Date = Utility.MaxDate,
     lowerBoundExclusive = false,
-    upperBoundExclusive = false): Promise<void> {
+    upperBoundExclusive = false,
+    maxCount: number = -1): Promise<void> {
 
     const transaction = this.db.transaction([ IndexedDbDataStorage.itemLogTableName ], 'readonly');
     const itemLogStore = transaction.objectStore(IndexedDbDataStorage.itemLogTableName);
@@ -178,7 +179,13 @@ export class IndexedDbDataStorage implements IDataStorage {
         const cursor = cursorRequest.result;
         if (cursor) {
           currentCount++;
-          forEach(cursor.value as IBbqItemLog, currentCount, totalCount);
+          forEachCallback(cursor.value as IBbqItemLog, currentCount, totalCount);
+
+          // If we've reached the max count, exit
+            if (currentCount === maxCount) {
+            return resolve();
+        }
+
           cursor.continue();
         } else {
           resolve();
@@ -197,11 +204,12 @@ export class IndexedDbDataStorage implements IDataStorage {
 
   public async forEachSmokerLog(
     eventId: string,
-    forEach: (log: ISmokerLog, current: number, total: number) => void,
+    forEachCallback: (log: ISmokerLog, current: number, total: number) => void,
     minTime: Date = Utility.MinDate,
     maxTime: Date = Utility.MaxDate,
     lowerBoundExclusive = false,
-    upperBoundExclusive = false): Promise<void> {
+    upperBoundExclusive = false,
+    maxCount: number = -1): Promise<void> {
 
     const transaction = this.db.transaction([ IndexedDbDataStorage.smokerLogTableName ], 'readonly');
     const smokerLogStore = transaction.objectStore(IndexedDbDataStorage.smokerLogTableName);
@@ -227,7 +235,13 @@ export class IndexedDbDataStorage implements IDataStorage {
         const cursor = cursorRequest.result;
         if (cursor) {
           currentCount++;
-          forEach(cursor.value as ISmokerLog, currentCount, totalCount);
+          forEachCallback(cursor.value as ISmokerLog, currentCount, totalCount);
+
+          // If we've reached the max count, exit
+          if (currentCount === maxCount) {
+              return resolve();
+          }
+
           cursor.continue();
         } else {
           resolve();

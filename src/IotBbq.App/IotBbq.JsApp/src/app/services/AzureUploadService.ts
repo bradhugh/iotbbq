@@ -25,6 +25,8 @@ export class AzureUploadService {
 
   private initialDelay = 1000 * 5; // 5 seconds
 
+  private maxLogsPerUpload = 100;
+
   private azureLogTimer: Observable<number> = null;
 
   private eventId: string = null;
@@ -76,7 +78,9 @@ export class AzureUploadService {
       },
       event.lastSmokerUploadTime ? event.lastSmokerUploadTime : Utility.MinDate,
       Utility.MaxDate,
-      true);
+      true,
+      false,
+      this.maxLogsPerUpload);
 
     // If for some reason there are no logs, do nothing
     if (smokerLogs.length === 0) {
@@ -121,7 +125,9 @@ export class AzureUploadService {
         item.id,
         item.lastLogUploadTime ? item.lastLogUploadTime : Utility.MinDate,
         Utility.MaxDate,
-        true);
+        true,
+        false,
+        this.maxLogsPerUpload);
 
       if (itemLogs.length === 0) {
         continue;

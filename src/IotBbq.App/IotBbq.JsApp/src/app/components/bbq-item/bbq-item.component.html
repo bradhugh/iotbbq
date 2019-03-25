@@ -6,7 +6,8 @@
     </div>
   </div>
   <div class="bbq-item-thermindex">
-    <div>{{item.thermometerIndex}}</div>
+    <span [hidden]="!isMuted" class="mute-icon"><mat-icon>volume_off</mat-icon></span>
+    <span>{{item.thermometerIndex}}</span>
   </div>
   <div class="bbq-item-targettemp">
     <div class="nested-container">

@@ -36,7 +36,9 @@ export class CookComponent implements OnInit, OnDestroy {
     @Inject(EXPORT_SERVICE_TOKEN) private exportService: IExportService,
   ) {
 
-    this.alarmService.alarmStateChanged = (s) => this.onAlarmStateChanged(s);
+    this.alarmService.on('alarmStateChanged', (s: boolean) => {
+      this.onAlarmStateChanged(s);
+    });
   }
 
   async ngOnInit() {

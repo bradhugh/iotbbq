@@ -3,15 +3,14 @@ import { Utility } from './Utility';
 import { Observable, Subscription, timer } from 'rxjs';
 import { Inject } from '@angular/core';
 import { GPIO_FACTORY_TOKEN, IGpio, IGpioFactory, InOrOut, PinValue } from './contracts/IGpio';
+import { EventEmitter } from 'events';
 
 export enum AlarmPriority {
   Normal,
   High
 }
 
-export class AlarmService {
-
-  public alarmStateChanged: (state: boolean) => void = null;
+export class AlarmService extends EventEmitter {
 
   private _isAlarming = false;
 
@@ -31,9 +30,11 @@ export class AlarmService {
 
   private pinNumber = 16;
 
+  private currentTags: any[] = [];
+
   constructor(
-    @Inject(GPIO_FACTORY_TOKEN) gpioFactory: IGpioFactory,
-  ) {
+    @Inject(GPIO_FACTORY_TOKEN) gpioFactory: IGpioFactory) {
+    super();
     this.gpioPin = gpioFactory.open(this.pinNumber, InOrOut.Out);
   }
 
@@ -46,18 +47,24 @@ export class AlarmService {
       this.alarmSubscription.unsubscribe();
       this.alarmTimer = null;
       this._isAlarming = false;
-      const cb = this.alarmStateChanged;
-      if (cb) {
-        cb(false);
-      }
+
+      this.emit('alarmStateChanged', false);
+
+      // Emit the alarm silenced event with tags
+      const tags = this.currentTags;
+      this.currentTags = [];
+      this.emit('alarmSilenced', tags);
     }
   }
 
-  public triggerAlarm(priority: AlarmPriority, duration: number = null) {
+  public triggerAlarm(priority: AlarmPriority, tag: Object, duration: number = null) {
+    if (this.currentTags.indexOf(tag) === -1) {
+      this.currentTags.push(tag);
+    }
+
     if (!this.isAlarming() || (priority === AlarmPriority.High && this.currentPriority === AlarmPriority.Normal)) {
       const now = new Date();
       if (duration) {
-        // TODO: confirm now.getTime() is in ms
         this.whenToStop = new Date(now.getTime() + duration);
       } else {
         this.whenToStop = null;
@@ -69,10 +76,7 @@ export class AlarmService {
       this.alarmTimer = timer(0, priority === AlarmPriority.High ? this.highPriorityInterval : this.normalPriorityInterval);
       this.alarmSubscription = this.alarmTimer.subscribe(async () => await this.onAlarmTimerTick());
 
-      const cb = this.alarmStateChanged;
-      if (cb) {
-        cb(true);
-      }
+      this.emit('alarmStateChanged', true);
     }
   }
 

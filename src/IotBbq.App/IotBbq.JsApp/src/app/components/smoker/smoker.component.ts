@@ -74,7 +74,7 @@ export class SmokerComponent implements OnInit {
         if (now.getTime() - this.loadedTime.getTime() > this.alarmDelay) {
           if (!this.isAlarming) {
             this.isAlarming = true;
-            this.alarmService.triggerAlarm(AlarmPriority.Normal);
+            this.alarmService.triggerAlarm(AlarmPriority.Normal, this.model);
           }
         }
       } else {

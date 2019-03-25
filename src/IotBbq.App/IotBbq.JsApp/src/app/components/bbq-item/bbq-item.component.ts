@@ -20,6 +20,12 @@ export class BbqItemComponent implements OnInit {
 
   public isAlarming = false;
 
+  public isMuted = false;
+
+  private muteExpires: Date = new Date();
+
+  private alarmMuteDurationInMs = 1000 * 60 * 10;
+
   private timer: Observable<number>;
 
   public isSelected = false;
@@ -37,6 +43,17 @@ export class BbqItemComponent implements OnInit {
 
     this.timer = timer(0, 1000);
     this.timer.subscribe(async () => await this.onTempRefreshTimer());
+
+    // Subscribe to alarm state changes
+    this.alarmService.on('alarmSilenced', (tags: Object[]) => {
+      // Someone silenced an alarm triggered by our item
+      if (tags.indexOf(this.item) !== -1) {
+        // Set new expiration time for mute
+        const now = new Date();
+        this.muteExpires = new Date(now.getTime() + this.alarmMuteDurationInMs);
+        this.isMuted = true;
+      }
+    });
   }
 
   public static getSelected() {
@@ -101,10 +118,21 @@ export class BbqItemComponent implements OnInit {
       this.clearAlarmState();
     }
 
+    this.updateMuteState();
+
     // Go ahead and update the elapsed cook time if it is started
     if (this.item.cookStartTime) {
       const now = new Date();
       this.cookElapsed = TimeSpan.Subtract(now, this.item.cookStartTime);
+    }
+  }
+
+  private updateMuteState() {
+    const now = new Date();
+
+    // If we've reached the time for the mute to expire, clear isMuted
+    if (now >= this.muteExpires) {
+      this.isMuted = false;
     }
   }
 
@@ -115,7 +143,11 @@ export class BbqItemComponent implements OnInit {
   private setAlarmState() {
     if (!this.isAlarming) {
       this.isAlarming = true;
-      this.alarmService.triggerAlarm(AlarmPriority.Normal);
+
+      const now = new Date();
+      if (now >= this.muteExpires) {
+        this.alarmService.triggerAlarm(AlarmPriority.Normal, this.item);
+      }
     }
   }
 }

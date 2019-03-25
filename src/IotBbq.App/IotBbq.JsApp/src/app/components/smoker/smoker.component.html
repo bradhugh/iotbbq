@@ -2,20 +2,23 @@
   <div class="high-gate">
     <div class="centering">
       <label>High Gate</label>
-      <div>{{model.highGate }} F</div>
+      <div>{{model.highGate}}°</div>
     </div>
   </div>
   <div class="low-gate">
     <div class="centering">
       <label>Low Gate</label>
-      <div>{{model.lowGate}} F</div>
+      <div>{{model.lowGate}}°</div>
     </div>
   </div>
   <div class="temperature">
+    <div class="mute-icon" [hidden]="!isMuted">
+      <mat-icon>volume_off</mat-icon>
+    </div>
     <div class="disconnected-icon" [hidden]="!isDisconnected"><mat-icon>report</mat-icon></div>
-    <div class="temp-text" [hidden]="isDisconnected">{{model.temperature | number:'1.2-2'}} F</div>
+    <div class="temp-text" [hidden]="isDisconnected">{{model.temperature | number:'1.0-0'}}°</div>
   </div>
   <div class="setTo">
-    <div class="centering">Setting: {{model.setTo}} F</div>
+    <div class="centering">Setting: {{model.setTo}}°</div>
   </div>
 </div>

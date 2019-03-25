@@ -24,9 +24,13 @@ export class SmokerComponent implements OnInit {
 
   public isDisconnected = false;
 
-  private alarmDelay = 1000; // * 60 * 5;
+  public isMuted = true;
 
-  private loadedTime: Date;
+  private muteExpires: Date = new Date();
+
+  private alarmMuteDurationInMs = 1000 * 60 * 10;
+
+  private initialMuteDuration = 1000 * 60 * 5;
 
   private refreshTimer: Observable<number> = null;
 
@@ -50,7 +54,20 @@ export class SmokerComponent implements OnInit {
     this.refreshTimer = timer(0, 1000);
     this.refreshTimer.subscribe(async () => await this.onRefreshTimerTick());
 
-    this.loadedTime = new Date();
+    // mute the alarm right away for an initial period
+    this.isMuted = true;
+    this.muteExpires = new Date(new Date().getTime() + this.initialMuteDuration);
+
+    // Subscribe to alarm state changes
+    this.alarmService.on('alarmSilenced', (tags: Object[]) => {
+      // Someone silenced an alarm triggered by the smoker
+      if (tags.indexOf(this.model) !== -1) {
+        // Set new expiration time for mute
+        const now = new Date();
+        this.muteExpires = new Date(now.getTime() + this.alarmMuteDurationInMs);
+        this.isMuted = true;
+      }
+    });
   }
 
   public async onSmokerComponentClicked() {
@@ -68,17 +85,36 @@ export class SmokerComponent implements OnInit {
     this.model.temperature = temps.farenheight;
     this.isDisconnected = false;
 
-    if (this.model.temperature >= this.model.highGate
-      || this.model.temperature < this.model.lowGate) {
-        const now = new Date();
-        if (now.getTime() - this.loadedTime.getTime() > this.alarmDelay) {
-          if (!this.isAlarming) {
-            this.isAlarming = true;
-            this.alarmService.triggerAlarm(AlarmPriority.Normal, this.model);
-          }
-        }
-      } else {
-        this.isAlarming = false;
+    if (this.model.temperature >= this.model.highGate || this.model.temperature < this.model.lowGate) {
+      this.setAlarmState();
+    } else {
+      this.clearAlarmState();
+    }
+
+    this.updateMuteState();
+  }
+
+  private updateMuteState() {
+    const now = new Date();
+
+    // If we've reached the time for the mute to expire, clear isMuted
+    if (now >= this.muteExpires) {
+      this.isMuted = false;
+    }
+  }
+
+  private clearAlarmState() {
+    this.isAlarming = false;
+  }
+
+  private setAlarmState() {
+    if (!this.isAlarming) {
+      this.isAlarming = true;
+
+      const now = new Date();
+      if (now >= this.muteExpires) {
+        this.alarmService.triggerAlarm(AlarmPriority.Normal, this.model);
       }
+    }
   }
 }

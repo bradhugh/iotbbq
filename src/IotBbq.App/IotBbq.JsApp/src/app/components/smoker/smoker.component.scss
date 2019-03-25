@@ -41,8 +41,15 @@
       grid-row-start: 1;
       grid-row-end: 3;
       transform-style: preserve-3d;
+      text-align: center;
+
+      .mute-icon {
+        right: 0px;
+        position: absolute;
+      }
 
       .temp-text {
+        padding: 8px;
         position: relative;
         top: 50%;
         transform: translateY(-50%);

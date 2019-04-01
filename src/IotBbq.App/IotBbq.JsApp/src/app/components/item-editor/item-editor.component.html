@@ -23,7 +23,7 @@
   </div>
   <div class="form-group">
     <label for="probeno">Probe Number</label>
-    <select class="form-control" id="probeno" [(ngModel)]="data.item.thermometerIndex">
+    <select class="form-control" id="probeno" [(ngModel)]="data.item.probeNumber">
         <option *ngFor="let c of data.probeNumberChoices" [ngValue]="c">{{c}}</option>
     </select>
   </div>

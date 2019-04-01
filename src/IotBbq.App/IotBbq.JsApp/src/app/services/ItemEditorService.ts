@@ -35,13 +35,13 @@ export class ItemEditorService {
 
     // Figure out which probe numbers are available
     const items = await this.dataStorage.getItems(eventId);
-    const usedProbes = items.map(i => i.thermometerIndex);
+    const usedProbes = items.map(i => i.probeNumber);
     const allProbes = [ 1, 2, 3, 4, 5, 6 ];
     const availableProbes = allProbes.filter((v) => usedProbes.indexOf(v) === -1);
 
     // If we're editing, the current item probe number is also a valid choice
     if (!isNew) {
-      availableProbes.push(item.thermometerIndex);
+      availableProbes.push(item.probeNumber);
       availableProbes.sort();
     }
 

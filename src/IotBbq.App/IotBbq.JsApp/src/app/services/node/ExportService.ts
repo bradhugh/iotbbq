@@ -127,10 +127,10 @@ export class ExportService implements IExportService {
     const logPath = this.xplat.path.join(folder, logName);
 
     // tslint:disable: max-line-length
-    await this.appendFile(logPath, 'ItemId,BbqEventId,Name,ItemType,CurrentPhase,Weight,TargetTemperature,CookStartTime,ThermometerIndex\r\n');
+    await this.appendFile(logPath, 'ItemId,BbqEventId,Name,ItemType,CurrentPhase,Weight,TargetTemperature,CookStartTime,ProbeNumber\r\n');
     for (const item of items) {
       // TODO: CSV escape name
-      await this.appendFile(logPath, `${item.id},${item.eventId},${item.name},${item.itemType},${item.currentPhase ? item.currentPhase : ''},${item.weight},${item.targetTemperature},${item.cookStartTime ? item.cookStartTime.toJSON() : ''},${item.thermometerIndex}\r\n`);
+      await this.appendFile(logPath, `${item.id},${item.eventId},${item.name},${item.itemType},${item.currentPhase ? item.currentPhase : ''},${item.weight},${item.targetTemperature},${item.cookStartTime ? item.cookStartTime.toJSON() : ''},${item.probeNumber}\r\n`);
     }
   }
 

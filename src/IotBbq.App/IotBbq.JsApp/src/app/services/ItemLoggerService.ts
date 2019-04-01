@@ -58,11 +58,11 @@ export class ItemLoggerService {
         itemName: item.name,
         elapsedCookTime: elapsed,
         temperature: 0,
-        thermometer: item.thermometerIndex,
+        thermometer: item.probeNumber,
         timestamp: timeStamp
       };
 
-      const temps = await this.thermometerService.readThermometer(item.thermometerIndex);
+      const temps = await this.thermometerService.readThermometer(item.probeNumber);
 
       // TODO: Do we want to log thermometer state?
       log.temperature = temps.farenheight;

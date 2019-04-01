@@ -96,11 +96,11 @@ export class BbqItemComponent implements OnInit {
 
   private async onTempRefreshTimer(): Promise<void> {
 
-    if (!this.item || this.item.thermometerIndex <= 0) {
+    if (!this.item || this.item.probeNumber <= 0) {
       return;
     }
 
-    const temps = await this.thermometerService.readThermometer(this.item.thermometerIndex - 1);
+    const temps = await this.thermometerService.readThermometer(this.item.probeNumber - 1);
 
     // If the probe state is disconnected, set temperature to null
     if (temps.state === ThermometerState.Disconnected) {

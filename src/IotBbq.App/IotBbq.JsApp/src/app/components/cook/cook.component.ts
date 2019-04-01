@@ -47,7 +47,7 @@ export class CookComponent implements OnInit, OnDestroy {
 
     this.event = await this.dataStorage.getEventById(this.eventId);
     const items = await this.dataStorage.getItems(this.eventId);
-    this.items = items.sort((a, b) => a.thermometerIndex - b.thermometerIndex);
+    this.items = items.sort((a, b) => a.probeNumber - b.probeNumber);
 
     this.itemLogger.start(this.eventId);
     this.azureUpload.start(this.eventId);

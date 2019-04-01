@@ -6,6 +6,6 @@ export interface IBbqItemLog {
   currentPhase: string;
   itemName: string;
   elapsedCookTime: number;
-  thermometer: number;
+  probeNumber: number;
   temperature: number;
 }

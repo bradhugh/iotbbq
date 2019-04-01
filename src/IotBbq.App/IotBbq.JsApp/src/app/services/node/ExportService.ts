@@ -142,7 +142,7 @@ export class ExportService implements IExportService {
 
     await this.dataStorage.forEachItemLog(eventId, (itemLog, current, total) => {
       reportStatus(`Exporting ItemLog ${current} of ${total}`, current, total);
-      this.xplat.fs.appendFileSync(logPath, `${itemLog.id},${itemLog.timestamp.toJSON()},${itemLog.bbqItemId},${itemLog.itemName},${itemLog.temperature},${itemLog.currentPhase ? itemLog.currentPhase : ''},${itemLog.thermometer}\r\n`);
+      this.xplat.fs.appendFileSync(logPath, `${itemLog.id},${itemLog.timestamp.toJSON()},${itemLog.bbqItemId},${itemLog.itemName},${itemLog.temperature},${itemLog.currentPhase ? itemLog.currentPhase : ''},${itemLog.probeNumber}\r\n`);
     });
   }
 

@@ -33,8 +33,8 @@ namespace IotBbq.Web.Model
         [JsonProperty("cookStartTime")]
         public DateTime? CookStartTime { get; set; }
 
-        [JsonProperty("thermometerIndex")]
-        public int ThermometerIndex { get; set; }
+        [JsonProperty("probeNumber")]
+        public int ProbeNumber { get; set; }
 
         public BbqEvent BbqEvent { get; set; }
 

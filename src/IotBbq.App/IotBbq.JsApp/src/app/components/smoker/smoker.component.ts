@@ -34,7 +34,7 @@ export class SmokerComponent implements OnInit {
 
   private refreshTimer: Observable<number> = null;
 
-  private probeIndex = 7;
+  private probeNumber = 7;
 
   constructor(
     private smokerEditor: SmokerEditorService,
@@ -75,7 +75,7 @@ export class SmokerComponent implements OnInit {
   }
 
   private async onRefreshTimerTick(): Promise<void> {
-    const temps = await this.thermometer.readThermometer(this.probeIndex - 1);
+    const temps = await this.thermometer.readThermometer(this.probeNumber);
     if (temps.state === ThermometerState.Disconnected) {
       this.model.temperature = null;
       this.isDisconnected = true;

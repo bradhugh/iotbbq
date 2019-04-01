@@ -100,7 +100,7 @@ export class BbqItemComponent implements OnInit {
       return;
     }
 
-    const temps = await this.thermometerService.readThermometer(this.item.probeNumber - 1);
+    const temps = await this.thermometerService.readThermometer(this.item.probeNumber);
 
     // If the probe state is disconnected, set temperature to null
     if (temps.state === ThermometerState.Disconnected) {

@@ -53,16 +53,19 @@ export class ThermometerService {
     this.mcp = new Mcp3008(spiClient, 0);
   }
 
-  public async readThermometer(index: number): Promise<ITemps> {
+  public async readThermometer(probeNumber: number): Promise<ITemps> {
 
-    if (index < 0 || index > 7) {
-      throw new Error('Index must be from 0-7');
+    if (probeNumber < 1 || probeNumber > 8) {
+      throw new Error('Probe number must be from 1-8');
     }
+
+    // SPI is zero-based so adjust probe number to the appropriate index
+    const probeIndex = probeNumber - 1;
 
     let sum = 0;
     const numSamples = 3;
     for (let i = 0; i < numSamples; i++) {
-      const reading = await this.mcp.read(this.channels[index]);
+      const reading = await this.mcp.read(this.channels[probeIndex]);
 
       // If any of our reading are zero, we have to treat it as disconnected
       if (reading.getRawValue() === 0) {

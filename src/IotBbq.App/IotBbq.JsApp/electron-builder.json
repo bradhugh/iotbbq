@@ -1,4 +1,6 @@
 {
+  "appId": "iot-bbq",
+  "artifactName": "${productName}-${version}-${arch}.${ext}",
   "productName": "iot-bbq",
   "directories": {
     "output": "release/"

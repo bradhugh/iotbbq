@@ -78,7 +78,7 @@ export class AzureUploadService {
       },
       event.lastSmokerUploadTime ? event.lastSmokerUploadTime : Utility.MinDate,
       Utility.MaxDate,
-      true,
+      false,
       false,
       this.maxLogsPerUpload);
 
@@ -125,7 +125,7 @@ export class AzureUploadService {
         item.id,
         item.lastLogUploadTime ? item.lastLogUploadTime : Utility.MinDate,
         Utility.MaxDate,
-        true,
+        false,
         false,
         this.maxLogsPerUpload);
 

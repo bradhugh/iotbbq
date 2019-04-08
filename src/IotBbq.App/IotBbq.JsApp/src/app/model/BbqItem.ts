@@ -13,17 +13,17 @@ export interface IBbqItem {
 }
 
 export class BbqItem implements IBbqItem {
-  public id: string;
-  public eventId: string;
-  public name: string;
-  public itemType: string;
-  public currentPhase: string;
-  public weight: number;
-  public targetTemperature: number;
-  public temperature: number;
-  public cookStartTime: Date;
-  public probeNumber: number;
-  public lastLogUploadTime: Date;
+  public id: string = null;
+  public eventId: string = null;
+  public name: string = null;
+  public itemType: string = null;
+  public currentPhase: string = null;
+  public weight = 0;
+  public targetTemperature = 0;
+  public temperature = 0;
+  public cookStartTime: Date = null;
+  public probeNumber: number = null;
+  public lastLogUploadTime: Date = null;
 
   public load(other: IBbqItem) {
     this.id = other.id;

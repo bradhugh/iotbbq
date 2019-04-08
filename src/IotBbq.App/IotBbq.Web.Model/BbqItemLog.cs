@@ -24,13 +24,13 @@ namespace IotBbq.Web.Model
         public string ItemName { get; set; }
 
         [JsonProperty("probeNumber")]
-        public int ProbeNumber { get; set; }
+        public int? ProbeNumber { get; set; }
 
         [JsonProperty("elapsedCookTime")]
-        public float ElapsedCookTime { get; set; }
+        public float? ElapsedCookTime { get; set; }
 
         [JsonProperty("temperature")]
-        public float Temperature { get; set; }
+        public float? Temperature { get; set; }
 
         public BbqItem BbqItem { get; set; }
     }

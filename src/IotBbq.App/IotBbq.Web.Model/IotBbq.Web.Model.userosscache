@@ -7,3 +7,7 @@ ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.Web.Model\Migrations\2019040113595
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.Web.Model\Migrations\20190401135953_RenameProbeNumber.cs
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.Web.Model\Migrations\20190401135953_RenameProbeNumber.Designer.cs
 ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.Web.Model\Migrations\LoggingContextModelSnapshot.cs
+ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.Web.Model\Migrations\20190408231911_MakeNumbersNullable.Designer.cs
+ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.Web.Model\Migrations\20190408231911_MakeNumbersNullable.cs
+ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.Web.Model\Migrations\20190408231911_MakeNumbersNullable.Designer.cs
+ProjectItem:C:\s\iotbbq\src\IotBbq.App\IotBbq.Web.Model\Migrations\LoggingContextModelSnapshot.cs

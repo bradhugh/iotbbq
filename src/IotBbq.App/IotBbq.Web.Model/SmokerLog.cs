@@ -15,10 +15,10 @@ namespace IotBbq.Web.Model
         public Guid EventId { get; set; }
 
         [JsonProperty("setTo")]
-        public float SetTo { get; set; }
+        public float? SetTo { get; set; }
 
         [JsonProperty("temperature")]
-        public float Temperature { get; set; }
+        public float? Temperature { get; set; }
 
         public BbqEvent Event { get; set; }
     }

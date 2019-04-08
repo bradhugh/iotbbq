@@ -28,7 +28,7 @@ namespace IotBbq.Web.Model
             modelBuilder.Entity<SmokerLog>();
             modelBuilder.Entity<BbqItem>().HasMany(i => i.ItemLogs).WithOne(l => l.BbqItem);
             modelBuilder.Entity<BbqEvent>().HasMany(e => e.SmokerLogs).WithOne(l => l.Event);
-            modelBuilder.Entity<BbqEvent>().HasMany(e => e.Items).WithOne(i => i.BbqEvent);
+            modelBuilder.Entity<BbqEvent>().HasMany(e => e.Items).WithOne(i => i.Event);
         }
     }
 }

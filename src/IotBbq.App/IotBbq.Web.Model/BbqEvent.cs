@@ -12,10 +12,10 @@ namespace IotBbq.Web.Model
         public string Name { get; set; }
 
         [JsonProperty("eventDate")]
-        public DateTime EventDate { get; set; }
+        public DateTime? EventDate { get; set; }
 
         [JsonProperty("turnInTime")]
-        public DateTime TurnInTime { get; set; }
+        public DateTime? TurnInTime { get; set; }
 
         public List<BbqItem> Items { get; set; }
 

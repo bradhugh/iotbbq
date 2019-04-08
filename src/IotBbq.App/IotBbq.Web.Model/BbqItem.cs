@@ -22,21 +22,21 @@ namespace IotBbq.Web.Model
         public string CurrentPhase { get; set; }
 
         [JsonProperty("weight")]
-        public float Weight { get; set; }
+        public float? Weight { get; set; }
 
         [JsonProperty("targetTemperature")]
-        public float TargetTemperature { get; set; }
+        public float? TargetTemperature { get; set; }
 
         [JsonProperty("temperature")]
-        public float Temperature { get; set; }
+        public float? Temperature { get; set; }
 
         [JsonProperty("cookStartTime")]
         public DateTime? CookStartTime { get; set; }
 
         [JsonProperty("probeNumber")]
-        public int ProbeNumber { get; set; }
+        public int? ProbeNumber { get; set; }
 
-        public BbqEvent BbqEvent { get; set; }
+        public BbqEvent Event { get; set; }
 
         public List<BbqItemLog> ItemLogs { get; set; }
     }

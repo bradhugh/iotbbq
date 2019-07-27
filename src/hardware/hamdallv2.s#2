@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.3.0">
+<eagle version="8.6.3">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1045,22 +1045,22 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 <variantdefs>
 </variantdefs>
 <classes>
-<class number="0" name="default" width="0.254" drill="0">
+<class number="0" name="default" width="0" drill="0">
 </class>
 </classes>
 <parts>
-<part name="1" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="1O" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="2" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="2O" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="3" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="3O" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="4" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="4O" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="5" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="5O" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="6" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="6O" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="1IN" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="1OUT" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="2IN" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="2OUT" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="3IN" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="3OUT" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="4IN" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="4OUT" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="5IN" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="5OUT" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="6IN" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="6OUT" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
 <part name="R1" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="100KOHM" device="-HORIZ-1/4W-1%" package3d_urn="urn:adsk.eagle:package:39658/1" value="100k"/>
 <part name="R2" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="100KOHM" device="-HORIZ-1/4W-1%" package3d_urn="urn:adsk.eagle:package:39658/1" value="100k"/>
 <part name="R3" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="100KOHM" device="-HORIZ-1/4W-1%" package3d_urn="urn:adsk.eagle:package:39658/1" value="100k"/>
@@ -1069,10 +1069,10 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 <part name="R6" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="100KOHM" device="-HORIZ-1/4W-1%" package3d_urn="urn:adsk.eagle:package:39658/1" value="100k"/>
 <part name="IC1" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="MCP3008" device=""/>
 <part name="HEADER" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="PINHD-1X6" device=""/>
-<part name="7O" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="8O" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="7" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
-<part name="8" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="7OUT" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="8OUT" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="7IN" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
+<part name="8IN" library="solpad" library_urn="urn:adsk.eagle:library:364" deviceset="LSP11" device="" package3d_urn="urn:adsk.eagle:package:26502/1"/>
 <part name="R7" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="100KOHM" device="-HORIZ-1/4W-1%" package3d_urn="urn:adsk.eagle:package:39658/1" value="100k"/>
 <part name="R8" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="100KOHM" device="-HORIZ-1/4W-1%" package3d_urn="urn:adsk.eagle:package:39658/1" value="100k"/>
 <part name="C1" library="gm-caps-ceramic" deviceset="050X030_050" device="2" value="10nF"/>
@@ -1089,144 +1089,59 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 <plain>
 </plain>
 <instances>
-<instance part="1" gate="1" x="-12.7" y="76.2" smashed="yes" rot="R90">
-<attribute name="NAME" x="-15.621" y="74.93" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="1O" gate="1" x="12.7" y="68.58" smashed="yes" rot="R90">
-<attribute name="NAME" x="9.779" y="67.31" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="2" gate="1" x="-12.7" y="53.34" smashed="yes" rot="R90">
-<attribute name="NAME" x="-15.621" y="52.07" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="2O" gate="1" x="12.7" y="53.34" smashed="yes" rot="R90">
-<attribute name="NAME" x="9.779" y="52.07" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="3" gate="1" x="-12.7" y="38.1" smashed="yes" rot="R90">
-<attribute name="NAME" x="-15.621" y="36.83" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="3O" gate="1" x="12.7" y="38.1" smashed="yes" rot="R90">
-<attribute name="NAME" x="9.779" y="36.83" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="4" gate="1" x="-12.7" y="22.86" smashed="yes" rot="R90">
-<attribute name="NAME" x="-15.621" y="21.59" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="4O" gate="1" x="12.7" y="22.86" smashed="yes" rot="R90">
-<attribute name="NAME" x="9.779" y="21.59" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="5" gate="1" x="-12.7" y="7.62" smashed="yes" rot="R90">
-<attribute name="NAME" x="-15.621" y="6.35" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="5O" gate="1" x="12.7" y="7.62" smashed="yes" rot="R90">
-<attribute name="NAME" x="9.779" y="6.35" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="6" gate="1" x="-12.7" y="-7.62" smashed="yes" rot="R90">
-<attribute name="NAME" x="-15.621" y="-8.89" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="6O" gate="1" x="12.7" y="-7.62" smashed="yes" rot="R90">
-<attribute name="NAME" x="9.779" y="-8.89" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="R1" gate="G$1" x="30.48" y="68.58" smashed="yes">
-<attribute name="NAME" x="30.48" y="70.104" size="1.778" layer="95" font="vector" align="bottom-center"/>
-<attribute name="VALUE" x="30.48" y="67.056" size="1.778" layer="96" font="vector" align="top-center"/>
-</instance>
-<instance part="R2" gate="G$1" x="30.48" y="53.34" smashed="yes">
-<attribute name="NAME" x="30.48" y="54.864" size="1.778" layer="95" font="vector" align="bottom-center"/>
-<attribute name="VALUE" x="30.48" y="51.816" size="1.778" layer="96" font="vector" align="top-center"/>
-</instance>
-<instance part="R3" gate="G$1" x="30.48" y="38.1" smashed="yes">
-<attribute name="NAME" x="30.48" y="39.624" size="1.778" layer="95" font="vector" align="bottom-center"/>
-<attribute name="VALUE" x="30.48" y="36.576" size="1.778" layer="96" font="vector" align="top-center"/>
-</instance>
-<instance part="R4" gate="G$1" x="30.48" y="22.86" smashed="yes">
-<attribute name="NAME" x="30.48" y="24.384" size="1.778" layer="95" font="vector" align="bottom-center"/>
-<attribute name="VALUE" x="30.48" y="21.336" size="1.778" layer="96" font="vector" align="top-center"/>
-</instance>
-<instance part="R5" gate="G$1" x="30.48" y="7.62" smashed="yes">
-<attribute name="NAME" x="30.48" y="9.144" size="1.778" layer="95" font="vector" align="bottom-center"/>
-<attribute name="VALUE" x="30.48" y="6.096" size="1.778" layer="96" font="vector" align="top-center"/>
-</instance>
-<instance part="R6" gate="G$1" x="30.48" y="-7.62" smashed="yes">
-<attribute name="NAME" x="30.48" y="-6.096" size="1.778" layer="95" font="vector" align="bottom-center"/>
-<attribute name="VALUE" x="30.48" y="-9.144" size="1.778" layer="96" font="vector" align="top-center"/>
-</instance>
-<instance part="IC1" gate="G$1" x="27.94" y="-66.04" smashed="yes">
-<attribute name="NAME" x="38.1" y="-53.34" size="1.778" layer="95" rot="R180"/>
-</instance>
-<instance part="HEADER" gate="A" x="63.5" y="-68.58" smashed="yes">
-<attribute name="NAME" x="57.15" y="-57.785" size="1.778" layer="95"/>
-<attribute name="VALUE" x="57.15" y="-78.74" size="1.778" layer="96"/>
-</instance>
-<instance part="7O" gate="1" x="12.7" y="-22.86" smashed="yes" rot="R90">
-<attribute name="NAME" x="9.779" y="-24.13" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="8O" gate="1" x="12.7" y="-38.1" smashed="yes" rot="R90">
-<attribute name="NAME" x="9.779" y="-39.37" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="7" gate="1" x="-12.7" y="-22.86" smashed="yes" rot="R90">
-<attribute name="NAME" x="-15.621" y="-24.13" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="8" gate="1" x="-12.7" y="-38.1" smashed="yes" rot="R90">
-<attribute name="NAME" x="-15.621" y="-39.37" size="1.778" layer="95" rot="R90"/>
-</instance>
-<instance part="R7" gate="G$1" x="30.48" y="-22.86" smashed="yes">
-<attribute name="NAME" x="30.48" y="-21.336" size="1.778" layer="95" font="vector" align="bottom-center"/>
-<attribute name="VALUE" x="30.48" y="-24.384" size="1.778" layer="96" font="vector" align="top-center"/>
-</instance>
-<instance part="R8" gate="G$1" x="30.48" y="-38.1" smashed="yes">
-<attribute name="NAME" x="30.48" y="-36.576" size="1.778" layer="95" font="vector" align="bottom-center"/>
-<attribute name="VALUE" x="30.48" y="-39.624" size="1.778" layer="96" font="vector" align="top-center"/>
-</instance>
-<instance part="C1" gate="G$1" x="22.86" y="63.5" smashed="yes">
-<attribute name="NAME" x="24.384" y="66.421" size="1.778" layer="95"/>
-<attribute name="VALUE" x="24.384" y="61.341" size="1.778" layer="96"/>
-</instance>
-<instance part="C2" gate="G$1" x="22.86" y="48.26" smashed="yes">
-<attribute name="NAME" x="24.384" y="51.181" size="1.778" layer="95"/>
-<attribute name="VALUE" x="24.384" y="46.101" size="1.778" layer="96"/>
-</instance>
-<instance part="C3" gate="G$1" x="22.86" y="33.02" smashed="yes">
-<attribute name="NAME" x="24.384" y="35.941" size="1.778" layer="95"/>
-<attribute name="VALUE" x="24.384" y="30.861" size="1.778" layer="96"/>
-</instance>
-<instance part="C4" gate="G$1" x="22.86" y="17.78" smashed="yes">
-<attribute name="NAME" x="24.384" y="20.701" size="1.778" layer="95"/>
-<attribute name="VALUE" x="24.384" y="15.621" size="1.778" layer="96"/>
-</instance>
-<instance part="C5" gate="G$1" x="22.86" y="2.54" smashed="yes">
-<attribute name="NAME" x="24.384" y="5.461" size="1.778" layer="95"/>
-<attribute name="VALUE" x="24.384" y="0.381" size="1.778" layer="96"/>
-</instance>
-<instance part="C6" gate="G$1" x="22.86" y="-12.7" smashed="yes">
-<attribute name="NAME" x="24.384" y="-9.779" size="1.778" layer="95"/>
-<attribute name="VALUE" x="24.384" y="-14.859" size="1.778" layer="96"/>
-</instance>
-<instance part="C7" gate="G$1" x="22.86" y="-27.94" smashed="yes">
-<attribute name="NAME" x="24.384" y="-25.019" size="1.778" layer="95"/>
-<attribute name="VALUE" x="24.384" y="-30.099" size="1.778" layer="96"/>
-</instance>
-<instance part="C8" gate="G$1" x="22.86" y="-43.18" smashed="yes">
-<attribute name="NAME" x="24.384" y="-40.259" size="1.778" layer="95"/>
-<attribute name="VALUE" x="24.384" y="-45.339" size="1.778" layer="96"/>
-</instance>
+<instance part="1IN" gate="1" x="-12.7" y="76.2" rot="R90"/>
+<instance part="1OUT" gate="1" x="12.7" y="68.58" rot="R90"/>
+<instance part="2IN" gate="1" x="-12.7" y="53.34" rot="R90"/>
+<instance part="2OUT" gate="1" x="12.7" y="53.34" rot="R90"/>
+<instance part="3IN" gate="1" x="-12.7" y="38.1" rot="R90"/>
+<instance part="3OUT" gate="1" x="12.7" y="38.1" rot="R90"/>
+<instance part="4IN" gate="1" x="-12.7" y="22.86" rot="R90"/>
+<instance part="4OUT" gate="1" x="12.7" y="22.86" rot="R90"/>
+<instance part="5IN" gate="1" x="-12.7" y="7.62" rot="R90"/>
+<instance part="5OUT" gate="1" x="12.7" y="7.62" rot="R90"/>
+<instance part="6IN" gate="1" x="-12.7" y="-7.62" rot="R90"/>
+<instance part="6OUT" gate="1" x="12.7" y="-7.62" rot="R90"/>
+<instance part="R1" gate="G$1" x="30.48" y="68.58"/>
+<instance part="R2" gate="G$1" x="30.48" y="53.34"/>
+<instance part="R3" gate="G$1" x="30.48" y="38.1"/>
+<instance part="R4" gate="G$1" x="30.48" y="22.86"/>
+<instance part="R5" gate="G$1" x="30.48" y="7.62"/>
+<instance part="R6" gate="G$1" x="30.48" y="-7.62"/>
+<instance part="IC1" gate="G$1" x="27.94" y="-66.04"/>
+<instance part="HEADER" gate="A" x="63.5" y="-68.58"/>
+<instance part="7OUT" gate="1" x="12.7" y="-22.86" rot="R90"/>
+<instance part="8OUT" gate="1" x="12.7" y="-38.1" rot="R90"/>
+<instance part="7IN" gate="1" x="-12.7" y="-22.86" rot="R90"/>
+<instance part="8IN" gate="1" x="-12.7" y="-38.1" rot="R90"/>
+<instance part="R7" gate="G$1" x="30.48" y="-22.86"/>
+<instance part="R8" gate="G$1" x="30.48" y="-38.1"/>
+<instance part="C1" gate="G$1" x="22.86" y="63.5"/>
+<instance part="C2" gate="G$1" x="22.86" y="48.26"/>
+<instance part="C3" gate="G$1" x="22.86" y="33.02"/>
+<instance part="C4" gate="G$1" x="22.86" y="17.78"/>
+<instance part="C5" gate="G$1" x="22.86" y="2.54"/>
+<instance part="C6" gate="G$1" x="22.86" y="-12.7"/>
+<instance part="C7" gate="G$1" x="22.86" y="-27.94"/>
+<instance part="C8" gate="G$1" x="22.86" y="-43.18"/>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="PWR" class="0">
 <segment>
-<pinref part="1" gate="1" pin="MP"/>
-<pinref part="2" gate="1" pin="MP"/>
+<pinref part="1IN" gate="1" pin="MP"/>
+<pinref part="2IN" gate="1" pin="MP"/>
 <wire x1="-10.16" y1="76.2" x2="-10.16" y2="53.34" width="0.1524" layer="91"/>
-<pinref part="3" gate="1" pin="MP"/>
+<pinref part="3IN" gate="1" pin="MP"/>
 <wire x1="-10.16" y1="53.34" x2="-10.16" y2="38.1" width="0.1524" layer="91"/>
 <junction x="-10.16" y="53.34"/>
-<pinref part="4" gate="1" pin="MP"/>
+<pinref part="4IN" gate="1" pin="MP"/>
 <wire x1="-10.16" y1="38.1" x2="-10.16" y2="22.86" width="0.1524" layer="91"/>
 <junction x="-10.16" y="38.1"/>
-<pinref part="5" gate="1" pin="MP"/>
+<pinref part="5IN" gate="1" pin="MP"/>
 <wire x1="-10.16" y1="22.86" x2="-10.16" y2="7.62" width="0.1524" layer="91"/>
 <junction x="-10.16" y="22.86"/>
-<pinref part="6" gate="1" pin="MP"/>
+<pinref part="6IN" gate="1" pin="MP"/>
 <wire x1="-10.16" y1="7.62" x2="-10.16" y2="-7.62" width="0.1524" layer="91"/>
 <junction x="-10.16" y="7.62"/>
 <wire x1="-10.16" y1="76.2" x2="60.96" y2="76.2" width="0.1524" layer="91"/>
@@ -1241,17 +1156,17 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 <wire x1="43.18" y1="-58.42" x2="53.34" y2="-58.42" width="0.1524" layer="91"/>
 <wire x1="53.34" y1="-58.42" x2="53.34" y2="-60.96" width="0.1524" layer="91"/>
 <junction x="53.34" y="-60.96"/>
-<pinref part="7" gate="1" pin="MP"/>
+<pinref part="7IN" gate="1" pin="MP"/>
 <wire x1="-10.16" y1="-7.62" x2="-10.16" y2="-22.86" width="0.1524" layer="91"/>
 <junction x="-10.16" y="-7.62"/>
-<pinref part="8" gate="1" pin="MP"/>
+<pinref part="8IN" gate="1" pin="MP"/>
 <wire x1="-10.16" y1="-22.86" x2="-10.16" y2="-38.1" width="0.1524" layer="91"/>
 <junction x="-10.16" y="-22.86"/>
 </segment>
 </net>
 <net name="N$4" class="0">
 <segment>
-<pinref part="3O" gate="1" pin="MP"/>
+<pinref part="3OUT" gate="1" pin="MP"/>
 <pinref part="R3" gate="G$1" pin="1"/>
 <wire x1="25.4" y1="38.1" x2="22.86" y2="38.1" width="0.1524" layer="91"/>
 <wire x1="22.86" y1="38.1" x2="17.78" y2="38.1" width="0.1524" layer="91"/>
@@ -1268,7 +1183,7 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 </net>
 <net name="N$5" class="0">
 <segment>
-<pinref part="4O" gate="1" pin="MP"/>
+<pinref part="4OUT" gate="1" pin="MP"/>
 <pinref part="R4" gate="G$1" pin="1"/>
 <wire x1="25.4" y1="22.86" x2="22.86" y2="22.86" width="0.1524" layer="91"/>
 <wire x1="22.86" y1="22.86" x2="17.78" y2="22.86" width="0.1524" layer="91"/>
@@ -1285,7 +1200,7 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 </net>
 <net name="N$6" class="0">
 <segment>
-<pinref part="5O" gate="1" pin="MP"/>
+<pinref part="5OUT" gate="1" pin="MP"/>
 <pinref part="R5" gate="G$1" pin="1"/>
 <wire x1="25.4" y1="7.62" x2="22.86" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="22.86" y1="7.62" x2="17.78" y2="7.62" width="0.1524" layer="91"/>
@@ -1302,7 +1217,7 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 </net>
 <net name="N$7" class="0">
 <segment>
-<pinref part="6O" gate="1" pin="MP"/>
+<pinref part="6OUT" gate="1" pin="MP"/>
 <pinref part="R6" gate="G$1" pin="1"/>
 <wire x1="25.4" y1="-7.62" x2="22.86" y2="-7.62" width="0.1524" layer="91"/>
 <wire x1="22.86" y1="-7.62" x2="17.78" y2="-7.62" width="0.1524" layer="91"/>
@@ -1319,7 +1234,7 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 </net>
 <net name="N$9" class="0">
 <segment>
-<pinref part="1O" gate="1" pin="MP"/>
+<pinref part="1OUT" gate="1" pin="MP"/>
 <pinref part="R1" gate="G$1" pin="1"/>
 <wire x1="25.4" y1="68.58" x2="22.86" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="22.86" y1="68.58" x2="17.78" y2="68.58" width="0.1524" layer="91"/>
@@ -1336,7 +1251,7 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 </net>
 <net name="N$2" class="0">
 <segment>
-<pinref part="2O" gate="1" pin="MP"/>
+<pinref part="2OUT" gate="1" pin="MP"/>
 <pinref part="R2" gate="G$1" pin="1"/>
 <wire x1="25.4" y1="53.34" x2="22.86" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="22.86" y1="53.34" x2="17.78" y2="53.34" width="0.1524" layer="91"/>
@@ -1450,7 +1365,7 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 </net>
 <net name="N$3" class="0">
 <segment>
-<pinref part="7O" gate="1" pin="MP"/>
+<pinref part="7OUT" gate="1" pin="MP"/>
 <pinref part="R7" gate="G$1" pin="1"/>
 <wire x1="15.24" y1="-22.86" x2="17.78" y2="-22.86" width="0.1524" layer="91"/>
 <wire x1="17.78" y1="-22.86" x2="22.86" y2="-22.86" width="0.1524" layer="91"/>
@@ -1467,7 +1382,7 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 </net>
 <net name="N$8" class="0">
 <segment>
-<pinref part="8O" gate="1" pin="MP"/>
+<pinref part="8OUT" gate="1" pin="MP"/>
 <pinref part="R8" gate="G$1" pin="1"/>
 <wire x1="15.24" y1="-38.1" x2="17.78" y2="-38.1" width="0.1524" layer="91"/>
 <wire x1="17.78" y1="-38.1" x2="22.86" y2="-38.1" width="0.1524" layer="91"/>

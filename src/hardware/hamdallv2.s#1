@@ -1045,7 +1045,7 @@ Warning: This is the KIT version of the AXIAL-0.3 package. This package has a sm
 <variantdefs>
 </variantdefs>
 <classes>
-<class number="0" name="default" width="0.254" drill="0">
+<class number="0" name="default" width="0" drill="0">
 </class>
 </classes>
 <parts>

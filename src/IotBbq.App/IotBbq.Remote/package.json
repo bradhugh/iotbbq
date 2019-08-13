@@ -1,0 +1,26 @@
+{
+    "name": "iotbbq.remote",
+    "version": "0.0.1",
+    "description": "Remote Component for IotBbq",
+    "main": "dist/index.js",
+    "scripts": {
+        "start": "npm run build & node dist/index.js",
+        "build": "tsc",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "iot",
+        "bbq",
+        "remote",
+        "bluetooth"
+    ],
+    "author": "Brad Hughes",
+    "license": "MIT",
+    "dependencies": {
+        "pi-spi": "^1.2.1"
+    },
+    "devDependencies": {
+        "@types/pi-spi": "0.0.27",
+        "typescript": "^3.5.3"
+    }
+}

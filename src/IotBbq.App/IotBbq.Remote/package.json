@@ -5,6 +5,7 @@
     "main": "dist/index.js",
     "scripts": {
         "start": "npm run build & node dist/index.js",
+        "push": "npm run build & bash -c \"scp -i ~/.ssh/hamdall-ssh-key -r /mnt/c/s/iotbbq/src/IotBbq.App/IotBbq.Remote/dist/ pi@192.168.0.144:~/s/IotBbq.Remote/\"",
         "build": "tsc",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -17,9 +18,11 @@
     "author": "Brad Hughes",
     "license": "MIT",
     "dependencies": {
+        "@abandonware/bleno": "^0.5.1-0",
         "pi-spi": "^1.2.1"
     },
     "devDependencies": {
+        "@types/bleno": "^0.4.1",
         "@types/pi-spi": "0.0.27",
         "typescript": "^3.5.3"
     }

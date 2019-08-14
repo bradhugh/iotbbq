@@ -1,17 +1,20 @@
 import { NodeSpiClient } from "./services/NodeSpiClient";
 import { Mcp3008, Channels } from "./services/Mcp3008";
+import { BluetoothPeripheral } from "./services/BluetoothPeripheral";
 
 (async function () {
     console.log("Hello World");
 
-    const spiClient = new NodeSpiClient();
-    const mcp = new Mcp3008(spiClient, 0);
-
+    const bt = new BluetoothPeripheral();
     try {
-        const reading = await mcp.read(Channels.Single0);
-        console.log("reading...");
-        console.log(reading);
+        await bt.powerOn();
+        console.log("Bluetooth powered on");
+        await bt.startAdvertising();
+        console.log("Advertising started");
+        await bt.registerPrimaryService();
+        console.log("Registered Services");
     } catch (error) {
         console.log(`CATCH: ${error}`);
     }
+
 })();

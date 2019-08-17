@@ -1,5 +1,5 @@
-import { ISpiClient } from './contracts/ISpiClient';
-import * as pispi from 'pi-spi';
+import * as pispi from "pi-spi";
+import { ISpiClient } from "./contracts/ISpiClient";
 /*
   Mode0 CPOL = 0, CPHA = 0.
   Mode1 CPOL = 0, CPHA = 1.
@@ -11,17 +11,15 @@ export class NodeSpiClient implements ISpiClient {
 
     private spi: pispi.SPI;
 
-    constructor() { }
+    public async initialize(chipSelectLine: number): Promise<void> {
 
-    async initialize(chipSelectLine: number): Promise<void> {
-
-        this.spi = pispi.initialize('/dev/spidev0.0');
+        this.spi = pispi.initialize("/dev/spidev0.0");
         this.spi.clockSpeed(1000000);
         this.spi.dataMode(0); // no flags
         this.spi.bitOrder(pispi.order.MSB_FIRST);
     }
 
-    transfer(buffer: Uint8Array): Promise<Uint8Array> {
+    public transfer(buffer: Uint8Array): Promise<Uint8Array> {
         return new Promise<Uint8Array>((resolve, reject) => {
             const nodeBuffer = Buffer.from(Array.from(buffer));
             this.spi.transfer(nodeBuffer, nodeBuffer.length, (error, data: Buffer) => {
@@ -34,7 +32,7 @@ export class NodeSpiClient implements ISpiClient {
         });
     }
 
-    close(): void {
+    public close(): void {
         this.spi.close();
     }
 }

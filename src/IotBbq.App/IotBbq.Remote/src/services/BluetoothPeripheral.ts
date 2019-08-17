@@ -1,31 +1,32 @@
+// tslint:disable-next-line: no-var-requires
 const bleno: typeof import("bleno") = require("@abandonware/bleno");
 
 import { Utils } from "../Utils";
-import { TemperatureCharacteristic } from "./TemperatureCharacteristic";
-import { ProbeSelectCharacteristic } from "./ProbeSelectCharacteristic";
-import { ThermometerService } from "./ThermometerService";
+import { LoggerService } from "./LoggerService";
 import { NodeSpiClient } from "./NodeSpiClient";
+import { ProbeSelectCharacteristic } from "./ProbeSelectCharacteristic";
+import { TemperatureCharacteristic } from "./TemperatureCharacteristic";
+import { ThermometerService } from "./ThermometerService";
 
 const CALCULATOR_SERVICE_UUID = "00010000-89BD-43C8-9231-40F6E305F96D";
-const RESULT_UUID = "00010010-89BD-43C8-9231-40F6E305F96D";
 
 export class BluetoothPeripheral {
 
     private probeNumber = 0;
 
-    constructor() {
-        // some diagnostics 
-        bleno.on("stateChange", state => console.log(`Bleno: Adapter changed state to ${state}`));
+    constructor(private logger: LoggerService) {
+        // some diagnostics
+        bleno.on("stateChange", (state) => this.logger.log(`Bleno: Adapter changed state to ${state}`));
 
-        bleno.on("advertisingStart", err => console.log("Bleno: advertisingStart"));
-        bleno.on("advertisingStartError", err => console.log("Bleno: advertisingStartError"));
-        //bleno.on("advertisingStop", (err) => console.log("Bleno: advertisingStop"));
+        bleno.on("advertisingStart", (err) => this.logger.log("Bleno: advertisingStart"));
+        bleno.on("advertisingStartError", (err) => this.logger.log("Bleno: advertisingStartError"));
+        // bleno.on("advertisingStop", (err) => console.log("Bleno: advertisingStop"));
 
-        bleno.on("servicesSet", err => console.log("Bleno: servicesSet"));
-        bleno.on("servicesSetError", err => console.log("Bleno: servicesSetError"));
+        bleno.on("servicesSet", (err) => this.logger.log("Bleno: servicesSet"));
+        bleno.on("servicesSetError", (err) => this.logger.log("Bleno: servicesSetError"));
 
-        bleno.on("accept", clientAddress => console.log(`Bleno: accept ${clientAddress}`));
-        bleno.on("disconnect", clientAddress => console.log(`Bleno: disconnect ${clientAddress}`));
+        bleno.on("accept", (clientAddress) => this.logger.log(`Bleno: accept ${clientAddress}`));
+        bleno.on("disconnect", (clientAddress) => this.logger.log(`Bleno: disconnect ${clientAddress}`));
     }
 
     public async powerOn(): Promise<void> {
@@ -40,14 +41,14 @@ export class BluetoothPeripheral {
 
             try {
                 bleno.on("stateChange", (state) => {
-                    console.log(`State change ${state}`);
+                    this.logger.log(`State change ${state}`);
                     if (state === "poweredOn") {
                         return resolve();
                     } else {
                         return reject(new Error(`State changed to ${state}`));
                     }
                 });
-            } catch (error) { 
+            } catch (error) {
                 return reject(error);
             }
         });
@@ -55,7 +56,7 @@ export class BluetoothPeripheral {
 
     public async startAdvertising(): Promise<void> {
         const uuid = CALCULATOR_SERVICE_UUID;
-        const name = 'Hamdallv2 Remote';
+        const name = "Hamdallv2 Remote";
 
         return new Promise((resolve, reject) => {
             bleno.startAdvertising(name, [ uuid ], (error) => {
@@ -65,7 +66,7 @@ export class BluetoothPeripheral {
                     return resolve();
                 }
             });
-        })
+        });
     }
 
     public async registerPrimaryService(): Promise<void> {
@@ -80,12 +81,12 @@ export class BluetoothPeripheral {
             uuid: CALCULATOR_SERVICE_UUID,
             characteristics: [
                 probeSelect,
-                temperature
-            ]
+                temperature,
+            ],
         });
 
         const services = [
-            service
+            service,
         ];
 
         return new Promise<void>((resolve, reject) => {
@@ -98,6 +99,5 @@ export class BluetoothPeripheral {
             });
         });
 
-        
     }
 }

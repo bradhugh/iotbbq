@@ -1,5 +1,6 @@
 import { ThermometerService } from "./ThermometerService";
 
+// tslint:disable-next-line: no-var-requires
 const bleno: typeof import("bleno") = require("@abandonware/bleno");
 
 const RESULT_UUID = "00010010-89BD-43C8-9231-40F6E305F96D";
@@ -15,14 +16,14 @@ export class TemperatureCharacteristic extends bleno.Characteristic {
             descriptors: [
                 new bleno.Descriptor({
                     uuid: "2901",
-                    value: "Temperature"
-                  })
-            ]
+                    value: "Temperature",
+                }),
+            ],
         });
     }
 
     public async onReadRequest(offset: number, callback: (result: number, data?: Buffer) => void): Promise<void> {
-        
+
         const probeNum = this.probeNumberAccessor();
         if (probeNum < 1 || probeNum > 8) {
             return callback(1);
@@ -33,7 +34,6 @@ export class TemperatureCharacteristic extends bleno.Characteristic {
         const buffer = Buffer.alloc(4, 0);
         buffer.writeFloatBE(temperature.farenheight, 0);
 
-        console.log(`Returning result for probe ${this.probeNumberAccessor()} as ${temperature.farenheight}`);
         callback(0, buffer);
     }
 }

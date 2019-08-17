@@ -1,7 +1,7 @@
-import { ISpiClient } from './contracts/ISpiClient';
-import { Mcp3008, Channels, Channel } from './Mcp3008';
-import { TempUtils } from './TempUtils';
-import { Utility } from './Utility';
+import { ISpiClient } from "./contracts/ISpiClient";
+import { Channel, Channels, Mcp3008 } from "./Mcp3008";
+import { TempUtils } from "./TempUtils";
+import { Utility } from "./Utility";
 
 export enum ThermometerState {
   Disconnected,
@@ -15,7 +15,7 @@ export interface ITemps {
   farenheight: number;
 }
 
-interface CoefficientSet {
+interface ICoefficientSet {
   A: number;
   B: number;
   C: number;
@@ -40,14 +40,14 @@ export class ThermometerService {
     Channels.Single7,
   ];
 
-  private coefficients: CoefficientSet = {
+  private coefficients: ICoefficientSet = {
     A: 0.5037245563E-3,
     B: 2.472223870E-4,
     C: 0.07524447351E-7,
   };
 
   constructor(
-      spiClient: ISpiClient
+      spiClient: ISpiClient,
   ) {
     this.mcp = new Mcp3008(spiClient, 0);
   }
@@ -55,7 +55,7 @@ export class ThermometerService {
   public async readThermometer(probeNumber: number): Promise<ITemps> {
 
     if (probeNumber < 1 || probeNumber > 8) {
-      throw new Error('Probe number must be from 1-8');
+      throw new Error("Probe number must be from 1-8");
     }
 
     // SPI is zero-based so adjust probe number to the appropriate index
@@ -94,9 +94,9 @@ export class ThermometerService {
     };
 
     // TODO: Check this check, not sure how this would be possible
-    if (resistance !== NaN) {
+    if (!isNaN(resistance)) {
       temps.state = ThermometerState.Connected;
-      temps.kelvin = TempUtils.resistanceToTemp(this.coefficients.A, this.coefficients.B, this.coefficients.C, resistance);  
+      temps.kelvin = TempUtils.resistanceToTemp(this.coefficients.A, this.coefficients.B, this.coefficients.C, resistance);
       temps.celcius = TempUtils.kelvinToCelcius(temps.kelvin);
       temps.farenheight = TempUtils.celciusToFarenheight(temps.celcius);
     }

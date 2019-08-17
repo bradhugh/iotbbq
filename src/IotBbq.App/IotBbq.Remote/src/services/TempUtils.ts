@@ -14,7 +14,7 @@ export class TempUtils {
   }
 
   public static kelvinToCelcius(kelvin: number): number {
-      return kelvin - 273.15;  // Convert Kelvin to Celsius  
+      return kelvin - 273.15;  // Convert Kelvin to Celsius
   }
 
   public static celciusToFarenheight(celcius: number): number {

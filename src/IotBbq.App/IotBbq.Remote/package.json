@@ -20,7 +20,8 @@
     "dependencies": {
         "@abandonware/bleno": "^0.5.1-0",
         "mongodb": "^3.3.0",
-        "pi-spi": "^1.2.1"
+        "pi-spi": "^1.2.1",
+        "rxjs": "^6.5.2"
     },
     "devDependencies": {
         "@types/bleno": "^0.4.1",

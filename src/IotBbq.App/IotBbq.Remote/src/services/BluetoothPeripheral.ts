@@ -2,19 +2,19 @@
 const bleno: typeof import("bleno") = require("@abandonware/bleno");
 
 import { Utils } from "../Utils";
+import { IBluetoothServer } from "./contracts/IBluetoothServer";
 import { LoggerService } from "./LoggerService";
-import { NodeSpiClient } from "./NodeSpiClient";
 import { ProbeSelectCharacteristic } from "./ProbeSelectCharacteristic";
 import { TemperatureCharacteristic } from "./TemperatureCharacteristic";
 import { ThermometerService } from "./ThermometerService";
 
 const CALCULATOR_SERVICE_UUID = "00010000-89BD-43C8-9231-40F6E305F96D";
 
-export class BluetoothPeripheral {
+export class BluetoothPeripheral implements IBluetoothServer {
 
     private probeNumber = 0;
 
-    constructor(private logger: LoggerService) {
+    constructor(private logger: LoggerService, private thermometerService: ThermometerService) {
         // some diagnostics
         bleno.on("stateChange", (state) => this.logger.log(`Bleno: Adapter changed state to ${state}`));
 
@@ -71,11 +71,8 @@ export class BluetoothPeripheral {
 
     public async registerPrimaryService(): Promise<void> {
 
-        const spiClient = new NodeSpiClient();
-
-        const thermSvc = new ThermometerService(spiClient);
         const probeSelect = new ProbeSelectCharacteristic((value) => this.probeNumber = value);
-        const temperature = new TemperatureCharacteristic(() => this.probeNumber, thermSvc);
+        const temperature = new TemperatureCharacteristic(() => this.probeNumber, this.thermometerService);
 
         const service = new bleno.PrimaryService({
             uuid: CALCULATOR_SERVICE_UUID,

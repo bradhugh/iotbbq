@@ -3,8 +3,8 @@ import { IProbeLog } from "../model/IProbeLog";
 
 export class DataStorage {
 
-    private static async getCollectionAsync<T>(client: MongoClient, collectionName: string): Promise<Collection<T>> {
-        const dbo = client.db();
+    private static async getCollectionAsync<T>(client: MongoClient, dbName: string, collectionName: string): Promise<Collection<T>> {
+        const dbo = client.db(dbName);
         let collection = dbo.collection<T>(collectionName);
         if (!collection) {
             collection = await dbo.createCollection<T>(collectionName);
@@ -15,6 +15,8 @@ export class DataStorage {
 
     private serverUrl = "mongodb://localhost:27017/";
 
+    private dbName = "pigdrassil";
+
     private probeLogsCollectionName = "probeLogs";
 
     private getClientTask: Promise<MongoClient> = null;
@@ -22,13 +24,13 @@ export class DataStorage {
     public async logProbesAsync(logs: IProbeLog[]): Promise<void> {
         const client = await this.getClientAsync();
 
-        const probeLogs = await DataStorage.getCollectionAsync<IProbeLog>(client, this.probeLogsCollectionName);
+        const probeLogs = await DataStorage.getCollectionAsync<IProbeLog>(client, this.dbName, this.probeLogsCollectionName);
         await probeLogs.insertMany(logs);
     }
 
     private getClientAsync(): Promise<MongoClient> {
         if (!this.getClientTask) {
-            this.getClientTask = MongoClient.connect(this.serverUrl);
+            this.getClientTask = MongoClient.connect(this.serverUrl, { useNewUrlParser: true, useUnifiedTopology: true });
         }
 
         return this.getClientTask;

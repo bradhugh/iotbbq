@@ -1,12 +1,12 @@
 // tslint:disable-next-line: no-var-requires
 const bleno: typeof import("bleno") = require("@abandonware/bleno");
 
-import { Utils } from "../Utils";
-import { IBluetoothServer } from "./contracts/IBluetoothServer";
-import { LoggerService } from "./LoggerService";
-import { ProbeSelectCharacteristic } from "./ProbeSelectCharacteristic";
-import { TemperatureCharacteristic } from "./TemperatureCharacteristic";
-import { ThermometerService } from "./ThermometerService";
+import { Utils } from "../../Utils";
+import { IBluetoothServer } from "../contracts/IBluetoothServer";
+import { LoggerService } from "../LoggerService";
+import { ProbeSelectCharacteristic } from "../ProbeSelectCharacteristic";
+import { TemperatureCharacteristic } from "../TemperatureCharacteristic";
+import { ThermometerService } from "../ThermometerService";
 
 const CALCULATOR_SERVICE_UUID = "00010000-89BD-43C8-9231-40F6E305F96D";
 

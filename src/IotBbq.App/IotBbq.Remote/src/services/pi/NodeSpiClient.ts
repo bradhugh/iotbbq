@@ -1,5 +1,5 @@
 import * as pispi from "pi-spi";
-import { ISpiClient } from "./contracts/ISpiClient";
+import { ISpiClient } from "../contracts/ISpiClient";
 /*
   Mode0 CPOL = 0, CPHA = 0.
   Mode1 CPOL = 0, CPHA = 1.

@@ -1,9 +1,9 @@
-import { BluetoothPeripheral } from "./services/BluetoothPeripheral";
 import { DataStorage } from "./services/DataStorage";
 import { DesignBluetoothServer } from "./services/design/DesignBluetoothServer";
 import { DesignSpiClient } from "./services/design/DesignSpiClient";
 import { LoggerService } from "./services/LoggerService";
-import { NodeSpiClient } from "./services/NodeSpiClient";
+import { BluetoothPeripheral } from "./services/pi/BluetoothPeripheral";
+import { NodeSpiClient } from "./services/pi/NodeSpiClient";
 import { ProbeLoggerService } from "./services/ProbeLoggerService";
 import { ThermometerService } from "./services/ThermometerService";
 

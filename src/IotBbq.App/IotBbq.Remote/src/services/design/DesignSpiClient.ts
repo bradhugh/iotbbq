@@ -1,4 +1,4 @@
-import { ISpiClient } from "./contracts/ISpiClient";
+import { ISpiClient } from "../contracts/ISpiClient";
 
 export class DesignSpiClient implements ISpiClient {
     public async initialize(chipSelectLine: number): Promise<void> {

@@ -28,6 +28,14 @@ export class DataStorage {
         await probeLogs.insertMany(logs);
     }
 
+    public async getLogsAsync(startDate: Date, endDate: Date): Promise<void> {
+        const client = await this.getClientAsync();
+
+        const probeLogs = await DataStorage.getCollectionAsync<IProbeLog>(client, this.dbName, this.probeLogsCollectionName);
+
+        probeLogs.find({ timestamp: { $gte: startDate, $lte: endDate} });
+    }
+
     private getClientAsync(): Promise<MongoClient> {
         if (!this.getClientTask) {
             this.getClientTask = MongoClient.connect(this.serverUrl, { useNewUrlParser: true, useUnifiedTopology: true });

@@ -2,19 +2,22 @@
 const bleno: typeof import("bleno") = require("@abandonware/bleno");
 
 import { Utils } from "../../Utils";
+import { BluetoothConstants } from "../BluetoothConstants";
 import { IBluetoothServer } from "../contracts/IBluetoothServer";
+import { DataExportCharacteristic } from "../DataExportCharacteristic";
+import { DataStorage } from "../DataStorage";
 import { LoggerService } from "../LoggerService";
-import { ProbeSelectCharacteristic } from "../ProbeSelectCharacteristic";
-import { TemperatureCharacteristic } from "../TemperatureCharacteristic";
+import { ProbeCharacteristic } from "../ProbeCharacteristic";
 import { ThermometerService } from "../ThermometerService";
-
-const CALCULATOR_SERVICE_UUID = "00010000-89BD-43C8-9231-40F6E305F96D";
 
 export class BluetoothPeripheral implements IBluetoothServer {
 
     private probeNumber = 0;
 
-    constructor(private logger: LoggerService, private thermometerService: ThermometerService) {
+    constructor(
+        private logger: LoggerService,
+        private thermometerService: ThermometerService,
+        private dataStorage: DataStorage) {
         // some diagnostics
         bleno.on("stateChange", (state) => this.logger.log(`Bleno: Adapter changed state to ${state}`));
 
@@ -55,7 +58,7 @@ export class BluetoothPeripheral implements IBluetoothServer {
     }
 
     public async startAdvertising(): Promise<void> {
-        const uuid = CALCULATOR_SERVICE_UUID;
+        const uuid = BluetoothConstants.ServiceUuid;
         const name = "Hamdallv2 Remote";
 
         return new Promise((resolve, reject) => {
@@ -71,15 +74,15 @@ export class BluetoothPeripheral implements IBluetoothServer {
 
     public async registerPrimaryService(): Promise<void> {
 
-        const probeSelect = new ProbeSelectCharacteristic((value) => this.probeNumber = value);
-        const temperature = new TemperatureCharacteristic(() => this.probeNumber, this.thermometerService);
+        const characteristics: any[] = [];
+        characteristics.push(new DataExportCharacteristic(this.dataStorage));
+        for (let i = 1; i <= 8; i++) {
+            characteristics.push(new ProbeCharacteristic(i, this.thermometerService));
+        }
 
         const service = new bleno.PrimaryService({
-            uuid: CALCULATOR_SERVICE_UUID,
-            characteristics: [
-                probeSelect,
-                temperature,
-            ],
+            uuid: BluetoothConstants.ServiceUuid,
+            characteristics,
         });
 
         const services = [

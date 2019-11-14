@@ -3,18 +3,7 @@ import { SPICLIENT_TOKEN, ISpiClient } from './contracts/ISpiClient';
 import { Mcp3008, Channels, Channel } from './Mcp3008';
 import { TempUtils } from './TempUtils';
 import { Utility } from './Utility';
-
-export enum ThermometerState {
-  Disconnected,
-  Connected,
-}
-
-export interface ITemps {
-  state: ThermometerState;
-  kelvin: number;
-  celcius: number;
-  farenheight: number;
-}
+import { ITemps, ThermometerState, IThermometerService } from './contracts/IThermometerService';
 
 interface CoefficientSet {
   A: number;
@@ -22,7 +11,7 @@ interface CoefficientSet {
   C: number;
 }
 
-export class ThermometerService {
+export class ThermometerService implements IThermometerService {
 
   private static inputVoltage = 3.3;
 
@@ -97,7 +86,7 @@ export class ThermometerService {
     // TODO: Check this check, not sure how this would be possible
     if (resistance !== NaN) {
       temps.state = ThermometerState.Connected;
-      temps.kelvin = TempUtils.resistanceToTemp(this.coefficients.A, this.coefficients.B, this.coefficients.C, resistance);  
+      temps.kelvin = TempUtils.resistanceToTemp(this.coefficients.A, this.coefficients.B, this.coefficients.C, resistance);
       temps.celcius = TempUtils.kelvinToCelcius(temps.kelvin);
       temps.farenheight = TempUtils.celciusToFarenheight(temps.celcius);
     }

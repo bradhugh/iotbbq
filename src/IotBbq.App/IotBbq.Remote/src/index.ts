@@ -14,10 +14,10 @@ import { ThermometerService } from "./services/ThermometerService";
     const spiClient = new DesignSpiClient();
     const thermometerService = new ThermometerService(spiClient);
 
-    // const bt = new BluetoothPeripheral(logger, thermometerService);
-    const bt = new DesignBluetoothServer();
-
     const dataStorage = new DataStorage();
+    const bt = new BluetoothPeripheral(logger, thermometerService, dataStorage);
+    // const bt = new DesignBluetoothServer();
+
     const probeLogger = new ProbeLoggerService(thermometerService, dataStorage);
     probeLogger.start();
 

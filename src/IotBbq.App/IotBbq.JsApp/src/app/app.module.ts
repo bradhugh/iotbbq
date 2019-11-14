@@ -78,6 +78,8 @@ import { DesignSpiClient } from './services/design/DesignSpiClient';
 import { NullGpioFactory } from './services/design/NullGpio';
 import { InMemoryStorage } from './services/design/InMemoryStorage';
 import { NullExportService } from './services/design/NullExportService';
+import { THERM_SVC_TOKEN } from './services/contracts/IThermometerService';
+import { BtThermometer } from './services/BtThermometer';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -178,13 +180,13 @@ export function ExportServiceFactory(
     AzureUploadService,
     SmokerEditorService,
     PhaseChooserService,
-    ThermometerService,
     AlarmService,
     ClockEditorService,
     { provide: EXPORT_SERVICE_TOKEN, useFactory: ExportServiceFactory, deps: [ XPlatService, DATA_STORAGE_TOKEN, MatDialog ] },
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
     { provide: SPICLIENT_TOKEN, useFactory: SpiClientFactory, deps: [ XPlatService ] },
     { provide: GPIO_FACTORY_TOKEN, useFactory: GpioFactoryFactory, deps: [ XPlatService ] },
+    { provide: THERM_SVC_TOKEN, useClass: BtThermometer },
   ],
   bootstrap: [AppComponent]
 })

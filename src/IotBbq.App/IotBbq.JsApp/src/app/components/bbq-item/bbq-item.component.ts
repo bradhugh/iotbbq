@@ -5,7 +5,7 @@ import { PhaseChooserService } from '../../services/PhaseChooserService';
 import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/contracts/IDataStorage';
 import { TimeSpan } from '../../services/TimeSpan';
 import { AlarmService, AlarmPriority } from '../../services/AlarmService';
-import { ThermometerService, ThermometerState } from '../../services/ThermometerService';
+import { ThermometerState, IThermometerService, THERM_SVC_TOKEN } from '../../services/contracts/IThermometerService';
 
 @Component({
   selector: 'app-bbq-item',
@@ -35,7 +35,7 @@ export class BbqItemComponent implements OnInit {
   public isDisconnected = false;
 
   constructor(
-    private thermometerService: ThermometerService,
+    @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService,
     private alarmService: AlarmService,
     private phaseChooserService: PhaseChooserService,
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,

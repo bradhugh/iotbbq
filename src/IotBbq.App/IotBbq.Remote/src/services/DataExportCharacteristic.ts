@@ -13,7 +13,7 @@ export class DataExportCharacteristic extends bleno.Characteristic {
     constructor(private dataStorage: DataStorage) {
         super({
             uuid: BluetoothConstants.DataExportCharacteristic,
-            properties: ["read", "write", "notify"],
+            properties: ["read"],
             descriptors: [
                 new bleno.Descriptor({
                     uuid: "2901",
@@ -23,28 +23,30 @@ export class DataExportCharacteristic extends bleno.Characteristic {
         });
     }
 
-    public onWriteRequest(data: Buffer, offset: number, withoutResponse: boolean, callback: (result: number) => void): void {
+    // public onWriteRequest(data: Buffer, offset: number, withoutResponse: boolean, callback: (result: number) => void): void {
 
-        callback(bleno.Characteristic.RESULT_SUCCESS);
+    //     callback(bleno.Characteristic.RESULT_SUCCESS);
 
-        // Do the reads right now and notify
-        // this.dataStorage.logProbesAsync
+    //     // Do the reads right now and notify
+    //     // this.dataStorage.logProbesAsync
 
-        // for (const sub of this.subscriptions) {
-        //     sub(Buffer)
-        // }
-    }
+    //     // for (const sub of this.subscriptions) {
+    //     //     sub(Buffer)
+    //     // }
+    // }
 
     public onReadRequest(offset: number, callback: (result: number, data?: Buffer) => void): void {
-        const buffer: Buffer = null;
+        // tslint:disable-next-line: no-console
+        console.log(`Offset ${offset}`);
+        const buffer: Buffer = Buffer.alloc(4);
         callback(bleno.Characteristic.RESULT_SUCCESS, buffer);
     }
 
-    public onSubscribe(maxValueSize: number, updateValueCallback: ValueCallback): void {
-        this.subscriptions.push(updateValueCallback);
-    }
+    // public onSubscribe(maxValueSize: number, updateValueCallback: ValueCallback): void {
+    //     this.subscriptions.push(updateValueCallback);
+    // }
 
-    public onUnsubscribe(): void {
-        this.subscriptions = [];
-    }
+    // public onUnsubscribe(): void {
+    //     this.subscriptions = [];
+    // }
 }

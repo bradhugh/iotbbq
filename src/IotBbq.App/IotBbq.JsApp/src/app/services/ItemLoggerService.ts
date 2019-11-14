@@ -3,8 +3,8 @@ import { IDataStorage, DATA_STORAGE_TOKEN } from './contracts/IDataStorage';
 import { timer, Observable, Subscription } from 'rxjs';
 import { IBbqItemLog } from '../model/BbqItemLog';
 import { Utility } from './Utility';
-import { ThermometerService } from './ThermometerService';
 import { ISmokerLog } from '../model/SmokerLog';
+import { IThermometerService, THERM_SVC_TOKEN } from './contracts/IThermometerService';
 
 export class ItemLoggerService {
 
@@ -20,7 +20,7 @@ export class ItemLoggerService {
 
   constructor(
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
-    private thermometerService: ThermometerService) {
+    @Inject(THERM_SVC_TOKEN) private thermometerService: IThermometerService) {
 
   }
 

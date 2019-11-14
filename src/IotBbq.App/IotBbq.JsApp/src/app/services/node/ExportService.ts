@@ -94,22 +94,17 @@ export class ExportService implements IExportService {
   }
 
   private async getRemovableDrives(): Promise<string[]> {
-    return new Promise<string[]>((resolve, reject) => {
-      this.xplat.drivelist.list((error, drives) => {
-        if (error) {
-          return reject(error);
-        }
 
-        const paths: string[] = [];
-        for (const drive of drives) {
-          if (!drive.isSystem && drive.isUSB && drive.mountpoints.length !== 0) {
-            paths.push(drive.mountpoints[0].path);
-          }
-        }
+    const drives = await this.xplat.drivelist.list();
 
-        resolve(paths);
-      });
-    });
+    const paths: string[] = [];
+    for (const drive of drives) {
+      if (!drive.isSystem && drive.isUSB && drive.mountpoints.length !== 0) {
+        paths.push(drive.mountpoints[0].path);
+      }
+    }
+
+    return paths;
   }
 
   private async exportEvent(eventId: string, folder: string, timestamp: moment.Moment) {

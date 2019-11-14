@@ -1,6 +1,6 @@
 import { ISmokerSettings } from '../../model/SmokerSettings';
 import { Component, Input, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Utility } from '../../services/Utility';
 
 @Component({

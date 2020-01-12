@@ -97,7 +97,7 @@
     "popper.js": "^1.14.7",
     "protractor": "5.4.1",
     "rxjs": "6.5.4",
-    "rxjs-compat": "^6.4.0",
+    "rxjs-compat": "^6.5.4",
     "ts-node": "7.0.1",
     "tslint": "5.11.0",
     "typescript": "3.5.3",

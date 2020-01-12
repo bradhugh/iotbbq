@@ -1,7 +1,7 @@
 import { IBbqItem } from '../model/BbqItem';
 import { BbqPhase } from '../model/BbqPhase';
 import { ItemCatalog } from '../model/ItemCatalog';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { PhasePickerComponent } from '../components/phase-picker/phase-picker.component';
 import { Inject } from '@angular/core';
 

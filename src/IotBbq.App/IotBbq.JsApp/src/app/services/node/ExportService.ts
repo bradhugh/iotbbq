@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 import { Inject } from '@angular/core';
 import { DATA_STORAGE_TOKEN, IDataStorage } from '../contracts/IDataStorage';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ExportStatusComponent } from '../../components/export-status/export-status.component';
 import { IExportService } from '../contracts/IExportService';
 import { XPlatService } from '../XPlatService';

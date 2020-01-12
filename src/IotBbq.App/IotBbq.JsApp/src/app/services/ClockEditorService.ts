@@ -1,4 +1,4 @@
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ClockEditorComponent } from '../components/clock-editor/clock-editor.component';
 import { Inject } from '@angular/core';
 import { XPlatService } from './XPlatService';

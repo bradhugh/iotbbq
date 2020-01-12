@@ -43,10 +43,10 @@
   },
   "optionalDependencies": {},
   "dependencies": {
+    "@bradhugh/Set-System-Clock": "^1.0.5",
     "drivelist": "^7.0.3",
     "onoff": "^3.2.9",
-    "pi-spi": "git://github.com/bradhugh/pi-spi.git#bindings",
-    "set-system-clock": "git://github.com/bradhugh/set-system-clock-pkg.git"
+    "pi-spi": "git://github.com/bradhugh/pi-spi.git#bindings"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.22",

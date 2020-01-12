@@ -12,7 +12,7 @@ import * as path from 'path';
 import * as onoff from 'onoff';
 import * as pispi from 'pi-spi';
 import * as drivelist from 'drivelist';
-import { DateTimeControl } from 'set-system-clock';
+import { DateTimeControl } from '@bradhugh/Set-System-Clock';
 
 @Injectable()
 export class XPlatService {
@@ -43,7 +43,7 @@ export class XPlatService {
 
       // Remote native modules
       this.drivelist = this.remote.require('drivelist');
-      this.dateTimeControl = new (this.remote.require('set-system-clock').DateTimeControl)();
+      this.dateTimeControl = new (this.remote.require('@bradhugh/Set-System-Clock').DateTimeControl)();
 
       // These native modules are only used on the PI
       if (this.isArm()) {

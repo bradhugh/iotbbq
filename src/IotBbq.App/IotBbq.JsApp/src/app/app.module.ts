@@ -15,7 +15,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { MatKeyboardModule } from '@ngx-material-keyboard/core';
+import { MatKeyboardModule } from '@bradhugh/ng8-material-keyboard-core';
 import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 

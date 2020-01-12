@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IBbqItem } from '../../model/BbqItem';
 import { ItemCatalog } from '../../model/ItemCatalog';
 import { NgModel } from '@angular/forms';
-import { MatKeyboardService, MatKeyboardRef, MatKeyboardComponent, MatKeyboardConfig } from '@ngx-material-keyboard/core';
+import { MatKeyboardService, MatKeyboardRef, MatKeyboardComponent, MatKeyboardConfig } from '@bradhugh/ng8-material-keyboard-core';
 import { Utility } from '../../services/Utility';
 
 export interface IItemEditorComponentData {

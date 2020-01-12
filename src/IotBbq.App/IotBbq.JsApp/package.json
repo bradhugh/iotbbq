@@ -64,7 +64,6 @@
     "@angular/platform-browser": "7.2.8",
     "@angular/platform-browser-dynamic": "7.2.8",
     "@angular/router": "7.2.8",
-    "@ngx-material-keyboard/core": "git://github.com/bradhugh/ngx7-material-keyboard-pkg.git",
     "@ngx-translate/core": "11.0.1",
     "@ngx-translate/http-loader": "4.0.0",
     "@types/drivelist": "^6.4.1",

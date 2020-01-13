@@ -10,7 +10,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import * as onoff from 'onoff';
-import * as pispi from 'pi-spi';
+import * as pispi from '@bradhugh/pi-spi';
 import * as drivelist from 'drivelist';
 import { DateTimeControl } from '@bradhugh/Set-System-Clock';
 
@@ -48,7 +48,7 @@ export class XPlatService {
       // These native modules are only used on the PI
       if (this.isArm()) {
         this.onoff = this.remote.require('onoff');
-        this.pispi = this.remote.require('pi-spi');
+        this.pispi = this.remote.require('@bradhugh/pi-spi');
       }
     }
   }

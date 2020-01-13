@@ -1,5 +1,5 @@
 import { ISpiClient } from '../contracts/ISpiClient';
-import { SPIClient } from 'pi-spi';
+import { SPIClient } from '@bradhugh/pi-spi';
 import { XPlatService } from '../XPlatService';
 
 /*

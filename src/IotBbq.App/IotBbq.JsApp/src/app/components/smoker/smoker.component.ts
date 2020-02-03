@@ -2,9 +2,9 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ISmokerModel } from '../../model/SmokerSettings';
 import { SmokerEditorService } from '../../services/SmokerEditorService';
 import { Observable, timer } from 'rxjs';
-import { ThermometerService, ThermometerState } from '../../services/ThermometerService';
 import { AlarmService, AlarmPriority } from '../../services/AlarmService';
 import { IDataStorage, DATA_STORAGE_TOKEN } from '../../services/contracts/IDataStorage';
+import { IThermometerService, ThermometerState, THERM_SVC_TOKEN } from '../../services/contracts/IThermometerService';
 
 @Component({
   selector: 'app-smoker',
@@ -38,7 +38,7 @@ export class SmokerComponent implements OnInit {
 
   constructor(
     private smokerEditor: SmokerEditorService,
-    private thermometer: ThermometerService,
+    @Inject(THERM_SVC_TOKEN) private thermometer: IThermometerService,
     private alarmService: AlarmService,
     @Inject(DATA_STORAGE_TOKEN) private dataStorage: IDataStorage,
     ) { }

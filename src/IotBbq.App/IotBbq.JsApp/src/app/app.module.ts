@@ -78,6 +78,8 @@ import { DesignSpiClient } from './services/design/DesignSpiClient';
 import { NullGpioFactory } from './services/design/NullGpio';
 import { InMemoryStorage } from './services/design/InMemoryStorage';
 import { NullExportService } from './services/design/NullExportService';
+import { THERM_SVC_TOKEN, IThermometerService } from './services/contracts/IThermometerService';
+import { BtThermometer } from './services/BtThermometer';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -120,6 +122,14 @@ export function ExportServiceFactory(
   } else {
     return new NullExportService();
   }
+}
+
+export function BluetoothThermometerFactory(xplat: XPlatService, spi: ISpiClient): IThermometerService {
+  if (xplat.isElectron()) {
+    return new BtThermometer(xplat);
+  }
+
+  return new ThermometerService(spi);
 }
 
 @NgModule({
@@ -185,6 +195,7 @@ export function ExportServiceFactory(
     { provide: DATA_STORAGE_TOKEN, useClass: IndexedDbDataStorage },
     { provide: SPICLIENT_TOKEN, useFactory: SpiClientFactory, deps: [ XPlatService ] },
     { provide: GPIO_FACTORY_TOKEN, useFactory: GpioFactoryFactory, deps: [ XPlatService ] },
+    { provide: THERM_SVC_TOKEN, useFactory: BluetoothThermometerFactory, deps: [ XPlatService, SPICLIENT_TOKEN ] },
   ],
   bootstrap: [AppComponent]
 })

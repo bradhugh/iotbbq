@@ -82,7 +82,7 @@ export class SmokerComponent implements OnInit {
       return;
     }
 
-    this.model.temperature = temps.farenheight;
+    this.model.temperature = temps.fahrenheit;
     this.isDisconnected = false;
 
     if (this.model.temperature >= this.model.highGate || this.model.temperature < this.model.lowGate) {

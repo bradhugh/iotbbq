@@ -109,7 +109,7 @@ export class BbqItemComponent implements OnInit {
       return;
     }
 
-    this.item.temperature = temps.farenheight;
+    this.item.temperature = temps.fahrenheit;
     this.isDisconnected = false;
 
     if (this.item.temperature >= this.item.targetTemperature) {

@@ -10,8 +10,8 @@ export enum ThermometerState {
 export interface ITemps {
   state: ThermometerState;
   kelvin: number;
-  celcius: number;
-  farenheight: number;
+  celsius: number;
+  fahrenheit: number;
 }
 
 export interface IThermometerService {

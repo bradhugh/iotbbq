@@ -17,8 +17,8 @@ export class BtThermometer implements IThermometerService {
     }
 
     return {
-      celcius: 0,
-      farenheight: 0,
+      celsius: 0,
+      fahrenheit: 0,
       kelvin: 0,
       state: ThermometerState.Disconnected
     };

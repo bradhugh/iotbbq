@@ -60,8 +60,8 @@ export class ThermometerService implements IThermometerService {
       if (reading.getRawValue() === 0) {
         return {
           state: ThermometerState.Disconnected,
-          celcius: 0,
-          farenheight: 0,
+          celsius: 0,
+          fahrenheit: 0,
           kelvin: 0,
         };
       }
@@ -74,12 +74,12 @@ export class ThermometerService implements IThermometerService {
     const averageValue = sum / numSamples;
 
     const voltage = averageValue * ThermometerService.inputVoltage;
-    const resistance = TempUtils.getThermistorResistenceFromVoltage(3.3, voltage, ThermometerService.balancingResistorOhms);
+    const resistance = TempUtils.getThermistorResistanceFromVoltage(3.3, voltage, ThermometerService.balancingResistorOhms);
 
     const temps: ITemps = {
       state: ThermometerState.Disconnected,
-      celcius: 0,
-      farenheight: 0,
+      celsius: 0,
+      fahrenheit: 0,
       kelvin: 0,
     };
 
@@ -87,8 +87,8 @@ export class ThermometerService implements IThermometerService {
     if (resistance !== NaN) {
       temps.state = ThermometerState.Connected;
       temps.kelvin = TempUtils.resistanceToTemp(this.coefficients.A, this.coefficients.B, this.coefficients.C, resistance);
-      temps.celcius = TempUtils.kelvinToCelcius(temps.kelvin);
-      temps.farenheight = TempUtils.celciusToFarenheight(temps.celcius);
+      temps.celsius = TempUtils.kelvinToCelsius(temps.kelvin);
+      temps.fahrenheit = TempUtils.celsiusToFahrenheit(temps.celsius);
     }
 
     return temps;

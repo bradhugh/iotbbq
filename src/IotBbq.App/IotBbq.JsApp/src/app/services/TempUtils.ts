@@ -1,5 +1,5 @@
 export class TempUtils {
-  public static getThermistorResistenceFromVoltage(vin: number, vout: number, resistorOhms: number): number {
+  public static getThermistorResistanceFromVoltage(vin: number, vout: number, resistorOhms: number): number {
     // vout = ThermistorOhms / ((resistorOhms + ThermistorOhms) * vin)
     const thermistorOhms = ((vin - vout) / vout) * resistorOhms;
     return thermistorOhms;
@@ -13,11 +13,11 @@ export class TempUtils {
       return temp;
   }
 
-  public static kelvinToCelcius(kelvin: number): number {
+  public static kelvinToCelsius(kelvin: number): number {
       return kelvin - 273.15;  // Convert Kelvin to Celsius  
   }
 
-  public static celciusToFarenheight(celcius: number): number {
+  public static celsiusToFahrenheit(celcius: number): number {
       return (celcius * 9.0) / 5.0 + 32.0;
   }
 }

@@ -65,7 +65,7 @@ export class ItemLoggerService {
       const temps = await this.thermometerService.readThermometer(item.probeNumber);
 
       // TODO: Do we want to log thermometer state?
-      log.temperature = temps.farenheight;
+      log.temperature = temps.fahrenheit;
 
       await this.dataStorage.insertItemLog(log);
     }
@@ -79,7 +79,7 @@ export class ItemLoggerService {
       id: Utility.createGuid(),
       timestamp: timeStamp,
       eventId: currentEventId,
-      temperature: smokerTemp.farenheight,
+      temperature: smokerTemp.fahrenheit,
       setTo: smokerSettings.setTo,
     };
 

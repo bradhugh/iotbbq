@@ -70,6 +70,7 @@
     "@types/drivelist": "^6.4.1",
     "@types/jasmine": "2.8.7",
     "@types/jasminewd2": "2.0.3",
+    "@types/noble": "0.0.39",
     "@types/node": "8.9.4",
     "@types/onoff": "^3.2.1",
     "@types/winrt-uwp": "0.0.19",

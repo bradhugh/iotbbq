@@ -26,6 +26,7 @@ export class DataStorage {
 
         const probeLogs = await DataStorage.getCollectionAsync<IProbeLog>(client, this.dbName, this.probeLogsCollectionName);
         await probeLogs.insertMany(logs);
+        console.log(`DataStorage: logged ${logs.length} probe logs.`);
     }
 
     private getClientAsync(): Promise<MongoClient> {
